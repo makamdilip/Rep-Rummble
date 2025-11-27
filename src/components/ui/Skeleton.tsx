@@ -12,7 +12,7 @@ export function Skeleton({
   variant = 'default',
   animation = 'shimmer',
 }: SkeletonProps) {
-  const baseStyles = 'bg-dark-lighter/50 backdrop-blur-sm'
+  const baseStyles = "surface/50 backdrop-blur-sm";
 
   const variantStyles = {
     default: 'rounded-lg',
@@ -67,7 +67,7 @@ export function Skeleton({
 
 export function MealCardSkeleton() {
   return (
-    <div className="p-4 bg-dark-glass rounded-xl border border-white/5 space-y-3">
+    <div className="p-4 card-glass rounded-xl border border-card space-y-3">
       <div className="flex gap-4">
         <Skeleton variant="circular" className="w-20 h-20" />
         <div className="flex-1 space-y-2">
@@ -81,7 +81,7 @@ export function MealCardSkeleton() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function StatCardSkeleton() {

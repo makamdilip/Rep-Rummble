@@ -81,7 +81,7 @@ export default function HomeTab() {
     >
       <motion.div variants={itemVariants}>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-bold text-white flex items-center gap-3">
+          <h2 className="text-3xl font-bold text-app flex items-center gap-3">
             <span className="text-4xl">📊</span>
             <span className="text-gradient">Daily Dashboard</span>
           </h2>
@@ -90,22 +90,39 @@ export default function HomeTab() {
             transition={{ duration: 2, repeat: Infinity }}
             className="px-4 py-2 bg-primary/10 border border-primary rounded-full"
           >
-            <span className="text-primary font-bold">{streak} Day Streak 🔥</span>
+            <span className="text-primary font-bold">
+              {streak} Day Streak 🔥
+            </span>
           </motion.div>
         </div>
       </motion.div>
 
       {/* Stats Overview */}
-      <motion.div variants={itemVariants} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <motion.div
+        variants={itemVariants}
+        className="grid grid-cols-2 lg:grid-cols-4 gap-4"
+      >
         <StatCard
           icon={<Flame size={24} />}
           label="Current Streak"
           value={streak}
           trend="up"
         />
-        <StatCard icon={<Utensils size={24} />} label="Meals Logged" value={meals.length} />
-        <StatCard icon={<Dumbbell size={24} />} label="Workouts" value={workouts.length} />
-        <StatCard icon={<Zap size={24} />} label="Total Calories" value={totalCalories} />
+        <StatCard
+          icon={<Utensils size={24} />}
+          label="Meals Logged"
+          value={meals.length}
+        />
+        <StatCard
+          icon={<Dumbbell size={24} />}
+          label="Workouts"
+          value={workouts.length}
+        />
+        <StatCard
+          icon={<Zap size={24} />}
+          label="Total Calories"
+          value={totalCalories}
+        />
       </motion.div>
 
       {/* Nutrition Summary */}
@@ -131,15 +148,15 @@ export default function HomeTab() {
                 <div>
                   <div className="flex justify-between text-sm mb-2">
                     <span className="text-gray-400">Calorie Goal</span>
-                    <span className="text-white font-semibold">
+                    <span className="text-app font-semibold">
                       {totalCalories} / {dailyGoals.calories} kcal
                     </span>
                   </div>
-                  <div className="h-3 bg-dark rounded-full overflow-hidden">
+                  <div className="h-3 surface rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${calorieProgress}%` }}
-                      transition={{ duration: 1, ease: 'easeOut' }}
+                      transition={{ duration: 1, ease: "easeOut" }}
                       className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
                     />
                   </div>
@@ -148,15 +165,15 @@ export default function HomeTab() {
                 <div>
                   <div className="flex justify-between text-sm mb-2">
                     <span className="text-gray-400">Workout Goal</span>
-                    <span className="text-white font-semibold">
+                    <span className="text-app font-semibold">
                       {workouts.length} / {dailyGoals.workouts} completed
                     </span>
                   </div>
-                  <div className="h-3 bg-dark rounded-full overflow-hidden">
+                  <div className="h-3 surface rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${workoutProgress}%` }}
-                      transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
+                      transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
                       className="h-full bg-gradient-to-r from-secondary to-primary rounded-full"
                     />
                   </div>
@@ -191,21 +208,24 @@ export default function HomeTab() {
                     .slice(-3)
                     .reverse()
                     .map((meal, idx) => {
-                      const mealName = meal.foodName || meal.name || 'Unknown Meal'
+                      const mealName =
+                        meal.foodName || meal.name || "Unknown Meal";
                       return (
                         <motion.div
                           key={idx}
                           initial={{ x: -20, opacity: 0 }}
                           animate={{ x: 0, opacity: 1 }}
                           transition={{ delay: idx * 0.1 }}
-                          className="p-4 bg-dark-glass rounded-xl border border-white/5 hover:border-primary/30 transition-all"
+                          className="p-4 card-glass rounded-xl border border-card hover:border-primary/30 transition-all"
                         >
                           <div className="flex justify-between items-start mb-2">
                             <div>
-                              <p className="font-medium text-white">{mealName}</p>
+                              <p className="font-medium text-app">{mealName}</p>
                               {meal.timestamp && (
                                 <p className="text-xs text-gray-400">
-                                  {new Date(meal.timestamp).toLocaleTimeString()}
+                                  {new Date(
+                                    meal.timestamp
+                                  ).toLocaleTimeString()}
                                 </p>
                               )}
                             </div>
@@ -226,12 +246,14 @@ export default function HomeTab() {
                                 </span>
                               )}
                               {meal.fat && (
-                                <span className="text-blue-400">Fat: {meal.fat}g</span>
+                                <span className="text-blue-400">
+                                  Fat: {meal.fat}g
+                                </span>
                               )}
                             </div>
                           )}
                         </motion.div>
-                      )
+                      );
                     })}
                 </div>
               ) : (
@@ -274,14 +296,18 @@ export default function HomeTab() {
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ delay: idx * 0.1 }}
-                        className="p-4 bg-dark-glass rounded-xl border border-white/5 hover:border-secondary/30 transition-all"
+                        className="p-4 card-glass rounded-xl border border-card hover:border-secondary/30 transition-all"
                       >
                         <div className="flex justify-between items-center">
                           <div>
-                            <p className="font-medium text-white">{workout.exercise}</p>
+                            <p className="font-medium text-app">
+                              {workout.exercise}
+                            </p>
                             {workout.timestamp && (
                               <p className="text-xs text-gray-400">
-                                {new Date(workout.timestamp).toLocaleTimeString()}
+                                {new Date(
+                                  workout.timestamp
+                                ).toLocaleTimeString()}
                               </p>
                             )}
                           </div>
@@ -296,7 +322,9 @@ export default function HomeTab() {
                 <div className="text-center py-12">
                   <Dumbbell className="mx-auto text-gray-600 mb-3" size={40} />
                   <p className="text-gray-400 mb-2">No workouts logged yet</p>
-                  <p className="text-sm text-gray-500">Start tracking your fitness! 💪</p>
+                  <p className="text-sm text-gray-500">
+                    Start tracking your fitness! 💪
+                  </p>
                 </div>
               )}
             </CardContent>
@@ -339,5 +367,5 @@ export default function HomeTab() {
         </motion.div>
       )}
     </motion.div>
-  )
+  );
 }

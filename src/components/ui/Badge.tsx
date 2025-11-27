@@ -13,11 +13,11 @@ export const Badge: React.FC<BadgeProps> = ({
   className
 }) => {
   const variants = {
-    success: 'badge-success',
-    warning: 'badge-warning',
-    info: 'badge-info',
-    default: 'badge bg-dark-lighter text-gray-300'
-  }
+    success: "badge-success",
+    warning: "badge-warning",
+    info: "badge-info",
+    default: "badge surface text-app",
+  };
 
   return (
     <span className={cn(variants[variant], className)}>
