@@ -1,71 +1,110 @@
-import { useState, useEffect } from 'react';
-import HomeTab from '../components/HomeTab';
-import SnapTab from '../components/SnapTab';
-import StreakTab from '../components/StreakTab';
-import LeaderboardTab from '../components/LeaderboardTab';
-import '../styles/Dashboard.css';
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import HomeTab from '../components/HomeTab'
+import SnapTab from '../components/SnapTab'
+import StreakTab from '../components/StreakTab'
+import LeaderboardTab from '../components/LeaderboardTab'
+import { Home, Camera, Flame, Trophy, LogOut } from 'lucide-react'
+import { Button } from '../components/ui/Button'
 
 interface DashboardProps {
-  userEmail: string;
-  onLogout: () => void;
+  userEmail: string
+  onLogout: () => void
 }
 
 export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState('home')
 
-  useEffect(() => {
-    // Load user data from localStorage on mount
-    localStorage.getItem('rep_rumble_user');
-  }, []);
+  const tabs = [
+    { id: 'home', label: 'Home', icon: Home },
+    { id: 'snap', label: 'Snap Meal', icon: Camera },
+    { id: 'streak', label: 'Workout', icon: Flame },
+    { id: 'leaderboard', label: 'Leaderboard', icon: Trophy },
+  ]
 
   return (
-    <div className="dashboard">
+    <div className="min-h-screen bg-dark">
       {/* Header */}
-      <header className="dashboard-header">
-        <div className="header-left">
-          <h1 className="app-logo">🔥 Rep Rumble</h1>
-          <p className="user-info">{userEmail}</p>
+      <header className="sticky top-0 z-50 bg-dark-lighter/95 backdrop-blur-lg border-b border-dark-border">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <motion.h1
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="text-3xl font-bold"
+            >
+              <span className="text-gradient">Rep Rumble</span>
+            </motion.h1>
+            <span className="text-2xl">💪🔥</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="text-right hidden md:block">
+              <p className="text-sm text-gray-400">Welcome back!</p>
+              <p className="text-sm font-semibold text-primary">{userEmail}</p>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onLogout}
+              className="flex items-center gap-2"
+            >
+              <LogOut size={16} />
+              <span className="hidden sm:inline">Logout</span>
+            </Button>
+          </div>
         </div>
-        <button className="btn-logout" onClick={onLogout}>
-          Logout
-        </button>
       </header>
 
       {/* Navigation Tabs */}
-      <nav className="dashboard-nav">
-        <button
-          className={`tab-btn ${activeTab === 'home' ? 'active' : ''}`}
-          onClick={() => setActiveTab('home')}
-        >
-          🏠 Home
-        </button>
-        <button
-          className={`tab-btn ${activeTab === 'snap' ? 'active' : ''}`}
-          onClick={() => setActiveTab('snap')}
-        >
-          📸 Snap Meal
-        </button>
-        <button
-          className={`tab-btn ${activeTab === 'streak' ? 'active' : ''}`}
-          onClick={() => setActiveTab('streak')}
-        >
-          🔥 Streak
-        </button>
-        <button
-          className={`tab-btn ${activeTab === 'leaderboard' ? 'active' : ''}`}
-          onClick={() => setActiveTab('leaderboard')}
-        >
-          🏆 Leaderboard
-        </button>
+      <nav className="sticky top-[73px] z-40 bg-dark-lighter/95 backdrop-blur-lg border-b border-dark-border">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex gap-2 overflow-x-auto">
+            {tabs.map((tab) => {
+              const Icon = tab.icon
+              return (
+                <motion.button
+                  key={tab.id}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-2 px-6 py-4 font-semibold transition-all whitespace-nowrap ${
+                    activeTab === tab.id
+                      ? 'text-primary border-b-2 border-primary'
+                      : 'text-gray-400 hover:text-white border-b-2 border-transparent'
+                  }`}
+                >
+                  <Icon size={20} />
+                  <span>{tab.label}</span>
+                </motion.button>
+              )
+            })}
+          </div>
+        </div>
       </nav>
 
       {/* Content Area */}
-      <main className="dashboard-content">
-        {activeTab === 'home' && <HomeTab />}
-        {activeTab === 'snap' && <SnapTab />}
-        {activeTab === 'streak' && <StreakTab />}
-        {activeTab === 'leaderboard' && <LeaderboardTab />}
+      <main className="max-w-7xl mx-auto px-4 py-8">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.2 }}
+        >
+          {activeTab === 'home' && <HomeTab />}
+          {activeTab === 'snap' && <SnapTab />}
+          {activeTab === 'streak' && <StreakTab />}
+          {activeTab === 'leaderboard' && <LeaderboardTab />}
+        </motion.div>
       </main>
+
+      {/* Footer */}
+      <footer className="border-t border-dark-border mt-12 py-6">
+        <div className="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+          <p>Built for Gen Z fitness enthusiasts 💪</p>
+          <p className="mt-2">© 2025 Rep Rumble - All Rights Reserved</p>
+        </div>
+      </footer>
     </div>
-  );
+  )
 }
