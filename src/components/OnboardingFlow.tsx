@@ -69,7 +69,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
   const Icon = step.icon
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-dark/95 backdrop-blur-xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-app/95 backdrop-blur-xl">
       <div className="max-w-2xl w-full px-8">
         {/* Progress indicators */}
         <div className="flex justify-center gap-2 mb-12">
@@ -78,10 +78,10 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
               key={index}
               className={`h-1 rounded-full transition-all duration-300 ${
                 index === currentStep
-                  ? 'w-12 bg-primary'
+                  ? "w-12 bg-primary"
                   : index < currentStep
-                  ? 'w-8 bg-primary/50'
-                  : 'w-8 bg-white/20'
+                  ? "w-8 bg-primary/50"
+                  : "w-8 muted"
               }`}
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
@@ -101,7 +101,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
               animate="center"
               exit="exit"
               transition={{
-                x: { type: 'spring', stiffness: 300, damping: 30 },
+                x: { type: "spring", stiffness: 300, damping: 30 },
                 opacity: { duration: 0.2 },
               }}
               className="absolute inset-0"
@@ -111,7 +111,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
                 <motion.div
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
-                  transition={{ type: 'spring', stiffness: 200 }}
+                  transition={{ type: "spring", stiffness: 200 }}
                   className={`mb-8 relative`}
                 >
                   <div
@@ -134,7 +134,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.1 }}
-                  className="text-4xl font-bold text-white mb-4 flex items-center gap-3"
+                  className="text-4xl font-bold text-app mb-4 flex items-center gap-3"
                 >
                   {step.title}
                   <Sparkles className="text-primary" size={24} />
@@ -181,7 +181,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
         <div className="flex justify-between items-center mt-12">
           <button
             onClick={handleSkip}
-            className="text-gray-400 hover:text-white transition-colors"
+            className="text-gray-400 hover:text-app transition-colors"
           >
             Skip
           </button>
@@ -202,5 +202,5 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

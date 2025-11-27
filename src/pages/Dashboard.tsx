@@ -6,26 +6,23 @@ import StreakTab from '../components/StreakTab'
 import LeaderboardTab from '../components/LeaderboardTab'
 import { Home, Camera, Flame, Trophy, LogOut } from 'lucide-react'
 import { Button } from '../components/ui/Button'
+import { useAuth } from "../context/AuthContext";
 
-interface DashboardProps {
-  userEmail: string
-  onLogout: () => void
-}
-
-export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
-  const [activeTab, setActiveTab] = useState('home')
+export default function Dashboard() {
+  const { user, logout } = useAuth();
+  const [activeTab, setActiveTab] = useState("home");
 
   const tabs = [
-    { id: 'home', label: 'Home', icon: Home },
-    { id: 'snap', label: 'Snap Meal', icon: Camera },
-    { id: 'streak', label: 'Workout', icon: Flame },
-    { id: 'leaderboard', label: 'Leaderboard', icon: Trophy },
-  ]
+    { id: "home", label: "Home", icon: Home },
+    { id: "snap", label: "Snap Meal", icon: Camera },
+    { id: "streak", label: "Workout", icon: Flame },
+    { id: "leaderboard", label: "Leaderboard", icon: Trophy },
+  ];
 
   return (
-    <div className="min-h-screen bg-dark relative">
+    <div className="min-h-screen bg-app relative">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-dark-glass backdrop-blur-2xl border-b border-white/10 shadow-glass">
+      <header className="sticky top-0 z-50 card-glass backdrop-blur-2xl border-b border-card shadow-glass">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <motion.h1
@@ -40,12 +37,14 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
           <div className="flex items-center gap-4">
             <div className="text-right hidden md:block">
               <p className="text-sm text-gray-400">Welcome back!</p>
-              <p className="text-sm font-semibold text-primary">{userEmail}</p>
+              <p className="text-sm font-semibold text-primary">
+                {user?.email}
+              </p>
             </div>
             <Button
               variant="outline"
               size="sm"
-              onClick={onLogout}
+              onClick={logout}
               className="flex items-center gap-2"
             >
               <LogOut size={16} />
@@ -56,11 +55,11 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
       </header>
 
       {/* Navigation Tabs */}
-      <nav className="sticky top-[73px] z-40 bg-dark-glass backdrop-blur-2xl border-b border-white/10">
+      <nav className="sticky top-[73px] z-40 card-glass backdrop-blur-2xl border-b border-card">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex gap-2 overflow-x-auto">
             {tabs.map((tab) => {
-              const Icon = tab.icon
+              const Icon = tab.icon;
               return (
                 <motion.button
                   key={tab.id}
@@ -69,14 +68,14 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-6 py-4 font-semibold transition-all whitespace-nowrap ${
                     activeTab === tab.id
-                      ? 'text-primary border-b-2 border-primary'
-                      : 'text-gray-400 hover:text-white border-b-2 border-transparent'
+                      ? "text-primary border-b-2 border-primary"
+                      : "text-gray-400 hover:text-app border-b-2 border-transparent"
                   }`}
                 >
                   <Icon size={20} />
                   <span>{tab.label}</span>
                 </motion.button>
-              )
+              );
             })}
           </div>
         </div>
@@ -91,20 +90,22 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.2 }}
         >
-          {activeTab === 'home' && <HomeTab />}
-          {activeTab === 'snap' && <SnapTab />}
-          {activeTab === 'streak' && <StreakTab />}
-          {activeTab === 'leaderboard' && <LeaderboardTab />}
+          {activeTab === "home" && <HomeTab />}
+          {activeTab === "snap" && <SnapTab />}
+          {activeTab === "streak" && <StreakTab />}
+          {activeTab === "leaderboard" && <LeaderboardTab />}
         </motion.div>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 mt-12 py-6 bg-dark-glass backdrop-blur-xl">
+      <footer className="border-t border-card mt-12 py-6 card-glass backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
           <p className="mb-2">Built for Gen Z fitness enthusiasts 💪</p>
-          <p className="text-xs">© 2025 Rep Rumble - AI-Powered Nutrition Tracking</p>
+          <p className="text-xs">
+            © 2025 Rep Rumble - AI-Powered Nutrition Tracking
+          </p>
         </div>
       </footer>
     </div>
-  )
+  );
 }
