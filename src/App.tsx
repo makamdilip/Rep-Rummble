@@ -85,14 +85,34 @@ function LoginScreen({ onLogin }: { onLogin: (email: string) => void }) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-dark px-4">
+    <div className="min-h-screen flex items-center justify-center bg-dark px-4 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{ duration: 10, repeat: Infinity }}
+          className="absolute bottom-1/4 -right-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
+        />
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
+        className="w-full max-w-md relative z-10"
       >
-        <Card variant="glass" className="p-8">
+        <Card variant="glass" className="p-8 shadow-glass">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -102,9 +122,11 @@ function LoginScreen({ onLogin }: { onLogin: (email: string) => void }) {
             <h1 className="text-5xl font-bold mb-2">
               <span className="text-gradient">Rep Rumble</span>
             </h1>
-            <div className="text-3xl mb-4">💪🔥</div>
-            <p className="text-gray-400 text-sm">
-              Track meals. Crush reps. Win with friends.
+            <div className="text-4xl mb-4">🍽️💪✨</div>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              AI-powered food tracking. Smart nutrition analysis.
+              <br />
+              Achieve your fitness goals faster.
             </p>
           </motion.div>
 
@@ -141,14 +163,19 @@ function LoginScreen({ onLogin }: { onLogin: (email: string) => void }) {
             Try Demo (No Setup Needed!)
           </Button>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-center text-sm text-primary mt-4"
+            className="mt-6 space-y-2"
           >
-            ✅ Demo data included - works immediately
-          </motion.p>
+            <p className="text-center text-sm text-primary font-semibold">
+              ✨ AI Food Recognition ✅ Calorie & Carb Tracking
+            </p>
+            <p className="text-center text-xs text-gray-500">
+              Demo mode included - try it instantly!
+            </p>
+          </motion.div>
         </Card>
 
         <motion.div

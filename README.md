@@ -1,8 +1,8 @@
-# 🔥 Rep Rumble - Modern Fitness & Nutrition Tracker
+# 🍽️💪✨ Rep Rumble - AI-Powered Fitness & Nutrition Tracker
 
-> **Track meals. Crush reps. Win with friends.**
+> **AI-powered food tracking. Smart nutrition analysis. Achieve your fitness goals faster.**
 
-A stunning, modern fitness application for Gen Z combining meal logging, workout tracking, and gamification with a beautiful UI built with React, TypeScript, Tailwind CSS, and Framer Motion.
+A stunning, modern fitness application for Gen Z combining AI-powered meal recognition, automatic calorie & carb counting, workout tracking, and gamification with a beautiful glassmorphism UI built with React, TypeScript, Tailwind CSS, and Google Gemini AI.
 
 ![Rep Rumble](https://img.shields.io/badge/version-1.0.0-brightgreen)
 ![React](https://img.shields.io/badge/React-19.2-blue)
@@ -13,11 +13,25 @@ A stunning, modern fitness application for Gen Z combining meal logging, workout
 
 ## ✨ Features
 
-### 🍽️ **Meal Logging**
-- Quick meal logging with visual food cards
-- Real-time calorie tracking
+### 🤖 **AI Food Recognition** (NEW!)
+- **Smart Image Analysis**: Upload or snap photos of your meals
+- **Automatic Nutrition Detection**: AI identifies food and calculates:
+  - Calories (kcal)
+  - Carbohydrates (g)
+  - Protein (g)
+  - Fat (g)
+  - Fiber (g)
+- **Confidence Scoring**: See how accurate the AI's analysis is
+- **Real-time Processing**: Get instant nutrition breakdowns
+- **Meal History with Images**: Review all logged meals with photos
+
+### 🍽️ **Advanced Meal Logging**
+- Camera integration for instant photo capture
+- Upload from device gallery
+- Visual food cards for quick entry (demo mode)
+- Real-time calorie and macro tracking
 - Beautiful animations and transitions
-- Today's meals history with timestamps
+- Today's meals history with timestamps and nutrition details
 
 ### 💪 **Workout Tracking**
 - Multiple workout types (Push-ups, Running, Plank, Squats, etc.)
@@ -31,13 +45,15 @@ A stunning, modern fitness application for Gen Z combining meal logging, workout
 - User stats dashboard
 - Beautiful gradient effects and animations
 
-### 🎨 **Modern UI Design**
-- **Dark theme** with neon accent colors (Green, Orange, Purple)
+### 🎨 **Modern Glassmorphism UI Design**
+- **Advanced glassmorphism** with backdrop blur and transparency effects
+- **Dark gradient theme** with animated background orbs
+- **Neon accent colors**: Bright Green (#00FF88), Orange, Purple
 - **Smooth animations** powered by Framer Motion
-- **Responsive design** for all screen sizes
-- **Glass morphism** effects and modern cards
+- **Responsive design** optimized for all screen sizes
+- **Floating glass cards** with hover effects and glows
 - **Lucide React icons** for crisp visuals
-- **Tailwind CSS** for utility-first styling
+- **Custom animations**: glow, shimmer, float effects
 
 ---
 
@@ -57,6 +73,16 @@ cd Rep-Rummble
 # Install dependencies
 npm install
 
+# Set up AI (Optional - for real food recognition)
+# Copy the environment template
+cp .env.example .env
+
+# Add your Google Gemini API key to .env
+# Get your free API key: https://makersuite.google.com/app/apikey
+# VITE_GEMINI_API_KEY=your_api_key_here
+
+# Note: App works without API key using mock data!
+
 # Start development server
 npm run dev
 ```
@@ -70,10 +96,15 @@ The app will be available at `http://localhost:5173`
 ### **Frontend**
 - **React 19** - Latest React with improved hooks
 - **TypeScript 5.9** - Type-safe development
-- **Tailwind CSS 3** - Utility-first CSS framework
+- **Tailwind CSS 4** - Latest utility-first CSS framework
 - **Framer Motion** - Smooth animations
 - **Lucide React** - Beautiful icon set
 - **Vite 7** - Lightning-fast build tool
+
+### **AI & Services**
+- **Google Gemini AI (gemini-1.5-flash)** - Food recognition and nutrition analysis
+- **LocalStorage** - Data persistence
+- **Mock Data System** - Works without API key for demos
 
 ### **UI Components**
 - Custom component library built with:
@@ -109,22 +140,25 @@ Rep-Rummble/
 │   │   │   ├── Badge.tsx
 │   │   │   ├── StatCard.tsx
 │   │   │   └── index.ts
-│   │   ├── HomeTab.tsx            # Dashboard home view
-│   │   ├── SnapTab.tsx            # Meal logging view
+│   │   ├── HomeTab.tsx            # Enhanced dashboard with nutrition summary
+│   │   ├── SnapTab.tsx            # AI food scanner with camera
 │   │   ├── StreakTab.tsx          # Workout tracking view
-│   │   └── LeaderboardTab.tsx     # Leaderboard & achievements
+│   │   ├── LeaderboardTab.tsx     # Leaderboard & achievements
+│   │   └── NutritionCard.tsx      # Nutrition display components
+│   ├── services/
+│   │   └── aiVisionService.ts     # Google Gemini AI integration
 │   ├── pages/
-│   │   └── Dashboard.tsx          # Main dashboard layout
+│   │   └── Dashboard.tsx          # Main dashboard layout with glassmorphism
 │   ├── context/
 │   │   └── AuthContext.tsx        # Authentication context
 │   ├── lib/
 │   │   └── utils.ts               # Utility functions
-│   ├── App.tsx                    # Main app component
+│   ├── App.tsx                    # Main app with enhanced login screen
 │   ├── main.tsx                   # App entry point
-│   └── index.css                  # Global styles & Tailwind
+│   └── index.css                  # Global styles with glassmorphism
 ├── public/                        # Static assets
-├── tailwind.config.js             # Tailwind configuration
-├── postcss.config.js              # PostCSS configuration
+├── .env.example                   # Environment variables template
+├── tailwind.config.js             # Tailwind with glassmorphism config
 ├── vite.config.ts                 # Vite configuration
 ├── tsconfig.json                  # TypeScript configuration
 └── package.json                   # Dependencies
@@ -137,13 +171,20 @@ Rep-Rummble/
 
 ### Color Palette
 ```css
-Primary (Neon Green):   #00FF00
-Secondary (Orange):     #FF6B00
-Accent (Purple):        #9D4EDD
-Background:             #0a0a0a
-Surface:                #1a1a1a
-Border:                 #333333
+Primary (Bright Green): #00FF88 (with glow effects)
+Secondary (Orange):     #FF6B00 (with glow effects)
+Accent (Purple):        #9D4EDD (with glow effects)
+Background:             #0a0a0a (gradient with animated orbs)
+Glass Surface:          rgba(20, 20, 20, 0.7) with backdrop-blur
+Border:                 rgba(255, 255, 255, 0.1) (semi-transparent)
 ```
+
+### Glassmorphism Effects
+- **Backdrop Blur**: 20-24px blur for frosted glass effect
+- **Transparency**: 60-70% opacity on cards
+- **Border Glow**: Animated borders with gradient transitions
+- **Shadow Layers**: Multiple shadow layers for depth
+- **Hover Effects**: Enhanced glow on interaction
 
 ### Typography
 - **Font Family**: Inter (Google Fonts)
@@ -199,11 +240,16 @@ npm run lint
 - Real-time data from localStorage
 - Animated list items
 
-### 3. **Snap Meal Tab**
-- Grid of food options with emojis
-- One-click meal logging
-- Today's total calories
-- Success notifications
+### 3. **AI Food Scanner Tab**
+- **Take Photo**: Direct camera access for instant capture
+- **Upload Image**: Select from device gallery
+- **AI Analysis**: Real-time food recognition with loading animation
+- **Nutrition Breakdown**: Complete macro display with icons
+- **Confidence Score**: AI accuracy percentage
+- **Auto-save**: Meals automatically logged after analysis
+- **Image Preview**: See your food with analysis overlay
+- **Today's Summary**: Total nutrition at a glance
+- **Meal History**: All logged meals with images and details
 
 ### 4. **Workout Tracker Tab**
 - Workout cards with icons
@@ -246,17 +292,29 @@ rep_rumble_workouts  // Workout history
 
 ## 🚧 Future Enhancements
 
-### Planned Features
+### Completed Features ✅
+- [x] AI-powered meal recognition
+- [x] Automatic nutrition calculation
+- [x] Camera integration
+- [x] Glassmorphism UI design
+- [x] Carbs, protein, fat tracking
+- [x] Image-based meal logging
+
+### Planned Features 🚀
 - [ ] Backend API integration (Firebase/Supabase)
+- [ ] User authentication system
 - [ ] Real-time multiplayer challenges
 - [ ] Mobile app (React Native/Expo)
 - [ ] Social features (friends, sharing)
-- [ ] AI-powered meal recognition
 - [ ] Push notifications
-- [ ] Dark/Light theme toggle
+- [ ] Light theme toggle
 - [ ] Custom workout creation
 - [ ] Progress charts and analytics
 - [ ] Export data to CSV/PDF
+- [ ] Weekly/monthly nutrition reports
+- [ ] Food database for manual entry
+- [ ] Barcode scanner
+- [ ] Wearable device integration
 
 ---
 
