@@ -62,7 +62,7 @@ function App() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-dark">
+      <div className="flex items-center justify-center min-h-screen bg-white">
         <GradientMesh />
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
@@ -103,7 +103,7 @@ function App() {
 
   return (
     <AuthProvider>
-      <div className="app min-h-screen bg-dark relative">
+      <div className="app min-h-screen bg-white relative">
         <GradientMesh />
         <Dashboard userEmail={userEmail} onLogout={handleLogout} />
         <Toaster position="top-right" />
@@ -127,7 +127,7 @@ function LoginScreen({ onLogin }: { onLogin: (email: string) => void }) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-dark px-4 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-white px-4 relative overflow-hidden">
       <GradientMesh />
 
       <motion.div
@@ -136,7 +136,7 @@ function LoginScreen({ onLogin }: { onLogin: (email: string) => void }) {
         transition={{ duration: 0.5 }}
         className="w-full max-w-md relative z-10"
       >
-        <Card variant="glass" className="p-8 shadow-glass border-2 border-white/10">
+        <Card variant="glass" className="p-8 shadow-glass border-2 border-blue-grotto/20">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -202,7 +202,7 @@ function LoginScreen({ onLogin }: { onLogin: (email: string) => void }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="text-gray-300 text-base leading-relaxed"
+              className="text-navy text-base leading-relaxed"
             >
               AI-powered food tracking. Smart nutrition analysis.
               <br />
@@ -233,17 +233,17 @@ function LoginScreen({ onLogin }: { onLogin: (email: string) => void }) {
 
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/10"></div>
+              <div className="w-full border-t border-navy/20"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-dark-glass text-gray-400">OR</span>
+              <span className="px-2 bg-baby-blue text-navy">OR</span>
             </div>
           </div>
 
           <ShimmerButton
             onClick={demoLogin}
             className="w-full h-12 text-base"
-            background="linear-gradient(135deg, #9D4EDD 0%, #7D3EBD 100%)"
+            background="linear-gradient(135deg, #003a64 0%, #002844 100%)"
             shimmerDuration="2.5s"
           >
             <span className="mr-2">🎯</span>
@@ -267,13 +267,13 @@ function LoginScreen({ onLogin }: { onLogin: (email: string) => void }) {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.7 + i * 0.1 }}
-                  className="px-3 py-2 bg-primary/10 border border-primary/30 rounded-full text-primary font-semibold"
+                  className="px-3 py-2 bg-primary/10 border border-primary/30 rounded-full text-navy font-semibold"
                 >
                   {feature.icon} {feature.text}
                 </motion.div>
               ))}
             </div>
-            <p className="text-center text-xs text-gray-500">
+            <p className="text-center text-xs text-navy/60">
               Demo mode included - try it instantly!
             </p>
           </motion.div>
@@ -283,7 +283,7 @@ function LoginScreen({ onLogin }: { onLogin: (email: string) => void }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="mt-8 text-center text-gray-500 text-xs"
+          className="mt-8 text-center text-navy/60 text-xs"
         >
           <p>Built for Gen Z fitness enthusiasts 💪</p>
         </motion.div>
