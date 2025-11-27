@@ -1,25 +1,27 @@
 import { Response } from 'express'
 import { Workout } from '../models/Workout.model'
 import { AuthRequest } from '../middleware/auth.middleware'
+import { ApiError } from '../types'
 
 // @desc    Get all workouts for user
 // @route   GET /api/workouts
 // @access  Private
 export const getWorkouts = async (req: AuthRequest, res: Response) => {
   try {
-    const workouts = await Workout.find({ userId: req.user.id })
+    const workouts = await Workout.find({ userId: req.user!.id })
       .sort({ timestamp: -1 })
       .limit(100)
 
-    res.json({
+    return res.json({
       success: true,
       count: workouts.length,
       data: workouts
     })
-  } catch (error: any) {
-    res.status(500).json({
+  } catch (error) {
+    const err = error as ApiError
+    return res.status(500).json({
       success: false,
-      message: error.message || 'Server error'
+      message: err.message || 'Server error'
     })
   }
 }
@@ -31,19 +33,20 @@ export const createWorkout = async (req: AuthRequest, res: Response) => {
   try {
     const workoutData = {
       ...req.body,
-      userId: req.user.id
+      userId: req.user!.id
     }
 
     const workout = await Workout.create(workoutData)
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       data: workout
     })
-  } catch (error: any) {
-    res.status(500).json({
+  } catch (error) {
+    const err = error as ApiError
+    return res.status(500).json({
       success: false,
-      message: error.message || 'Server error'
+      message: err.message || 'Server error'
     })
   }
 }
@@ -55,7 +58,7 @@ export const getWorkout = async (req: AuthRequest, res: Response) => {
   try {
     const workout = await Workout.findOne({
       _id: req.params.id,
-      userId: req.user.id
+      userId: req.user!.id
     })
 
     if (!workout) {
@@ -65,14 +68,15 @@ export const getWorkout = async (req: AuthRequest, res: Response) => {
       })
     }
 
-    res.json({
+    return res.json({
       success: true,
       data: workout
     })
-  } catch (error: any) {
-    res.status(500).json({
+  } catch (error) {
+    const err = error as ApiError
+    return res.status(500).json({
       success: false,
-      message: error.message || 'Server error'
+      message: err.message || 'Server error'
     })
   }
 }
@@ -84,7 +88,7 @@ export const deleteWorkout = async (req: AuthRequest, res: Response) => {
   try {
     const workout = await Workout.findOneAndDelete({
       _id: req.params.id,
-      userId: req.user.id
+      userId: req.user!.id
     })
 
     if (!workout) {
@@ -94,14 +98,15 @@ export const deleteWorkout = async (req: AuthRequest, res: Response) => {
       })
     }
 
-    res.json({
+    return res.json({
       success: true,
       data: {}
     })
-  } catch (error: any) {
-    res.status(500).json({
+  } catch (error) {
+    const err = error as ApiError
+    return res.status(500).json({
       success: false,
-      message: error.message || 'Server error'
+      message: err.message || 'Server error'
     })
   }
 }
