@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Card, CardHeader, CardTitle, CardContent } from './ui/Card'
-import { StatCard } from './ui/StatCard'
+import { Card, CardHeader, CardTitle, CardContent } from '../../ui/Card'
+import { StatCard } from '../../ui/StatCard'
 import { Flame, Utensils, Dumbbell, Zap, TrendingUp, Target } from 'lucide-react'
-import { NutritionCard } from './NutritionCard'
+import { NutritionCard } from '../nutrition/NutritionCard'
 
 interface Meal {
   name?: string
@@ -22,22 +21,34 @@ interface Workout {
 }
 
 export default function HomeTab() {
-  const [meals, setMeals] = useState<Meal[]>([])
-  const [workouts, setWorkouts] = useState<Workout[]>([])
-  const [streak, setStreak] = useState(0)
-
-  useEffect(() => {
-    const savedMeals = localStorage.getItem('rep_rumble_meals')
-    const savedWorkouts = localStorage.getItem('rep_rumble_workouts')
-    const userStr = localStorage.getItem('rep_rumble_user')
-
-    setMeals(savedMeals ? JSON.parse(savedMeals) : [])
-    setWorkouts(savedWorkouts ? JSON.parse(savedWorkouts) : [])
-    if (userStr) {
-      const user = JSON.parse(userStr)
-      setStreak(user.streak || 0)
+  const meals = (() => {
+    const saved = localStorage.getItem("rep_rumble_meals");
+    try {
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
     }
-  }, [])
+  })() as Meal[];
+
+  const workouts = (() => {
+    const saved = localStorage.getItem("rep_rumble_workouts");
+    try {
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  })() as Workout[];
+
+  const streak = (() => {
+    const userStr = localStorage.getItem("rep_rumble_user");
+    try {
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        return user?.streak || 0;
+      }
+    } catch {}
+    return 0;
+  })() as number;
 
   const totalCalories = meals.reduce((sum, meal) => sum + meal.calories, 0)
   const totalCarbs = meals.reduce((sum, meal) => sum + (meal.carbs || 0), 0)
