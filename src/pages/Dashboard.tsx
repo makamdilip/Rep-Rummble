@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import HomeTab from '../components/HomeTab'
-import SnapTab from '../components/SnapTab'
-import StreakTab from '../components/StreakTab'
-import LeaderboardTab from '../components/LeaderboardTab'
+import { HomeTab } from '../components/features/dashboard'
+import { SnapTab } from '../components/features/nutrition'
+import { StreakTab } from '../components/features/workout'
+import { LeaderboardTab } from '../components/features/leaderboard'
 import { Home, Camera, Flame, Trophy, LogOut } from 'lucide-react'
 import { Button } from '../components/ui/Button'
 import { useAuth } from "../context/AuthContext";
