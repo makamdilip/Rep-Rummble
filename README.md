@@ -2,128 +2,88 @@
 
 > **AI-powered food tracking. Smart nutrition analysis. Achieve your fitness goals faster.**
 
-A stunning, modern fitness application for Gen Z combining AI-powered meal recognition, automatic calorie & carb counting, workout tracking, and gamification with a beautiful glassmorphism UI built with React, TypeScript, Tailwind CSS, and Google Gemini AI.
+A modern **MERN stack** fitness application combining AI-powered meal recognition, automatic nutrition analysis, workout tracking, and gamification with a beautiful glassmorphism UI.
 
 ![Rep Rumble](https://img.shields.io/badge/version-1.0.0-brightgreen)
 ![React](https://img.shields.io/badge/React-19.2-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
-![Tailwind](https://img.shields.io/badge/Tailwind-3.x-38bdf8)
+![Node.js](https://img.shields.io/badge/Node.js-20+-green)
+![MongoDB](https://img.shields.io/badge/MongoDB-7.0-green)
+![Tailwind](https://img.shields.io/badge/Tailwind-4.x-38bdf8)
+
+[Live Demo](https://yourusername.github.io/Rep-Rummble/) • [Documentation](./SETUP.md) • [API Docs](./server/API.md) • [Report Bug](https://github.com/yourusername/Rep-Rummble/issues)
+
+---
+
+## 📸 Screenshots
+
+[Add screenshots here]
 
 ---
 
 ## ✨ Features
 
-### 🤖 **AI Food Recognition** (NEW!)
-- **Smart Image Analysis**: Upload or snap photos of your meals
-- **Automatic Nutrition Detection**: AI identifies food and calculates:
-  - Calories (kcal)
-  - Carbohydrates (g)
-  - Protein (g)
-  - Fat (g)
-  - Fiber (g)
-- **Confidence Scoring**: See how accurate the AI's analysis is
-- **Real-time Processing**: Get instant nutrition breakdowns
-- **Meal History with Images**: Review all logged meals with photos
+### 🤖 AI-Powered Food Recognition
+- **Smart Image Analysis**: Upload or capture photos of meals
+- **Automatic Nutrition Detection**: AI identifies food and calculates macros
+- **Confidence Scoring**: Accuracy indicators for AI predictions
+- **Real-time Processing**: Instant nutrition breakdowns
+- **Meal History**: Review logged meals with photos and timestamps
 
-### 🍽️ **Advanced Meal Logging**
-- Camera integration for instant photo capture
-- Upload from device gallery
-- Visual food cards for quick entry (demo mode)
-- Real-time calorie and macro tracking
-- Beautiful animations and transitions
-- Today's meals history with timestamps and nutrition details
+### 💪 Comprehensive Fitness Tracking
+- **Workout Logging**: Multiple exercise types with duration tracking
+- **Streak Counter**: Stay motivated with daily streaks
+- **Progress Visualization**: Charts and graphs for progress
+- **XP & Leveling System**: Gamified experience
 
-### 💪 **Workout Tracking**
-- Multiple workout types (Push-ups, Running, Plank, Squats, etc.)
-- Streak counter with fire animations
-- Workout history with detailed metrics
-- Gamified experience with XP and achievements
+### 🏆 Social & Competitive Features
+- **Global Leaderboard**: Compete with friends and community
+- **Achievement System**: Unlock badges and rewards
+- **User Rankings**: XP-based competitive rankings
 
-### 🏆 **Leaderboard & Achievements**
-- Weekly leaderboard with rankings
-- Achievement system with badges
-- User stats dashboard
-- Beautiful gradient effects and animations
+### 🎨 Modern UI/UX
+- **Glassmorphism Design**: Beautiful frosted glass effects
+- **Dark Theme**: Eye-friendly dark mode
+- **Smooth Animations**: Powered by Framer Motion
+- **Responsive Design**: Works on all devices
+- **Accessibility**: WCAG 2.1 AA compliant
 
-### 🎨 **Modern Glassmorphism UI Design**
-- **Advanced glassmorphism** with backdrop blur and transparency effects
-- **Dark gradient theme** with animated background orbs
-- **Neon accent colors**: Bright Green (#00FF88), Orange, Purple
-- **Smooth animations** powered by Framer Motion
-- **Responsive design** optimized for all screen sizes
-- **Floating glass cards** with hover effects and glows
-- **Lucide React icons** for crisp visuals
-- **Custom animations**: glow, shimmer, float effects
-
----
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 18+ installed
-- npm or yarn package manager
-
-### Installation
-
-```bash
-# Clone the repository
-git clone <your-repo-url>
-cd Rep-Rummble
-
-# Install dependencies
-npm install
-
-# Set up AI (Optional - for real food recognition)
-# Copy the environment template
-cp .env.example .env
-
-# Add your Google Gemini API key to .env
-# Get your free API key: https://makersuite.google.com/app/apikey
-# VITE_GEMINI_API_KEY=your_api_key_here
-
-# Note: App works without API key using mock data!
-
-# Start development server
-npm run dev
-```
-
-The app will be available at `http://localhost:5173`
+### 🔐 Authentication & Security
+- **Email/Password Auth**: Secure user authentication
+- **JWT Tokens**: Stateless authentication
+- **Protected Routes**: Role-based access control
+- **Password Hashing**: BCrypt encryption
 
 ---
 
 ## 🏗️ Tech Stack
 
-### **Frontend**
-- **React 19** - Latest React with improved hooks
-- **TypeScript 5.9** - Type-safe development
-- **Tailwind CSS 4** - Latest utility-first CSS framework
-- **Framer Motion** - Smooth animations
-- **Lucide React** - Beautiful icon set
-- **Vite 7** - Lightning-fast build tool
+### Frontend
+- **React 19** - UI library
+- **TypeScript 5.9** - Type safety
+- **Vite 7** - Build tool
+- **Tailwind CSS 4** - Styling
+- **Framer Motion** - Animations
+- **React Router** - Navigation
+- **Firebase** - Authentication (alternative)
+- **Recharts** - Data visualization
 
-### **AI & Services**
-- **Google Gemini AI (gemini-1.5-flash)** - Food recognition and nutrition analysis
-- **LocalStorage** - Data persistence
-- **Mock Data System** - Works without API key for demos
+### Backend
+- **Node.js 20+** - Runtime environment
+- **Express.js** - Web framework
+- **MongoDB** - Database
+- **Mongoose** - ODM
+- **JWT** - Authentication
+- **BCrypt** - Password hashing
 
-### **UI Components**
-- Custom component library built with:
-  - Button component with variants
-  - Card components with glass morphism
-  - Input fields with validation
-  - Badge components
-  - Stat cards with animations
+### AI & External Services
+- **Google Gemini AI** - Food recognition
+- **USDA FoodData Central** - Nutrition database (optional)
 
-### **State Management**
-- React Hooks (useState, useEffect)
-- LocalStorage for data persistence
-- Context API for authentication
-
-### **Styling Architecture**
-- Tailwind CSS utilities
-- Custom design tokens
-- Responsive breakpoints
-- Dark theme by default
+### DevOps
+- **GitHub Actions** - CI/CD
+- **GitHub Pages** - Frontend hosting
+- **Heroku/Railway/Render** - Backend hosting options
 
 ---
 
@@ -131,286 +91,329 @@ The app will be available at `http://localhost:5173`
 
 ```
 Rep-Rummble/
-├── src/
+├── src/                         # Frontend source
 │   ├── components/
-│   │   ├── ui/                    # Reusable UI components
-│   │   │   ├── Button.tsx
-│   │   │   ├── Card.tsx
-│   │   │   ├── Input.tsx
-│   │   │   ├── Badge.tsx
-│   │   │   ├── StatCard.tsx
-│   │   │   └── index.ts
-│   │   ├── HomeTab.tsx            # Enhanced dashboard with nutrition summary
-│   │   ├── SnapTab.tsx            # AI food scanner with camera
-│   │   ├── StreakTab.tsx          # Workout tracking view
-│   │   ├── LeaderboardTab.tsx     # Leaderboard & achievements
-│   │   └── NutritionCard.tsx      # Nutrition display components
-│   ├── services/
-│   │   └── aiVisionService.ts     # Google Gemini AI integration
-│   ├── pages/
-│   │   └── Dashboard.tsx          # Main dashboard layout with glassmorphism
-│   ├── context/
-│   │   └── AuthContext.tsx        # Authentication context
-│   ├── lib/
-│   │   └── utils.ts               # Utility functions
-│   ├── App.tsx                    # Main app with enhanced login screen
-│   ├── main.tsx                   # App entry point
-│   └── index.css                  # Global styles with glassmorphism
-├── public/                        # Static assets
-├── .env.example                   # Environment variables template
-├── tailwind.config.js             # Tailwind with glassmorphism config
-├── vite.config.ts                 # Vite configuration
-├── tsconfig.json                  # TypeScript configuration
-└── package.json                   # Dependencies
-
+│   │   ├── features/           # Feature-specific components
+│   │   │   ├── auth/           # Authentication
+│   │   │   ├── dashboard/      # Dashboard/Home
+│   │   │   ├── nutrition/      # Meal tracking & AI
+│   │   │   ├── workout/        # Workout tracking
+│   │   │   └── leaderboard/    # Rankings & achievements
+│   │   ├── ui/                 # Reusable UI components
+│   │   └── common/             # Shared components
+│   ├── context/                # React Context
+│   ├── hooks/                  # Custom hooks
+│   ├── services/               # API services
+│   │   ├── api/                # Backend API
+│   │   └── external/           # External APIs
+│   ├── types/                  # TypeScript types
+│   ├── pages/                  # Page components
+│   └── utils/                  # Helpers
+├── server/                      # Backend source
+│   └── src/
+│       ├── controllers/        # Request handlers
+│       ├── models/             # Mongoose models
+│       ├── routes/             # API routes
+│       ├── middleware/         # Express middleware
+│       ├── services/           # Business logic
+│       └── config/             # Configuration
+├── .github/workflows/          # CI/CD pipelines
+├── public/                     # Static assets
+├── SETUP.md                    # Setup guide
+├── DEPLOYMENT.md               # Deployment guide
+└── README.md                   # This file
 ```
 
 ---
 
-## 🎨 Design System
+## 🚀 Quick Start
 
-### Color Palette
-```css
-Primary (Bright Green): #00FF88 (with glow effects)
-Secondary (Orange):     #FF6B00 (with glow effects)
-Accent (Purple):        #9D4EDD (with glow effects)
-Background:             #0a0a0a (gradient with animated orbs)
-Glass Surface:          rgba(20, 20, 20, 0.7) with backdrop-blur
-Border:                 rgba(255, 255, 255, 0.1) (semi-transparent)
-```
+### Prerequisites
 
-### Glassmorphism Effects
-- **Backdrop Blur**: 20-24px blur for frosted glass effect
-- **Transparency**: 60-70% opacity on cards
-- **Border Glow**: Animated borders with gradient transitions
-- **Shadow Layers**: Multiple shadow layers for depth
-- **Hover Effects**: Enhanced glow on interaction
+- Node.js 20+
+- npm 10+
+- MongoDB (local or Atlas)
+- Git
 
-### Typography
-- **Font Family**: Inter (Google Fonts)
-- **Headings**: Bold, 24-32px
-- **Body**: Regular, 14-16px
-- **Small Text**: 12-14px
+### 1. Clone the Repository
 
-### Components
-All components are built with:
-- Consistent padding and spacing
-- Smooth hover/tap animations
-- Accessible color contrasts
-- Responsive design patterns
-
----
-
-## 🔧 Available Scripts
-
-### Development
 ```bash
-# Start development server with hot reload
+git clone https://github.com/yourusername/Rep-Rummble.git
+cd Rep-Rummble
+```
+
+### 2. Install Dependencies
+
+```bash
+# Frontend dependencies
+npm install
+
+# Backend dependencies
+cd server
+npm install
+cd ..
+```
+
+### 3. Configure Environment Variables
+
+```bash
+# Frontend
+cp .env.example .env
+# Edit .env and add your API keys
+
+# Backend
+cp server/.env.example server/.env
+# Edit server/.env and add your configuration
+```
+
+### 4. Start MongoDB
+
+```bash
+# If using local MongoDB
+mongod
+
+# Or set up MongoDB Atlas (see SETUP.md)
+```
+
+### 5. Run the Application
+
+```bash
+# Terminal 1 - Frontend
 npm run dev
+
+# Terminal 2 - Backend
+npm run server:dev
 ```
 
-### Build
+Visit:
+- **Frontend**: http://localhost:5173
+- **Backend**: http://localhost:5000/api
+
+---
+
+## 📖 Documentation
+
+- **[Setup Guide](./SETUP.md)** - Complete installation instructions
+- **[Deployment Guide](./DEPLOYMENT.md)** - Production deployment
+- **[API Documentation](./server/API.md)** - Backend API reference
+- **[AI Setup Guide](./AI_SETUP_GUIDE.md)** - Configure AI services
+- **[Contributing Guide](./CONTRIBUTING.md)** - Contribution guidelines
+
+---
+
+## 🔑 Environment Variables
+
+### Frontend (`.env`)
+
 ```bash
-# Build for production
+VITE_GEMINI_API_KEY=          # Google Gemini AI API key
+VITE_FIREBASE_API_KEY=        # Firebase configuration
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+VITE_USDA_API_KEY=            # USDA nutrition database (optional)
+VITE_API_URL=                 # Backend API URL (production)
+```
+
+### Backend (`server/.env`)
+
+```bash
+PORT=5000                      # Server port
+NODE_ENV=development           # Environment
+MONGODB_URI=                   # MongoDB connection string
+JWT_SECRET=                    # JWT secret key
+JWT_EXPIRE=7d                  # Token expiration
+CLIENT_URL=                    # Frontend URL (for CORS)
+```
+
+See [.env.example](./.env.example) and [server/.env.example](./server/.env.example) for complete templates.
+
+---
+
+## 🧪 Testing
+
+```bash
+# Frontend tests
+npm run test
+
+# Backend tests
+cd server
+npm run test
+
+# E2E tests
+npm run test:e2e
+```
+
+---
+
+## 📦 Building for Production
+
+### Frontend
+
+```bash
 npm run build
-
-# Preview production build
-npm run preview
+npm run preview  # Preview build
 ```
 
-### Code Quality
+### Backend
+
 ```bash
-# Run ESLint
-npm run lint
+cd server
+npm run build
+npm start
 ```
 
 ---
 
-## 📱 Features Walkthrough
+## 🚢 Deployment
 
-### 1. **Login Screen**
-- Modern gradient text logo
-- Glass morphism card design
-- Email login or demo mode
-- Smooth entry animations
+### Automatic Deployment (GitHub Actions)
 
-### 2. **Home Dashboard**
-- Daily summary with 4 stat cards
-- Recent meals and workouts
-- Real-time data from localStorage
-- Animated list items
+Push to the `master` branch to automatically deploy:
 
-### 3. **AI Food Scanner Tab**
-- **Take Photo**: Direct camera access for instant capture
-- **Upload Image**: Select from device gallery
-- **AI Analysis**: Real-time food recognition with loading animation
-- **Nutrition Breakdown**: Complete macro display with icons
-- **Confidence Score**: AI accuracy percentage
-- **Auto-save**: Meals automatically logged after analysis
-- **Image Preview**: See your food with analysis overlay
-- **Today's Summary**: Total nutrition at a glance
-- **Meal History**: All logged meals with images and details
-
-### 4. **Workout Tracker Tab**
-- Workout cards with icons
-- Streak counter
-- Automatic XP calculation
-- History tracking
-
-### 5. **Leaderboard Tab**
-- Weekly rankings with animations
-- Achievement badges (locked/unlocked states)
-- Personal stats dashboard
-- Crown icon for #1 rank
-
----
-
-## 🎯 Key Features Implementation
-
-### **Animations**
-All major UI elements use Framer Motion for:
-- Page transitions
-- List item stagger effects
-- Button hover/tap animations
-- Success notification slides
-
-### **Responsive Design**
-- Mobile-first approach
-- Breakpoints: `sm`, `md`, `lg`, `xl`
-- Sticky header and navigation
-- Touch-friendly buttons
-
-### **Data Persistence**
-Using browser localStorage:
-```typescript
-rep_rumble_user      // User profile
-rep_rumble_meals     // Meal history
-rep_rumble_workouts  // Workout history
+```bash
+git push origin master
 ```
 
+### Manual Deployment
+
+```bash
+# Deploy frontend to GitHub Pages
+npm run deploy
+
+# Deploy backend (Heroku example)
+cd server
+heroku create
+git push heroku master
+```
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+
 ---
 
-## 🚧 Future Enhancements
+## 🛠️ Available Scripts
 
-### Completed Features ✅
-- [x] AI-powered meal recognition
-- [x] Automatic nutrition calculation
-- [x] Camera integration
-- [x] Glassmorphism UI design
-- [x] Carbs, protein, fat tracking
-- [x] Image-based meal logging
+### Frontend
 
-### Planned Features 🚀
-- [ ] Backend API integration (Firebase/Supabase)
-- [ ] User authentication system
-- [ ] Real-time multiplayer challenges
-- [ ] Mobile app (React Native/Expo)
-- [ ] Social features (friends, sharing)
-- [ ] Push notifications
-- [ ] Light theme toggle
-- [ ] Custom workout creation
-- [ ] Progress charts and analytics
-- [ ] Export data to CSV/PDF
-- [ ] Weekly/monthly nutrition reports
-- [ ] Food database for manual entry
-- [ ] Barcode scanner
-- [ ] Wearable device integration
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
+npm run lint         # Run ESLint
+npm run deploy       # Deploy to GitHub Pages
+```
+
+### Backend
+
+```bash
+npm run server:dev   # Start backend dev server
+npm run server:build # Build backend
+npm run server:start # Start production server
+```
 
 ---
 
 ## 🤝 Contributing
 
-This is a personal/portfolio project, but suggestions and feedback are welcome!
+Contributions are welcome! Please read our [Contributing Guide](./CONTRIBUTING.md) first.
+
+### Development Workflow
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
 ---
 
-## 📄 License
+## 📝 API Endpoints
 
-This project is created for educational and portfolio purposes.
-
----
-
-## 👨‍💻 Author
-
-Built with ❤️ for Gen Z fitness enthusiasts
-
----
-
-## 🙏 Acknowledgments
-
-- **Tailwind CSS** - Amazing utility-first framework
-- **Framer Motion** - Buttery smooth animations
-- **Lucide** - Beautiful open-source icons
-- **React** - The best UI library
-- **Vite** - Lightning-fast tooling
-
----
-
-## 📸 Screenshots
-
-### Login Screen
-Beautiful gradient text with glass morphism card design
-
-### Dashboard
-Modern dark theme with neon accents and smooth animations
-
-### Meal Logging
-Quick snap and log with visual food cards
-
-### Workout Tracking
-Gamified experience with streak counter
-
-### Leaderboard
-Competitive rankings with achievement badges
-
----
-
-## 🔥 Quick Commands Reference
-
-```bash
-# Development
-npm run dev              # Start dev server
-npm run build            # Production build
-npm run preview          # Preview build
-npm run lint             # Run linter
-
-# Dependencies
-npm install              # Install all packages
-npm install <package>    # Add new package
-npm update              # Update packages
+### Authentication
+```
+POST   /api/auth/register    # Register new user
+POST   /api/auth/login       # Login user
+GET    /api/auth/me          # Get current user
 ```
 
+### Meals
+```
+GET    /api/meals            # Get all user meals
+POST   /api/meals            # Create meal
+GET    /api/meals/:id        # Get single meal
+DELETE /api/meals/:id        # Delete meal
+```
+
+### Workouts
+```
+GET    /api/workouts         # Get all user workouts
+POST   /api/workouts         # Create workout
+GET    /api/workouts/:id     # Get single workout
+DELETE /api/workouts/:id     # Delete workout
+```
+
+### Leaderboard
+```
+GET    /api/leaderboard      # Get global leaderboard
+```
+
+See full [API Documentation](./server/API.md)
+
 ---
 
-## 💡 Tips for Development
+## 🎯 Roadmap
 
-1. **Component Creation**: Always use TypeScript interfaces
-2. **Styling**: Prefer Tailwind utilities over custom CSS
-3. **Animations**: Use Framer Motion for all transitions
-4. **Icons**: Import from lucide-react for consistency
-5. **Colors**: Use theme colors (primary, secondary, accent)
-6. **Responsiveness**: Test on mobile breakpoints
+- [ ] Mobile app (React Native)
+- [ ] Social features (friend challenges)
+- [ ] Recipe suggestions based on goals
+- [ ] Integration with fitness trackers
+- [ ] Meal planning & grocery lists
+- [ ] Barcode scanning
+- [ ] Voice input for meal logging
+- [ ] Apple Health / Google Fit integration
+- [ ] Premium features & subscriptions
 
 ---
 
 ## 🐛 Known Issues
 
-None at the moment! This is a fresh, clean build.
+See [GitHub Issues](https://github.com/yourusername/Rep-Rummble/issues) for current bugs and feature requests.
 
 ---
 
-## 📞 Support
+## 📄 License
 
-For questions or support, please open an issue on GitHub.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ---
 
-**Happy Coding! 💪🔥**
+## 👏 Acknowledgments
 
-Track meals. Crush reps. Win with friends.
+- Google Gemini AI for food recognition
+- Firebase for authentication
+- MongoDB Atlas for database hosting
+- Tailwind CSS for styling
+- Framer Motion for animations
+- All open-source contributors
+
+---
+
+## 📧 Contact
+
+- **GitHub**: [@yourusername](https://github.com/yourusername)
+- **Email**: your.email@example.com
+- **Twitter**: [@yourhandle](https://twitter.com/yourhandle)
+
+---
+
+## 🌟 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/Rep-Rummble&type=Date)](https://star-history.com/#yourusername/Rep-Rummble&Date)
+
+---
+
+**Built with ❤️ for fitness enthusiasts**
+
+[⬆ Back to Top](#-rep-rumble---ai-powered-fitness--nutrition-tracker)
