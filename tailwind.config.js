@@ -7,30 +7,51 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Baby Blue - Light backgrounds and accents
+        'baby-blue': {
+          DEFAULT: '#e1ecf0',
+          light: '#f0f6f8',
+          dark: '#c8dce3',
+        },
+        // Blue Grotto - Primary actions and highlights
+        'blue-grotto': {
+          DEFAULT: '#54a2d2',
+          dark: '#3d8ab8',
+          light: '#6fb3db',
+          glow: 'rgba(84, 162, 210, 0.3)',
+        },
+        // Aquamarine - Secondary elements
+        'aquamarine': {
+          DEFAULT: '#a9cee8',
+          dark: '#8ab8d4',
+          light: '#c1dcf0',
+          glow: 'rgba(169, 206, 232, 0.3)',
+        },
+        // Navy Blue - Text and strong accents
+        'navy': {
+          DEFAULT: '#003a64',
+          dark: '#002844',
+          light: '#005080',
+          glow: 'rgba(0, 58, 100, 0.3)',
+        },
+        // Aliases for easier migration
         primary: {
-          DEFAULT: '#00FF88',
-          dark: '#00CC70',
-          light: '#33FFAA',
-          glow: 'rgba(0, 255, 136, 0.3)',
+          DEFAULT: '#54a2d2',
+          dark: '#3d8ab8',
+          light: '#6fb3db',
+          glow: 'rgba(84, 162, 210, 0.3)',
         },
         secondary: {
-          DEFAULT: '#FF6B00',
-          dark: '#CC5500',
-          light: '#FF8833',
-          glow: 'rgba(255, 107, 0, 0.3)',
+          DEFAULT: '#a9cee8',
+          dark: '#8ab8d4',
+          light: '#c1dcf0',
+          glow: 'rgba(169, 206, 232, 0.3)',
         },
         accent: {
-          DEFAULT: '#9D4EDD',
-          dark: '#7D3EBD',
-          light: '#BD6EFD',
-          glow: 'rgba(157, 78, 221, 0.3)',
-        },
-        dark: {
-          DEFAULT: '#0a0a0a',
-          lighter: '#1a1a1a',
-          card: 'rgba(26, 26, 26, 0.6)',
-          border: 'rgba(255, 255, 255, 0.1)',
-          glass: 'rgba(20, 20, 20, 0.7)',
+          DEFAULT: '#003a64',
+          dark: '#002844',
+          light: '#005080',
+          glow: 'rgba(0, 58, 100, 0.3)',
         },
       },
       fontFamily: {
@@ -45,8 +66,8 @@ export default {
       },
       keyframes: {
         glow: {
-          '0%': { boxShadow: '0 0 20px rgba(0, 255, 136, 0.2)' },
-          '100%': { boxShadow: '0 0 40px rgba(0, 255, 136, 0.6)' },
+          '0%': { boxShadow: '0 0 20px rgba(84, 162, 210, 0.2)' },
+          '100%': { boxShadow: '0 0 40px rgba(84, 162, 210, 0.6)' },
         },
         shimmer: {
           '0%': { backgroundPosition: '-200% 0' },
@@ -61,10 +82,10 @@ export default {
         xs: '2px',
       },
       boxShadow: {
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-        'glow-primary': '0 0 20px rgba(0, 255, 136, 0.4)',
-        'glow-secondary': '0 0 20px rgba(255, 107, 0, 0.4)',
-        'glow-accent': '0 0 20px rgba(157, 78, 221, 0.4)',
+        'glass': '0 8px 32px 0 rgba(0, 58, 100, 0.1)',
+        'glow-primary': '0 0 20px rgba(84, 162, 210, 0.4)',
+        'glow-secondary': '0 0 20px rgba(169, 206, 232, 0.4)',
+        'glow-accent': '0 0 20px rgba(0, 58, 100, 0.4)',
       },
     },
   },

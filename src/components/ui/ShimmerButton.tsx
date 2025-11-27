@@ -18,7 +18,7 @@ export function ShimmerButton({
   shimmerColor = '#ffffff',
   borderRadius = '100px',
   shimmerDuration = '2s',
-  background = 'linear-gradient(135deg, #00FF88 0%, #00CC70 100%)',
+  background = 'linear-gradient(135deg, #54a2d2 0%, #3d8ab8 100%)',
   className,
   children,
   onClick,
@@ -34,7 +34,7 @@ export function ShimmerButton({
         borderRadius,
       }}
       className={cn(
-        'group relative overflow-hidden px-6 py-3 font-semibold text-black transition-all duration-300',
+        'group relative overflow-hidden px-6 py-3 font-semibold text-white transition-all duration-300',
         className
       )}
       onClick={onClick}
