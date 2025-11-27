@@ -29,8 +29,7 @@ Your frontend will be live at:
 
 Choose a platform:
 
-**Option A: Heroku (Easiest)**
-```bash
+**Option A: Heroku (Easiest)** ```bash
 cd server
 heroku create rep-rumble-api
 heroku addons:create mongolab:sandbox
