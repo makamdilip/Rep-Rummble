@@ -53,20 +53,24 @@ export function NutritionCard({ calories, carbs, protein, fat }: NutritionCardPr
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: idx * 0.1 }}
-          className={`${macro.bgColor} rounded-xl p-4 border border-white/5 backdrop-blur-sm`}
+          className={`${macro.bgColor} rounded-xl p-4 border border-card backdrop-blur-sm`}
         >
           <div className="flex items-center gap-2 mb-2">
             {macro.icon}
-            <span className="text-xs text-gray-400 font-medium">{macro.label}</span>
+            <span className="text-xs text-gray-400 font-medium">
+              {macro.label}
+            </span>
           </div>
           <div className="flex items-baseline gap-1">
-            <span className={`text-2xl font-bold ${macro.color}`}>{macro.value}</span>
+            <span className={`text-2xl font-bold ${macro.color}`}>
+              {macro.value}
+            </span>
             <span className="text-xs text-gray-500">{macro.unit}</span>
           </div>
         </motion.div>
       ))}
     </div>
-  )
+  );
 }
 
 interface DetailedNutritionProps {
@@ -98,12 +102,14 @@ export function DetailedNutrition({
     >
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="text-xl font-bold text-white mb-1">{foodName}</h3>
+          <h3 className="text-xl font-bold text-app mb-1">{foodName}</h3>
           <p className="text-sm text-gray-400">{servingSize}</p>
         </div>
         <div className="text-right">
           <div className="text-xs text-gray-500">AI Confidence</div>
-          <div className="text-sm font-semibold text-primary">{confidence}%</div>
+          <div className="text-sm font-semibold text-primary">
+            {confidence}%
+          </div>
         </div>
       </div>
 
@@ -116,13 +122,13 @@ export function DetailedNutrition({
       />
 
       {fiber > 0 && (
-        <div className="pt-3 border-t border-white/10">
+        <div className="pt-3 border-t border-card">
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-400">Fiber</span>
-            <span className="text-white font-semibold">{fiber}g</span>
+            <span className="text-app font-semibold">{fiber}g</span>
           </div>
         </div>
       )}
     </motion.div>
-  )
+  );
 }

@@ -59,7 +59,7 @@ export default function StreakTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-white flex items-center gap-2">
+        <h2 className="text-3xl font-bold text-app flex items-center gap-2">
           <Flame className="text-secondary" size={32} />
           Workout Tracker
         </h2>
@@ -81,10 +81,12 @@ export default function StreakTab() {
           >
             <Check className="text-secondary" size={24} />
             <div>
-              <p className="text-white font-semibold">
+              <p className="text-app font-semibold">
                 {loggedWorkout.icon} {loggedWorkout.name} logged!
               </p>
-              <p className="text-sm text-gray-300">Streak increased! Keep it up! 🔥</p>
+              <p className="text-sm text-gray-300">
+                Streak increased! Keep it up! 🔥
+              </p>
             </div>
           </motion.div>
         )}
@@ -100,7 +102,9 @@ export default function StreakTab() {
             className="card p-6 cursor-pointer text-center hover:shadow-secondary/30 transition-all border-l-secondary"
           >
             <div className="text-6xl mb-3">{workout.icon}</div>
-            <h3 className="text-lg font-semibold text-white mb-1">{workout.name}</h3>
+            <h3 className="text-lg font-semibold text-app mb-1">
+              {workout.name}
+            </h3>
             <p className="text-secondary font-medium">
               {workout.reps
                 ? `${workout.reps} reps × ${workout.sets} sets`
@@ -123,12 +127,12 @@ export default function StreakTab() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.05 }}
-                  className="flex justify-between items-center p-3 bg-dark rounded-lg border border-dark-border"
+                  className="flex justify-between items-center p-3 surface rounded-lg border border-card"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{workout.icon}</span>
                     <div>
-                      <p className="font-medium text-white">{workout.name}</p>
+                      <p className="font-medium text-app">{workout.name}</p>
                       {workout.timestamp && (
                         <p className="text-xs text-gray-400">
                           {new Date(workout.timestamp).toLocaleTimeString()}
@@ -145,10 +149,12 @@ export default function StreakTab() {
               ))}
             </div>
           ) : (
-            <p className="text-gray-400 text-center py-8">Click a workout to log it! 💪</p>
+            <p className="text-gray-400 text-center py-8">
+              Click a workout to log it! 💪
+            </p>
           )}
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

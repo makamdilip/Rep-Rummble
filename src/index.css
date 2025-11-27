@@ -10,17 +10,64 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light;
+  color-scheme: light dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+/* Design tokens (Option A - Enhanced Blue + Accents) */
+  --primary: #54a2d2;
+  /* Blue Grotto */
+  --primary-hover: #3d8ab8;
+  --navy: #003a64;
+  --secondary: #a9cee8;
+  --secondary-hover: #8ab8d4;
+
+  /* Energy accents */
+  --success: #00D9A3;
+  --warning: #FFB020;
+  --danger: #FF6B6B;
+
+  /* Macro colors */
+  --calories: #FF6B35;
+  --protein: #FF6B9D;
+  --carbs: #FFA94D;
+  --fat: #A78BFA;
+
+  /* Backgrounds / surfaces */
+  --bg-light: #FFFFFF;
+  --bg-dark: #0A0A0A;
+  --surface-light: #F8FAFC;
+  --surface-dark: #1A1A1A;
+
+  /* Typography scale (tokens for reference) */
+  --h1: 48px;
+  --h2: 36px;
+  --h3: 24px;
+  --body: 16px;
+}
+
+/* Dark theme overrides (applied when ThemeProvider sets data-theme="dark") */
+[data-theme='dark'] {
+  --bg: var(--bg-dark);
+  --surface: var(--surface-dark);
+  --text: #e6f2fb;
+  /* lightened navy for dark backgrounds */
+  --card-border: rgba(255, 255, 255, 0.04);
+}
+
+/* Light (default) tokens applied to names expected below */
+:root {
+  --bg: var(--bg-light);
+  --surface: var(--surface-light);
+  --text: var(--navy);
+  --card-border: rgba(84, 162, 210, 0.2);
 }
 
 body {
-  background: #ffffff;
+  background: var(--bg);
   background-attachment: fixed;
-  color: #003a64;
+  color: var(--text);
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
@@ -49,7 +96,7 @@ body::before {
 
 /* Component Styles */
 .btn-primary {
-  background-color: #54a2d2;
+  background-color: var(--primary);
   color: white;
   font-weight: 600;
   padding: 0.75rem 1.5rem;
@@ -59,7 +106,7 @@ body::before {
 }
 
 .btn-primary:hover {
-  background-color: #3d8ab8;
+  background-color: var(--primary-hover);
   transform: scale(1.05);
 }
 
@@ -68,8 +115,8 @@ body::before {
 }
 
 .btn-secondary {
-  background-color: #a9cee8;
-  color: #003a64;
+  background-color: var(--secondary);
+    color: var(--navy);
   font-weight: 600;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
@@ -77,13 +124,13 @@ body::before {
 }
 
 .btn-secondary:hover {
-  background-color: #8ab8d4;
+  background-color: var(--secondary-hover);
   transform: scale(1.05);
 }
 
 .btn-outline {
-  border: 2px solid #54a2d2;
-  color: #54a2d2;
+  border: 2px solid var(--primary);
+    color: var(--primary);
   font-weight: 600;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
@@ -92,7 +139,7 @@ body::before {
 }
 
 .btn-outline:hover {
-  background-color: #54a2d2;
+  background-color: var(--primary);
   color: white;
 }
 
@@ -100,8 +147,8 @@ body::before {
   background: rgba(225, 236, 240, 0.6);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(84, 162, 210, 0.2);
-  border-left: 3px solid #54a2d2;
+  border: 1px solid var(--card-border);
+    border-left: 3px solid var(--primary);
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 8px 32px 0 rgba(0, 58, 100, 0.1);
@@ -137,7 +184,7 @@ body::before {
   background: rgba(225, 236, 240, 0.7);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(84, 162, 210, 0.3);
+  border: 1px solid var(--card-border);
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 8px 32px 0 rgba(0, 58, 100, 0.15);
@@ -164,9 +211,9 @@ body::before {
 
 .input-field {
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--surface);
   border: 1px solid #c8dce3;
-  color: #003a64;
+  color: var(--text);
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   transition: all 0.2s;
@@ -175,12 +222,12 @@ body::before {
 .input-field:focus {
   outline: none;
   ring: 2px;
-  ring-color: #54a2d2;
+  ring-color: var(--primary);
   border-color: transparent;
 }
 
 .stat-box {
-  background-color: #f0f6f8;
+  background-color: var(--surface);
   border-radius: 0.5rem;
   padding: 1rem;
   text-align: center;
@@ -189,7 +236,7 @@ body::before {
 }
 
 .stat-box:hover {
-  border-color: #54a2d2;
+  border-color: var(--primary);
 }
 
 .badge {
@@ -202,18 +249,18 @@ body::before {
 }
 
 .badge-success {
-  background-color: rgba(84, 162, 210, 0.2);
-  color: #003a64;
+  background-color: rgba(0, 217, 163, 0.12);
+    color: var(--navy);
 }
 
 .badge-warning {
-  background-color: rgba(169, 206, 232, 0.3);
-  color: #003a64;
+  background-color: rgba(255, 176, 32, 0.12);
+    color: var(--navy);
 }
 
 .badge-info {
-  background-color: rgba(84, 162, 210, 0.15);
-  color: #54a2d2;
+  background-color: rgba(84, 162, 210, 0.12);
+    color: var(--primary);
 }
 
 /* Utilities */
@@ -318,4 +365,102 @@ body::before {
   border-color: rgba(84, 162, 210, 0.5);
   box-shadow: 0 8px 32px rgba(84, 162, 210, 0.2),
               0 0 40px rgba(84, 162, 210, 0.15);
+}
+
+/* Small utility classes for theme-aware usage */
+.bg-app {
+  background: var(--bg) !important;
+}
+
+.text-app {
+  color: var(--text) !important;
+}
+
+.surface {
+  background: var(--surface);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: none;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  transition: background-color 0.15s, transform 0.15s;
+}
+
+.btn-ghost:hover {
+  background-color: rgba(84, 162, 210, 0.06);
+  transform: translateY(-1px);
+}
+
+/* positioning utility for top-right controls (no inline styles) */
+.top-right-controls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 50;
+}
+
+/* Helper for components that previously used `border-white/10` */
+.border-card {
+  border-color: var(--card-border) !important;
+}
+
+/* Muted overlay used on light gradients / progress indicators */
+.muted {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='dark'] .muted {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Shimmer blob uses theme-aware muted value */
+.shimmer-blob {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='dark'] .shimmer-blob {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Grid overlay used by GradientMesh */
+.gradient-grid {
+  background-image: linear-gradient(rgba(84, 162, 210, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(84, 162, 210, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Noise texture overlay */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Macro chart helper classes (theme-aware macros with shadows) */
+.macro-carb {
+  --macro-color: #FBBF24;
+  --macro-shadow: #FBBF2460;
+}
+
+.macro-protein {
+  --macro-color: #00FF88;
+  --macro-shadow: #00FF8860;
+}
+
+.macro-fat {
+  --macro-color: #60A5FA;
+  --macro-shadow: #60A5FA60;
+}
+
+.pie-cell-shadow {
+  filter: drop-shadow(0 0 10px var(--macro-shadow));
+}
+
+.legend-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background-color: var(--macro-color);
+  box-shadow: 0 0 10px var(--macro-shadow);
 }

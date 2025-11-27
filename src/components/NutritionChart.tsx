@@ -22,7 +22,9 @@ export function NutritionChart({ carbs, protein, fat }: NutritionChartProps) {
       animate={{ opacity: 1, scale: 1 }}
       className="card-glass p-6"
     >
-      <h3 className="text-lg font-semibold text-white mb-4">Macro Distribution</h3>
+      <h3 className="text-lg font-semibold text-app mb-4">
+        Macro Distribution
+      </h3>
       <div className="flex items-center justify-center">
         <ResponsiveContainer width="100%" height={250}>
           <PieChart>
@@ -37,38 +39,52 @@ export function NutritionChart({ carbs, protein, fat }: NutritionChartProps) {
               animationBegin={0}
               animationDuration={800}
             >
-              {data.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={entry.color}
-                  style={{
-                    filter: `drop-shadow(0 0 10px ${entry.color}40)`,
-                  }}
-                />
-              ))}
+              {data.map((entry, index) => {
+                const macroClass =
+                  entry.name === "Carbs"
+                    ? "macro-carb"
+                    : entry.name === "Protein"
+                    ? "macro-protein"
+                    : "macro-fat";
+                return (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={entry.color}
+                    className={`${macroClass} pie-cell-shadow`}
+                  />
+                );
+              })}
             </Pie>
             <Legend
               verticalAlign="bottom"
               height={36}
               content={({ payload }) => (
                 <div className="flex justify-center gap-6 mt-4">
-                  {payload?.map((entry, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <div
-                        className="w-3 h-3 rounded-full"
-                        style={{
-                          backgroundColor: entry.color,
-                          boxShadow: `0 0 10px ${entry.color}60`,
-                        }}
-                      />
-                      <span className="text-sm text-gray-300">
-                        {entry.value}:{' '}
-                        <span className="font-semibold text-white">
-                          {((data[index].value / totalMacros) * 100).toFixed(0)}%
+                  {payload?.map((entry, index) => {
+                    const name = (entry as any)?.payload?.name as
+                      | string
+                      | undefined;
+                    const macroClass =
+                      name === "Carbs"
+                        ? "macro-carb"
+                        : name === "Protein"
+                        ? "macro-protein"
+                        : "macro-fat";
+                    return (
+                      <div key={index} className="flex items-center gap-2">
+                        <div className={`legend-dot ${macroClass}`} />
+                        <span className="text-sm text-gray-300">
+                          {entry.value}:{" "}
+                          <span className="font-semibold text-app">
+                            {((data[index].value / totalMacros) * 100).toFixed(
+                              0
+                            )}
+                            %
+                          </span>
                         </span>
-                      </span>
-                    </div>
-                  ))}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             />
@@ -76,5 +92,5 @@ export function NutritionChart({ carbs, protein, fat }: NutritionChartProps) {
         </ResponsiveContainer>
       </div>
     </motion.div>
-  )
+  );
 }

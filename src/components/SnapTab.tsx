@@ -97,7 +97,7 @@ export default function SnapTab() {
         <motion.h2
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-3xl font-bold text-white flex items-center gap-3"
+          className="text-3xl font-bold text-app flex items-center gap-3"
         >
           <Camera className="text-primary" size={32} />
           AI Food Scanner
@@ -112,7 +112,9 @@ export default function SnapTab() {
           animate={{ opacity: 1, y: 0 }}
           className="card-glass p-6"
         >
-          <h3 className="text-lg font-semibold text-gray-300 mb-4">Today's Nutrition</h3>
+          <h3 className="text-lg font-semibold text-gray-300 mb-4">
+            Today's Nutrition
+          </h3>
           <NutritionCard
             calories={totalNutrition.calories}
             carbs={totalNutrition.carbs}
@@ -132,7 +134,7 @@ export default function SnapTab() {
           <CardContent className="p-8">
             <div className="space-y-4">
               <div className="text-center">
-                <h3 className="text-xl font-bold text-white mb-2">
+                <h3 className="text-xl font-bold text-app mb-2">
                   Snap or Upload Your Meal
                 </h3>
                 <p className="text-gray-400 text-sm">
@@ -197,16 +199,18 @@ export default function SnapTab() {
             <div className="flex flex-col items-center justify-center space-y-4">
               <Loader2 className="text-primary animate-spin" size={48} />
               <div className="text-center">
-                <h3 className="text-xl font-semibold text-white mb-2">
+                <h3 className="text-xl font-semibold text-app mb-2">
                   Analyzing your food...
                 </h3>
-                <p className="text-gray-400">AI is calculating nutrition values</p>
+                <p className="text-gray-400">
+                  AI is calculating nutrition values
+                </p>
               </div>
               {previewImage && (
                 <img
                   src={previewImage}
                   alt="Food preview"
-                  className="mt-4 rounded-xl max-w-md w-full object-cover shadow-glass border border-white/10"
+                  className="mt-4 rounded-xl max-w-md w-full object-cover shadow-glass border border-card"
                 />
               )}
             </div>
@@ -228,7 +232,9 @@ export default function SnapTab() {
               >
                 <Check className="text-primary" size={24} />
                 <div>
-                  <p className="text-white font-semibold">Meal logged successfully!</p>
+                  <p className="text-app font-semibold">
+                    Meal logged successfully!
+                  </p>
                   <p className="text-sm text-gray-300">
                     {selectedFood.calories} kcal added to your daily intake
                   </p>
@@ -245,7 +251,7 @@ export default function SnapTab() {
                 <img
                   src={previewImage}
                   alt="Analyzed food"
-                  className="w-full h-64 object-cover rounded-xl shadow-glass border border-white/10"
+                  className="w-full h-64 object-cover rounded-xl shadow-glass border border-card"
                 />
                 <div className="absolute top-4 right-4 bg-primary/90 text-black px-3 py-1 rounded-full text-sm font-semibold backdrop-blur-sm">
                   {selectedFood.confidence}% Match
@@ -283,7 +289,7 @@ export default function SnapTab() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.05 }}
-                      className="flex gap-4 p-4 bg-dark-glass rounded-xl border border-white/5 hover:border-primary/30 transition-all"
+                      className="flex gap-4 p-4 card-glass rounded-xl border border-card hover:border-primary/30 transition-all"
                     >
                       {meal.imageUrl && (
                         <img
@@ -295,12 +301,16 @@ export default function SnapTab() {
                       <div className="flex-1">
                         <div className="flex justify-between items-start mb-2">
                           <div>
-                            <p className="font-semibold text-white">{meal.foodName}</p>
+                            <p className="font-semibold text-app">
+                              {meal.foodName}
+                            </p>
                             <p className="text-xs text-gray-400">
                               {new Date(meal.timestamp).toLocaleTimeString()}
                             </p>
                           </div>
-                          <span className="text-primary font-bold">{meal.calories} kcal</span>
+                          <span className="text-primary font-bold">
+                            {meal.calories} kcal
+                          </span>
                         </div>
                         <div className="grid grid-cols-3 gap-2 text-xs">
                           <div className="text-amber-400">
@@ -333,5 +343,5 @@ export default function SnapTab() {
         </Card>
       </motion.div>
     </div>
-  )
+  );
 }
