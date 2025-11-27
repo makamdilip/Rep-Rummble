@@ -46,7 +46,9 @@ export default function HomeTab() {
         const user = JSON.parse(userStr);
         return user?.streak || 0;
       }
-    } catch {}
+    } catch {
+      /* empty */
+    }
     return 0;
   })() as number;
 

@@ -1,75 +1,9 @@
-# 🚀 Next Steps - Quick Guide
-
-## Immediate Actions Required
-
-### 1. Set Up Environment Variables (5 minutes)
-
-#### Frontend
-```bash
-# Copy template
-cp .env.example .env
-
-# Edit .env and add your keys:
-# - VITE_GEMINI_API_KEY (get from https://makersuite.google.com/app/apikey)
-# - VITE_FIREBASE_* (get from Firebase Console)
-# - VITE_USDA_API_KEY (optional)
-```
-
-#### Backend
-```bash
-# Copy template
-cp server/.env.example server/.env
-
-# Edit server/.env and add:
-# - MONGODB_URI (MongoDB Atlas or local)
-# - JWT_SECRET (generate with: openssl rand -base64 32)
-# - PORT=5000
-# - NODE_ENV=development
-# - CLIENT_URL=http://localhost:5173
-```
-
-### 2. Install Backend Dependencies (2 minutes)
-
-```bash
-cd server
-npm install
-cd ..
-```
-
-### 3. Set Up Database (10 minutes)
-
-Choose one:
-
-**Option A: MongoDB Atlas (Cloud - Recommended)**
-1. Go to https://www.mongodb.com/cloud/atlas
-2. Create free account & cluster
-3. Get connection string
-4. Add to `server/.env` as `MONGODB_URI`
-
-**Option B: Local MongoDB**
-```bash
-# macOS
-brew install mongodb-community
-brew services start mongodb-community
-
-# Set in server/.env
-MONGODB_URI=mongodb://localhost:27017/rep-rummble
-```
-
-### 4. Test Everything Locally (5 minutes)
-
-```bash
 # Terminal 1 - Frontend
 npm run dev
 
 # Terminal 2 - Backend
 npm run server:dev
 
-# Visit http://localhost:5173
-# Test signup, login, meal logging, workout tracking
-```
-
----
 
 ## Deployment to Production
 

@@ -15,7 +15,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-/* Design tokens (Option A - Enhanced Blue + Accents) */
+  /* Design tokens (Option A - Enhanced Blue + Accents) */
   --primary: #54a2d2;
   /* Blue Grotto */
   --primary-hover: #3d8ab8;
@@ -83,7 +83,7 @@ body::before {
   width: 200%;
   height: 200%;
   background: radial-gradient(circle, rgba(84, 162, 210, 0.05) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(169, 206, 232, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 80% 80%, rgba(169, 206, 232, 0.05) 0%, transparent 50%);
   animation: float 20s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
@@ -116,7 +116,7 @@ body::before {
 
 .btn-secondary {
   background-color: var(--secondary);
-    color: var(--navy);
+  color: var(--navy);
   font-weight: 600;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
@@ -130,7 +130,7 @@ body::before {
 
 .btn-outline {
   border: 2px solid var(--primary);
-    color: var(--primary);
+  color: var(--primary);
   font-weight: 600;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
@@ -148,7 +148,7 @@ body::before {
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border: 1px solid var(--card-border);
-    border-left: 3px solid var(--primary);
+  border-left: 3px solid var(--primary);
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 8px 32px 0 rgba(0, 58, 100, 0.1);
@@ -172,7 +172,7 @@ body::before {
 .card:hover {
   border-color: rgba(84, 162, 210, 0.5);
   box-shadow: 0 8px 32px 0 rgba(84, 162, 210, 0.2),
-              0 0 40px rgba(84, 162, 210, 0.1);
+    0 0 40px rgba(84, 162, 210, 0.1);
   transform: translateY(-2px);
 }
 
@@ -199,12 +199,10 @@ body::before {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(84, 162, 210, 0.05) 50%,
-    transparent 70%
-  );
+  background: linear-gradient(45deg,
+        transparent 30%,
+        rgba(84, 162, 210, 0.05) 50%,
+      transparent 70%);
   transform: rotate(45deg);
   pointer-events: none;
 }
@@ -221,8 +219,8 @@ body::before {
 
 .input-field:focus {
   outline: none;
-  ring: 2px;
-  ring-color: var(--primary);
+  grid: 2px;
+    border-color: var(--primary);
   border-color: transparent;
 }
 
@@ -250,17 +248,17 @@ body::before {
 
 .badge-success {
   background-color: rgba(0, 217, 163, 0.12);
-    color: var(--navy);
+  color: var(--navy);
 }
 
 .badge-warning {
   background-color: rgba(255, 176, 32, 0.12);
-    color: var(--navy);
+  color: var(--navy);
 }
 
 .badge-info {
   background-color: rgba(84, 162, 210, 0.12);
-    color: var(--primary);
+  color: var(--primary);
 }
 
 /* Utilities */
@@ -283,6 +281,7 @@ body::before {
   from {
     box-shadow: 0 0 10px rgba(84, 162, 210, 0.3);
   }
+
   to {
     box-shadow: 0 0 20px rgba(84, 162, 210, 0.6);
   }
@@ -297,15 +296,18 @@ body::before {
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(100%);
   }
 }
 
 @keyframes gradient-shift {
-  0%, 100% {
+0%,
+  100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -326,6 +328,7 @@ body::before {
     opacity: 0;
     transform: translateY(-20px) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -337,6 +340,7 @@ body::before {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+
   to {
     opacity: 0;
     transform: translateY(-20px) scale(0.95);
@@ -358,13 +362,13 @@ body::before {
   backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(84, 162, 210, 0.3);
   box-shadow: 0 8px 32px rgba(0, 58, 100, 0.1),
-              0 0 0 1px rgba(84, 162, 210, 0.1) inset;
+    0 0 0 1px rgba(84, 162, 210, 0.1) inset;
 }
 
 .glass-card:hover {
   border-color: rgba(84, 162, 210, 0.5);
   box-shadow: 0 8px 32px rgba(84, 162, 210, 0.2),
-              0 0 40px rgba(84, 162, 210, 0.15);
+    0 0 40px rgba(84, 162, 210, 0.15);
 }
 
 /* Small utility classes for theme-aware usage */

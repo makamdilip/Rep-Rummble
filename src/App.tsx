@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { Routes, Route, useNavigate, Navigate, Link } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";

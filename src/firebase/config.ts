@@ -1,4 +1,5 @@
-import { initializeApp, getApps, getApp } from 'firebase/app'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { initializeApp, getApps, getApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -7,16 +8,16 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
-}
+};
 
 // Initialize Firebase app (idempotent)
 export const firebaseApp = (() => {
   try {
-    return getApps().length ? getApp() : initializeApp(firebaseConfig)
+    return getApps().length ? getApp() : initializeApp(firebaseConfig);
   } catch (err) {
     // fallback: initialize
-    return initializeApp(firebaseConfig)
+    return initializeApp(firebaseConfig);
   }
-})()
+})();
 
-export default firebaseApp
+export default firebaseApp;

@@ -1,20 +1,21 @@
-import { motion } from 'framer-motion'
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { motion } from "framer-motion";
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
 
 interface NutritionChartProps {
-  carbs: number
-  protein: number
-  fat: number
+  carbs: number;
+  protein: number;
+  fat: number;
 }
 
 export function NutritionChart({ carbs, protein, fat }: NutritionChartProps) {
   const data = [
-    { name: 'Carbs', value: carbs, color: '#FBBF24' },
-    { name: 'Protein', value: protein, color: '#00FF88' },
-    { name: 'Fat', value: fat, color: '#60A5FA' },
-  ]
+    { name: "Carbs", value: carbs, color: "#FBBF24" },
+    { name: "Protein", value: protein, color: "#00FF88" },
+    { name: "Fat", value: fat, color: "#60A5FA" },
+  ];
 
-  const totalMacros = carbs + protein + fat
+  const totalMacros = carbs + protein + fat;
 
   return (
     <motion.div
