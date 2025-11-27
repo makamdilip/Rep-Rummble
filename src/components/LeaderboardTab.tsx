@@ -23,7 +23,7 @@ const ACHIEVEMENTS = [
 export default function LeaderboardTab() {
   return (
     <div className="space-y-6">
-      <h2 className="text-3xl font-bold text-white flex items-center gap-2">
+      <h2 className="text-3xl font-bold text-app flex items-center gap-2">
         <Trophy className="text-accent" size={32} />
         Weekly Leaderboard
       </h2>
@@ -39,8 +39,8 @@ export default function LeaderboardTab() {
                 transition={{ delay: idx * 0.1 }}
                 className={`flex items-center gap-4 p-4 rounded-lg border transition-all ${
                   user.rank === 1
-                    ? 'bg-accent/20 border-accent shadow-accent/20'
-                    : 'bg-dark-lighter border-dark-border hover:border-primary'
+                    ? "bg-accent/20 border-accent shadow-accent/20"
+                    : "surface border-card hover:border-primary"
                 }`}
               >
                 <div className="text-3xl font-bold w-12 text-center">
@@ -53,7 +53,11 @@ export default function LeaderboardTab() {
                   )}
                 </div>
                 <div className="flex-1">
-                  <p className={`font-semibold ${user.rank === 1 ? 'text-accent' : 'text-white'}`}>
+                  <p
+                    className={`font-semibold ${
+                      user.rank === 1 ? "text-accent" : "text-app"
+                    }`}
+                  >
                     {user.name}
                   </p>
                   <p className="text-sm text-gray-400 flex items-center gap-1">
@@ -61,7 +65,11 @@ export default function LeaderboardTab() {
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className={`text-2xl font-bold ${user.rank === 1 ? 'text-accent' : 'text-primary'}`}>
+                  <p
+                    className={`text-2xl font-bold ${
+                      user.rank === 1 ? "text-accent" : "text-primary"
+                    }`}
+                  >
                     {user.xp}
                   </p>
                   <p className="text-xs text-gray-400">XP</p>
@@ -89,17 +97,27 @@ export default function LeaderboardTab() {
                 transition={{ delay: idx * 0.05 }}
                 className={`p-4 rounded-lg text-center transition-all ${
                   achievement.unlocked
-                    ? 'bg-primary/10 border-2 border-primary hover:bg-primary/20'
-                    : 'bg-dark-lighter border-2 border-dark-border opacity-50'
+                    ? "bg-primary/10 border-2 border-primary hover:bg-primary/20"
+                    : "surface border-2 border-card opacity-50"
                 }`}
               >
-                <div className={`text-5xl mb-2 ${!achievement.unlocked && 'grayscale'}`}>
+                <div
+                  className={`text-5xl mb-2 ${
+                    !achievement.unlocked && "grayscale"
+                  }`}
+                >
                   {achievement.emoji}
                 </div>
-                <p className={`font-semibold text-sm mb-1 ${achievement.unlocked ? 'text-primary' : 'text-gray-500'}`}>
+                <p
+                  className={`font-semibold text-sm mb-1 ${
+                    achievement.unlocked ? "text-primary" : "text-gray-500"
+                  }`}
+                >
                   {achievement.name}
                 </p>
-                <p className="text-xs text-gray-400">{achievement.description}</p>
+                <p className="text-xs text-gray-400">
+                  {achievement.description}
+                </p>
                 {achievement.unlocked && (
                   <Badge variant="success" className="mt-2">
                     Unlocked
@@ -117,19 +135,19 @@ export default function LeaderboardTab() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center p-4 bg-dark rounded-lg">
+            <div className="text-center p-4 surface rounded-lg">
               <p className="text-gray-400 text-sm mb-1">Total XP</p>
               <p className="text-3xl font-bold text-primary">1,250</p>
             </div>
-            <div className="text-center p-4 bg-dark rounded-lg">
+            <div className="text-center p-4 surface rounded-lg">
               <p className="text-gray-400 text-sm mb-1">Rank</p>
               <p className="text-3xl font-bold text-accent">#1</p>
             </div>
-            <div className="text-center p-4 bg-dark rounded-lg">
+            <div className="text-center p-4 surface rounded-lg">
               <p className="text-gray-400 text-sm mb-1">Achievements</p>
               <p className="text-3xl font-bold text-secondary">3/6</p>
             </div>
-            <div className="text-center p-4 bg-dark rounded-lg">
+            <div className="text-center p-4 surface rounded-lg">
               <p className="text-gray-400 text-sm mb-1">Best Streak</p>
               <p className="text-3xl font-bold text-primary">12 🔥</p>
             </div>
@@ -137,5 +155,5 @@ export default function LeaderboardTab() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

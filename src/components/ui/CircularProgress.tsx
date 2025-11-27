@@ -28,7 +28,12 @@ export function CircularProgress({
   const offset = circumference - (percentage / 100) * circumference
 
   return (
-    <div className={cn('relative inline-flex items-center justify-center', className)}>
+    <div
+      className={cn(
+        "relative inline-flex items-center justify-center",
+        className
+      )}
+    >
       <svg width={size} height={size} className="transform -rotate-90">
         {/* Background circle */}
         <circle
@@ -50,7 +55,7 @@ export function CircularProgress({
           strokeLinecap="round"
           initial={{ strokeDashoffset: circumference }}
           animate={{ strokeDashoffset: offset }}
-          transition={{ duration: 1, ease: 'easeOut' }}
+          transition={{ duration: 1, ease: "easeOut" }}
           style={{
             strokeDasharray: circumference,
             filter: `drop-shadow(0 0 8px ${color}40)`,
@@ -62,8 +67,8 @@ export function CircularProgress({
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ delay: 0.5, type: 'spring' }}
-            className="text-2xl font-bold text-white"
+            transition={{ delay: 0.5, type: "spring" }}
+            className="text-2xl font-bold text-app"
           >
             {Math.round(percentage)}%
           </motion.span>
@@ -71,5 +76,5 @@ export function CircularProgress({
         </div>
       )}
     </div>
-  )
+  );
 }
