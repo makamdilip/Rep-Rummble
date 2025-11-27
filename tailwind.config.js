@@ -7,25 +7,51 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Baby Blue - Light backgrounds and accents
+        'baby-blue': {
+          DEFAULT: '#e1ecf0',
+          light: '#f0f6f8',
+          dark: '#c8dce3',
+        },
+        // Blue Grotto - Primary actions and highlights
+        'blue-grotto': {
+          DEFAULT: '#54a2d2',
+          dark: '#3d8ab8',
+          light: '#6fb3db',
+          glow: 'rgba(84, 162, 210, 0.3)',
+        },
+        // Aquamarine - Secondary elements
+        'aquamarine': {
+          DEFAULT: '#a9cee8',
+          dark: '#8ab8d4',
+          light: '#c1dcf0',
+          glow: 'rgba(169, 206, 232, 0.3)',
+        },
+        // Navy Blue - Text and strong accents
+        'navy': {
+          DEFAULT: '#003a64',
+          dark: '#002844',
+          light: '#005080',
+          glow: 'rgba(0, 58, 100, 0.3)',
+        },
+        // Aliases for easier migration
         primary: {
-          DEFAULT: '#00FF00',
-          dark: '#00CC00',
-          light: '#33FF33',
+          DEFAULT: '#54a2d2',
+          dark: '#3d8ab8',
+          light: '#6fb3db',
+          glow: 'rgba(84, 162, 210, 0.3)',
         },
         secondary: {
-          DEFAULT: '#FF6B00',
-          dark: '#CC5500',
-          light: '#FF8833',
+          DEFAULT: '#a9cee8',
+          dark: '#8ab8d4',
+          light: '#c1dcf0',
+          glow: 'rgba(169, 206, 232, 0.3)',
         },
         accent: {
-          DEFAULT: '#9D4EDD',
-          dark: '#7D3EBD',
-          light: '#BD6EFD',
-        },
-        dark: {
-          DEFAULT: '#0a0a0a',
-          lighter: '#1a1a1a',
-          border: '#333',
+          DEFAULT: '#003a64',
+          dark: '#002844',
+          light: '#005080',
+          glow: 'rgba(0, 58, 100, 0.3)',
         },
       },
       fontFamily: {
@@ -34,6 +60,32 @@ export default {
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'bounce-slow': 'bounce 2s infinite',
+        'glow': 'glow 2s ease-in-out infinite alternate',
+        'shimmer': 'shimmer 2s linear infinite',
+        'float': 'float 3s ease-in-out infinite',
+      },
+      keyframes: {
+        glow: {
+          '0%': { boxShadow: '0 0 20px rgba(84, 162, 210, 0.2)' },
+          '100%': { boxShadow: '0 0 40px rgba(84, 162, 210, 0.6)' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+      },
+      backdropBlur: {
+        xs: '2px',
+      },
+      boxShadow: {
+        'glass': '0 8px 32px 0 rgba(0, 58, 100, 0.1)',
+        'glow-primary': '0 0 20px rgba(84, 162, 210, 0.4)',
+        'glow-secondary': '0 0 20px rgba(169, 206, 232, 0.4)',
+        'glow-accent': '0 0 20px rgba(0, 58, 100, 0.4)',
       },
     },
   },
