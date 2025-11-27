@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import { User } from '../models/User.model'
+import { JwtPayload, IUser } from '../types'
 
 export interface AuthRequest extends Request {
-  user?: any
+  user?: IUser
 }
 
-export const protect = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const protect = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     let token: string | undefined
 
@@ -16,37 +17,42 @@ export const protect = async (req: AuthRequest, res: Response, next: NextFunctio
     }
 
     if (!token) {
-      return res.status(401).json({
+      res.status(401).json({
         success: false,
         message: 'Not authorized to access this route'
       })
+      return
     }
 
     try {
       // Verify token
-      const decoded: any = jwt.verify(token, process.env.JWT_SECRET || 'secret')
+      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret') as JwtPayload
 
       // Get user from token
-      req.user = await User.findById(decoded.id).select('-password')
+      const user = await User.findById(decoded.id).select('-password')
 
-      if (!req.user) {
-        return res.status(401).json({
+      if (!user) {
+        res.status(401).json({
           success: false,
           message: 'User not found'
         })
+        return
       }
 
+      req.user = user as unknown as IUser
       next()
     } catch (error) {
-      return res.status(401).json({
+      res.status(401).json({
         success: false,
         message: 'Not authorized to access this route'
       })
+      return
     }
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
       message: 'Server error during authentication'
     })
+    return
   }
 }

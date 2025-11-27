@@ -36,13 +36,13 @@ app.use(express.json()) // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })) // Parse URL-encoded bodies
 
 // Health check endpoint
-app.get('/api/health', (req: Request, res: Response) => {
+app.get("/api/health", (_req: Request, res: Response) => {
   res.json({
-    status: 'OK',
-    message: 'Rep Rumble API is running',
-    timestamp: new Date().toISOString()
-  })
-})
+    status: "OK",
+    message: "Rep Rumble API is running",
+    timestamp: new Date().toISOString(),
+  });
+});
 
 // API Routes
 app.use('/api/auth', authRoutes)
@@ -52,12 +52,12 @@ app.use('/api/workouts', workoutRoutes)
 app.use('/api/leaderboard', leaderboardRoutes)
 
 // 404 handler
-app.use((req: Request, res: Response) => {
+app.use((_req: Request, res: Response) => {
   res.status(404).json({
     success: false,
-    message: 'Route not found'
-  })
-})
+    message: "Route not found",
+  });
+});
 
 // Error handler (must be last)
 app.use(errorHandler)

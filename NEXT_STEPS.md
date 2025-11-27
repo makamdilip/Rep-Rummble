@@ -53,7 +53,7 @@ brew install mongodb-community
 brew services start mongodb-community
 
 # Set in server/.env
-MONGODB_URI=mongodb://localhost:27017/rep-rumble
+MONGODB_URI=mongodb://localhost:27017/rep-rummble
 ```
 
 ### 4. Test Everything Locally (5 minutes)
