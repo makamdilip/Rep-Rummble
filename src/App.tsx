@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Routes, Route, useNavigate, Navigate, Link } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import Dashboard from "./pages/Dashboard";
@@ -59,7 +59,6 @@ export default function App() {
 
 function MainApp() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
   return (
     <div className="min-h-screen bg-app relative">
       <GradientMesh />
@@ -72,7 +71,7 @@ function MainApp() {
           ⚙️
         </button>
       </div>
-      <Dashboard userEmail={user?.email ?? ""} onLogout={() => logout()} />
+      <Dashboard />
       <Toaster />
     </div>
   );

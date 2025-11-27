@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Card, CardHeader, CardTitle, CardContent } from './ui/Card'
+import { Card, CardHeader, CardTitle, CardContent } from '../../ui/Card'
 import { Camera, Upload, Check, Loader2, Sparkles } from 'lucide-react'
-import { Button } from './ui/Button'
-import { analyzeFoodImage, type NutritionInfo } from '../services/aiVisionService'
+import { Button } from '../../ui/Button'
+import { analyzeFoodImage, type NutritionInfo } from '../../../services/external/aiVisionService'
 import { DetailedNutrition, NutritionCard } from './NutritionCard'
 
 interface MealData extends NutritionInfo {

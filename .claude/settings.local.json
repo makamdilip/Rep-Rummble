@@ -6,7 +6,9 @@
       "Bash(npx tsc:*)",
       "Bash(npm install:*)",
       "Bash(npx tailwindcss:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(xargs:*)",
+      "Bash(git rm:*)"
     ],
     "deny": [],
     "ask": []
