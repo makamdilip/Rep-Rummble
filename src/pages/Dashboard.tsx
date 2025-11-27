@@ -23,9 +23,9 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
   ]
 
   return (
-    <div className="min-h-screen bg-dark">
+    <div className="min-h-screen bg-dark relative">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-dark-lighter/95 backdrop-blur-lg border-b border-dark-border">
+      <header className="sticky top-0 z-50 bg-dark-glass backdrop-blur-2xl border-b border-white/10 shadow-glass">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <motion.h1
@@ -56,7 +56,7 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
       </header>
 
       {/* Navigation Tabs */}
-      <nav className="sticky top-[73px] z-40 bg-dark-lighter/95 backdrop-blur-lg border-b border-dark-border">
+      <nav className="sticky top-[73px] z-40 bg-dark-glass backdrop-blur-2xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex gap-2 overflow-x-auto">
             {tabs.map((tab) => {
@@ -99,10 +99,10 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-dark-border mt-12 py-6">
+      <footer className="border-t border-white/10 mt-12 py-6 bg-dark-glass backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-          <p>Built for Gen Z fitness enthusiasts 💪</p>
-          <p className="mt-2">© 2025 Rep Rumble - All Rights Reserved</p>
+          <p className="mb-2">Built for Gen Z fitness enthusiasts 💪</p>
+          <p className="text-xs">© 2025 Rep Rumble - AI-Powered Nutrition Tracking</p>
         </div>
       </footer>
     </div>
