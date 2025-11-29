@@ -1,60 +1,12 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from '../../ui/Card'
 import { StatCard } from '../../ui/StatCard'
 import { Flame, Utensils, Dumbbell, Zap, TrendingUp, Target } from 'lucide-react'
 import { NutritionCard } from '../nutrition/NutritionCard'
-
-interface Meal {
-  name?: string
-  foodName?: string
-  calories: number
-  carbs?: number
-  protein?: number
-  fat?: number
-  timestamp?: string
-}
-
-interface Workout {
-  exercise: string
-  duration: number
-  timestamp?: string
-}
+import { useAppData } from '../../../context/AppDataContext'
 
 export default function HomeTab() {
-  const [meals] = useState<Meal[]>(() => {
-    if (typeof window === 'undefined') return []
-    const saved = localStorage.getItem("rep_rumble_meals")
-    try {
-      return saved ? JSON.parse(saved) : []
-    } catch {
-      return []
-    }
-  })
-
-  const [workouts] = useState<Workout[]>(() => {
-    if (typeof window === 'undefined') return []
-    const saved = localStorage.getItem("rep_rumble_workouts")
-    try {
-      return saved ? JSON.parse(saved) : []
-    } catch {
-      return []
-    }
-  })
-
-  const [streak] = useState<number>(() => {
-    if (typeof window === 'undefined') return 0
-    const userStr = localStorage.getItem("rep_rumble_user")
-    try {
-      if (userStr) {
-        const user = JSON.parse(userStr)
-        return user?.streak || 0
-      }
-    } catch {
-      // Ignore parse errors
-    }
-    return 0
-  })
+  const { meals, workouts, streak } = useAppData()
 
   const totalCalories = meals.reduce((sum, meal) => sum + meal.calories, 0)
   const totalCarbs = meals.reduce((sum, meal) => sum + (meal.carbs || 0), 0)

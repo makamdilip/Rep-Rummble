@@ -5,6 +5,7 @@ import { Camera, Upload, Check, Loader2, Sparkles } from 'lucide-react'
 import { Button } from '../../ui/Button'
 import { analyzeFoodImage, type NutritionInfo } from '../../../services/external/aiVisionService'
 import { DetailedNutrition, NutritionCard } from './NutritionCard'
+import { useAppData } from '../../../context/AppDataContext'
 
 interface MealData extends NutritionInfo {
   timestamp: string
@@ -12,13 +13,9 @@ interface MealData extends NutritionInfo {
 }
 
 export default function SnapTab() {
+  const { meals, addMeal } = useAppData()
   const [analyzing, setAnalyzing] = useState(false)
   const [selectedFood, setSelectedFood] = useState<MealData | null>(null)
-  const [meals, setMeals] = useState<MealData[]>(() => {
-    if (typeof window === 'undefined') return []
-    const saved = localStorage.getItem('rep_rumble_meals')
-    return saved ? JSON.parse(saved) : []
-  })
   const [previewImage, setPreviewImage] = useState<string | null>(null)
   const [showSuccess, setShowSuccess] = useState(false)
 
@@ -28,10 +25,14 @@ export default function SnapTab() {
   const handleImageUpload = async (file: File) => {
     if (!file) return
 
-    // Create preview
+    // Create preview with error handling
     const reader = new FileReader()
     reader.onload = (e) => {
       setPreviewImage(e.target?.result as string)
+    }
+    reader.onerror = (error) => {
+      console.error('Error reading file:', error)
+      setAnalyzing(false)
     }
     reader.readAsDataURL(file)
 
@@ -58,15 +59,16 @@ export default function SnapTab() {
       }
     } catch (error) {
       console.error('Error analyzing image:', error)
+      // Show error to user
+      setAnalyzing(false)
+      setPreviewImage(null)
     } finally {
       setAnalyzing(false)
     }
   }
 
   const handleSaveMeal = (meal: MealData) => {
-    const newMeals = [...meals, meal]
-    setMeals(newMeals)
-    localStorage.setItem('rep_rumble_meals', JSON.stringify(newMeals))
+    addMeal(meal)
     setShowSuccess(true)
     setTimeout(() => {
       setShowSuccess(false)
@@ -85,11 +87,16 @@ export default function SnapTab() {
   const totalNutrition = meals.reduce(
     (acc, meal) => ({
       calories: acc.calories + meal.calories,
-      carbs: acc.carbs + meal.carbs,
-      protein: acc.protein + meal.protein,
-      fat: acc.fat + meal.fat,
+      carbs: (acc.carbs || 0) + (meal.carbs || 0),
+      protein: (acc.protein || 0) + (meal.protein || 0),
+      fat: (acc.fat || 0) + (meal.fat || 0),
     }),
-    { calories: 0, carbs: 0, protein: 0, fat: 0 }
+    { calories: 0, carbs: 0, protein: 0, fat: 0 } as {
+      calories: number
+      carbs: number
+      protein: number
+      fat: number
+    }
   )
 
   return (
@@ -306,7 +313,7 @@ export default function SnapTab() {
                               {meal.foodName}
                             </p>
                             <p className="text-xs text-gray-400">
-                              {new Date(meal.timestamp).toLocaleTimeString()}
+                              {meal.timestamp ? new Date(meal.timestamp).toLocaleTimeString() : ''}
                             </p>
                           </div>
                           <span className="text-primary font-bold">

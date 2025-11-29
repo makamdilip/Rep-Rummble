@@ -11,27 +11,6 @@ import { ShimmerButton } from "./components/ui/ShimmerButton";
 
 export default function App() {
   const { user, loading, login, signup } = useAuth();
-  const [showOnboarding] = useState(() => {
-    // onboarding preference - read synchronously during initialization to avoid setState in effect
-    if (typeof window === 'undefined') return false
-    try {
-      return !localStorage.getItem("rep_rumble_onboarding");
-    } catch {
-      // in environments without localStorage (SSR/test), default to not showing onboarding
-      return false;
-    }
-  });
-
-  if (showOnboarding && !user && !loading) {
-    return (
-      <div className="min-h-screen bg-app flex items-center justify-center">
-        <GradientMesh />
-        <div className="relative z-10 p-6 bg-white/30 rounded-lg">
-          Onboarding placeholder
-        </div>
-      </div>
-    );
-  }
 
   if (!user && !loading) {
     // expose login/signup routes when unauthenticated
@@ -142,6 +121,7 @@ function SignUpScreen({
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -153,6 +133,18 @@ function SignUpScreen({
           onSubmit={async (e) => {
             e.preventDefault();
             setError(null);
+
+            // Validate password match
+            if (password !== confirmPassword) {
+              setError("Passwords do not match");
+              return;
+            }
+
+            if (password.length < 6) {
+              setError("Password must be at least 6 characters");
+              return;
+            }
+
             setLoading(true);
             try {
               await onSignup(email, password);
@@ -169,12 +161,21 @@ function SignUpScreen({
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             placeholder="you@example.com"
+            required
           />
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-            placeholder="Password"
+            placeholder="Password (min 6 characters)"
+            required
+          />
+          <Input
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            type="password"
+            placeholder="Confirm password"
+            required
           />
           {error && <div className="text-sm text-danger">{error}</div>}
           <ShimmerButton type="submit" disabled={loading}>

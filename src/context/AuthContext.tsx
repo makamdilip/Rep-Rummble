@@ -5,15 +5,6 @@ import React, {
   useState,
 } from "react";
 
-import type { User as FirebaseUser } from "firebase/auth";
-import {
-  onAuthChange,
-  loginWithEmail,
-  signupWithEmail,
-  logout as fbLogout,
-} from "../firebase/auth";
-import { createUserProfile, getUserProfile } from "../firebase/firestore";
-
 interface User {
   uid: string;
   email: string | null;
@@ -34,6 +25,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
 
+// Mock authentication for GitHub Pages (no backend)
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
@@ -41,62 +33,59 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // subscribe to Firebase auth state
-    const unsub = onAuthChange(async (fbUser: FirebaseUser | null) => {
-      if (!fbUser) {
-        setUser(null);
-        setLoading(false);
-        return;
-      }
-
-      // try to load profile from Firestore
-      try {
-        const profile = await getUserProfile(fbUser.uid);
-        if (!profile) {
-          // create a minimal profile
-          const base = {
-            uid: fbUser.uid,
-            email: fbUser.email ?? null,
-            displayName: fbUser.displayName ?? null,
-            streak: 0,
-            totalXP: 0,
-          };
-          await createUserProfile(fbUser.uid, base);
-          setUser(base);
-        } else {
-          setUser({
-            uid: fbUser.uid,
-            email: fbUser.email ?? null,
-            displayName: fbUser.displayName ?? profile.displayName ?? null,
-            streak: profile.streak ?? 0,
-            totalXP: profile.totalXP ?? 0,
-          });
-        }
-      } catch (err) {
-        console.error("Error loading user profile", err);
-        setUser({
-          uid: fbUser.uid,
-          email: fbUser.email ?? null,
-          displayName: fbUser.displayName ?? null,
-        });
-      }
-
+    // Check if user is logged in (from localStorage)
+    if (typeof window === 'undefined') {
       setLoading(false);
-    });
+      return;
+    }
 
-    return () => unsub();
+    try {
+      const savedUser = localStorage.getItem('rep_rumble_user');
+      if (savedUser) {
+        setUser(JSON.parse(savedUser));
+      }
+    } catch (err) {
+      console.error('Error loading user from localStorage', err);
+    }
+    setLoading(false);
   }, []);
 
-  const signup = async (email: string, password: string) => {
-    await signupWithEmail(email, password);
+  const signup = async (_email: string, _password: string) => {
+    // Disable signup - only admin can access
+    throw new Error('Sign up is disabled. Please contact admin for access.');
   };
 
   const login = async (email: string, password: string) => {
-    await loginWithEmail(email, password);
+    // Validate admin credentials only
+    if (!email || !password) {
+      throw new Error('Email and password are required');
+    }
+
+    const adminEmail = import.meta.env.VITE_ADMIN_EMAIL || 'admin@reprumble.com';
+    const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'admin123456';
+
+    // Check if credentials match admin
+    if (email === adminEmail && password === adminPassword) {
+      const adminUser: User = {
+        uid: 'admin',
+        email: adminEmail,
+        displayName: 'Admin',
+        streak: 0,
+        totalXP: 0,
+      };
+
+      localStorage.setItem('rep_rumble_user', JSON.stringify(adminUser));
+      setUser(adminUser);
+      return;
+    }
+
+    // Invalid credentials
+    throw new Error('Invalid email or password');
   };
 
   const logout = async () => {
-    await fbLogout();
+    localStorage.removeItem('rep_rumble_user');
+    setUser(null);
   };
 
   return (

@@ -1,12 +1,5 @@
 node_modules
 
-# Ignore ALL env files
-.env
-.env.local
-.env.development
-.env.production
-.env.*.local
-
 # Ignore Firebase service account files (server-only secrets)
 firebase-service-account*.json
 reprummble-firebase-adminsdk-*.json
