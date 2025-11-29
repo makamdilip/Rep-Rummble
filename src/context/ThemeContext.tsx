@@ -18,7 +18,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [pref, setPref] = useState<ThemePref>(() => {
-    if (typeof window === 'undefined') return "system"
+    if (typeof window === 'undefined') return "dark"
     try {
       const saved = localStorage.getItem("rep_rumble_theme");
       if (saved === "dark" || saved === "light" || saved === "system")
@@ -26,7 +26,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch {
       // ignore
     }
-    return "system";
+    return "dark";
   });
 
   const getSystem = () =>
