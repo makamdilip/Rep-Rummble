@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Card, CardHeader, CardTitle, CardContent } from '../../ui/Card'
 import { Flame, Check } from 'lucide-react'
+import { useAppData } from '../../../context/AppDataContext'
 
 const SAMPLE_WORKOUTS = [
   { name: 'Push-ups', reps: 20, sets: 3, icon: '💪', duration: 10 },
@@ -12,49 +13,24 @@ const SAMPLE_WORKOUTS = [
   { name: 'Yoga', duration: 25, icon: '🧘‍♀️' },
 ]
 
-interface Workout {
-  name: string
-  icon: string
-  duration?: number
-  reps?: number
-  sets?: number
-  timestamp?: string
-  exercise?: string
-}
-
 export default function StreakTab() {
-  const [loggedWorkout, setLoggedWorkout] = useState<Workout | null>(null)
-  const [workouts, setWorkouts] = useState<Workout[]>(() => {
-    if (typeof window === 'undefined') return []
-    const saved = localStorage.getItem('rep_rumble_workouts')
-    return saved ? JSON.parse(saved) : []
-  })
-  const [streak, setStreak] = useState(() => {
-    if (typeof window === 'undefined') return 0
-    const userStr = localStorage.getItem('rep_rumble_user')
-    if (userStr) {
-      const user = JSON.parse(userStr)
-      return user.streak || 0
-    }
-    return 0
-  })
+  const { workouts, addWorkout, streak, incrementStreak } = useAppData()
+  const [loggedWorkout, setLoggedWorkout] = useState<typeof SAMPLE_WORKOUTS[0] | null>(null)
 
-  const handleLogWorkout = (workout: Workout) => {
+  const handleLogWorkout = (workout: typeof SAMPLE_WORKOUTS[0]) => {
     setLoggedWorkout(workout)
 
-    // Update streak
-    const userStr = localStorage.getItem('rep_rumble_user')
-    if (userStr) {
-      const user = JSON.parse(userStr)
-      user.streak = (user.streak || 0) + 1
-      localStorage.setItem('rep_rumble_user', JSON.stringify(user))
-      setStreak(user.streak)
+    // Add workout with timestamp
+    const newWorkout = {
+      ...workout,
+      timestamp: new Date().toISOString(),
+      exercise: workout.name
     }
+    addWorkout(newWorkout)
 
-    const newWorkout = { ...workout, timestamp: new Date().toISOString(), exercise: workout.name }
-    const newWorkouts = [...workouts, newWorkout]
-    setWorkouts(newWorkouts)
-    localStorage.setItem('rep_rumble_workouts', JSON.stringify(newWorkouts))
+    // Increment streak
+    incrementStreak()
+
     setTimeout(() => setLoggedWorkout(null), 2500)
   }
 
