@@ -1,0 +1,486 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+* {
+  border-color: #c8dce3;
+}
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+/* Design tokens (Option A - Enhanced Blue + Accents) */
+  --primary: #54a2d2;
+  /* Blue Grotto */
+  --primary-hover: #3d8ab8;
+  --navy: #003a64;
+  --secondary: #a9cee8;
+  --secondary-hover: #8ab8d4;
+
+  /* Energy accents */
+  --success: #00D9A3;
+  --warning: #FFB020;
+  --danger: #FF6B6B;
+
+  /* Macro colors */
+  --calories: #FF6B35;
+  --protein: #FF6B9D;
+  --carbs: #FFA94D;
+  --fat: #A78BFA;
+
+  /* Backgrounds / surfaces */
+  --bg-light: #FFFFFF;
+  --bg-dark: #0A0A0A;
+  --surface-light: #F8FAFC;
+  --surface-dark: #1A1A1A;
+
+  /* Typography scale (tokens for reference) */
+  --h1: 48px;
+  --h2: 36px;
+  --h3: 24px;
+  --body: 16px;
+}
+
+/* Dark mode as default */
+:root {
+  --bg: var(--bg-dark);
+  --surface: var(--surface-dark);
+  --text: #e6f2fb;
+  --card-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme overrides (applied when ThemeProvider sets data-theme="light") */
+[data-theme='light'] {
+  --bg: var(--bg-light);
+  --surface: var(--surface-light);
+  --text: var(--navy);
+  --card-border: rgba(84, 162, 210, 0.2);
+}
+
+body {
+  background: var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(84, 162, 210, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(169, 206, 232, 0.1) 0%, transparent 50%);
+  animation: float 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme='light'] body::before {
+  background: radial-gradient(circle, rgba(84, 162, 210, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(169, 206, 232, 0.05) 0%, transparent 50%);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Component Styles */
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  transform: scale(1);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: scale(1.05);
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+    color: var(--navy);
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+  transform: scale(1.05);
+}
+
+.btn-outline {
+  border: 2px solid var(--primary);
+    color: var(--primary);
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.btn-outline:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.card {
+  background: rgba(26, 26, 26, 0.6);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--primary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme='light'] .card {
+  background: rgba(225, 236, 240, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(0, 58, 100, 0.1);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(84, 162, 210, 0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(84, 162, 210, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(84, 162, 210, 0.2),
+              0 0 40px rgba(84, 162, 210, 0.1);
+  transform: translateY(-2px);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card-glass {
+  background: rgba(26, 26, 26, 0.7);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--card-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme='light'] .card-glass {
+  background: rgba(225, 236, 240, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(0, 58, 100, 0.15);
+}
+
+.card-glass::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(84, 162, 210, 0.05) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.input-field {
+  width: 100%;
+  background-color: var(--surface);
+  border: 1px solid #c8dce3;
+  color: var(--text);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.input-field:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: var(--primary);
+  border-color: transparent;
+}
+
+.stat-box {
+  background-color: var(--surface);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #c8dce3;
+  transition: border-color 0.2s;
+}
+
+.stat-box:hover {
+  border-color: var(--primary);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-success {
+  background-color: rgba(0, 217, 163, 0.12);
+    color: var(--navy);
+}
+
+.badge-warning {
+  background-color: rgba(255, 176, 32, 0.12);
+    color: var(--navy);
+}
+
+.badge-info {
+  background-color: rgba(84, 162, 210, 0.12);
+    color: var(--primary);
+}
+
+/* Utilities */
+.text-gradient {
+  background: linear-gradient(to right, #54a2d2, #a9cee8, #003a64);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px rgba(84, 162, 210, 0.4);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 20px rgba(169, 206, 232, 0.4);
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px rgba(84, 162, 210, 0.3);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(84, 162, 210, 0.6);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* Premium animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Toast animations */
+@keyframes animate-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes animate-leave {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+}
+
+.animate-enter {
+  animation: animate-enter 0.3s ease-out;
+}
+
+.animate-leave {
+  animation: animate-leave 0.2s ease-in;
+}
+
+/* Glass morphism enhanced */
+.glass-card {
+  background: rgba(26, 26, 26, 0.8);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(84, 162, 210, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+              0 0 0 1px rgba(84, 162, 210, 0.1) inset;
+}
+
+.glass-card:hover {
+  border-color: rgba(84, 162, 210, 0.5);
+  box-shadow: 0 8px 32px rgba(84, 162, 210, 0.2),
+              0 0 40px rgba(84, 162, 210, 0.15);
+}
+
+[data-theme='light'] .glass-card {
+  background: rgba(225, 236, 240, 0.8);
+  box-shadow: 0 8px 32px rgba(0, 58, 100, 0.1),
+              0 0 0 1px rgba(84, 162, 210, 0.1) inset;
+}
+
+/* Small utility classes for theme-aware usage */
+.bg-app {
+  background: var(--bg) !important;
+}
+
+.text-app {
+  color: var(--text) !important;
+}
+
+.surface {
+  background: var(--surface);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: none;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  transition: background-color 0.15s, transform 0.15s;
+}
+
+.btn-ghost:hover {
+  background-color: rgba(84, 162, 210, 0.06);
+  transform: translateY(-1px);
+}
+
+/* positioning utility for top-right controls (no inline styles) */
+.top-right-controls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 50;
+}
+
+/* Helper for components that previously used `border-white/10` */
+.border-card {
+  border-color: var(--card-border) !important;
+}
+
+/* Muted overlay used on light gradients / progress indicators */
+.muted {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='dark'] .muted {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Shimmer blob uses theme-aware muted value */
+.shimmer-blob {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='dark'] .shimmer-blob {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Grid overlay used by GradientMesh */
+.gradient-grid {
+  background-image: linear-gradient(rgba(84, 162, 210, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(84, 162, 210, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Noise texture overlay */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Macro chart helper classes (theme-aware macros with shadows) */
+.macro-carb {
+  --macro-color: #FBBF24;
+  --macro-shadow: #FBBF2460;
+}
+
+.macro-protein {
+  --macro-color: #00FF88;
+  --macro-shadow: #00FF8860;
+}
+
+.macro-fat {
+  --macro-color: #60A5FA;
+  --macro-shadow: #60A5FA60;
+}
+
+.pie-cell-shadow {
+  filter: drop-shadow(0 0 10px var(--macro-shadow));
+}
+
+.legend-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background-color: var(--macro-color);
+  box-shadow: 0 0 10px var(--macro-shadow);
+}
