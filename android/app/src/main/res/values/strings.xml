@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Rep Rumble</string>
+    <string name="title_activity_main">Rep Rumble</string>
+    <string name="package_name">com.reprumble.app</string>
+    <string name="custom_url_scheme">com.reprumble.app</string>
+</resources>

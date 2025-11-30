@@ -49,17 +49,17 @@ export default function HomeTab() {
       className="space-y-6"
     >
       <motion.div variants={itemVariants}>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-bold text-app flex items-center gap-3">
-            <span className="text-4xl">📊</span>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-app flex items-center gap-2 sm:gap-3">
+            <span className="text-3xl sm:text-4xl">📊</span>
             <span className="text-gradient">Daily Dashboard</span>
           </h2>
           <motion.div
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="px-4 py-2 bg-primary/10 border border-primary rounded-full"
+            className="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 border border-primary rounded-full"
           >
-            <span className="text-primary font-bold">
+            <span className="text-primary font-bold text-sm sm:text-base">
               {streak} Day Streak 🔥
             </span>
           </motion.div>
@@ -307,29 +307,29 @@ export default function HomeTab() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="card-glass p-8 text-center"
+          className="card-glass p-4 sm:p-8 text-center"
         >
           <motion.div
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-            className="text-6xl mb-4"
+            className="text-5xl sm:text-6xl mb-3 sm:mb-4"
           >
             💪
           </motion.div>
-          <h3 className="text-2xl font-bold text-gradient mb-2">
+          <h3 className="text-xl sm:text-2xl font-bold text-gradient mb-2">
             Ready to start your fitness journey?
           </h3>
-          <p className="text-gray-400 mb-6">
+          <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6">
             Log your first meal or workout to see your progress here!
           </p>
-          <div className="flex flex-wrap justify-center gap-4 text-sm">
-            <div className="px-4 py-2 bg-primary/10 border border-primary/30 rounded-lg">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 text-xs sm:text-sm">
+            <div className="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 border border-primary/30 rounded-lg">
               📸 Snap a meal photo
             </div>
-            <div className="px-4 py-2 bg-secondary/10 border border-secondary/30 rounded-lg">
+            <div className="px-3 sm:px-4 py-1.5 sm:py-2 bg-secondary/10 border border-secondary/30 rounded-lg">
               🏃 Log a workout
             </div>
-            <div className="px-4 py-2 bg-accent/10 border border-accent/30 rounded-lg">
+            <div className="px-3 sm:px-4 py-1.5 sm:py-2 bg-accent/10 border border-accent/30 rounded-lg">
               🏆 Challenge friends
             </div>
           </div>
