@@ -21,68 +21,69 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-app relative">
-      {/* Header */}
+      {/* Unified Navigation Bar */}
       <header className="sticky top-0 z-50 card-glass backdrop-blur-2xl border-b border-card shadow-glass">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <motion.h1
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="text-3xl font-bold"
-            >
-              <span className="text-gradient">Rep Rumble</span>
-            </motion.h1>
-            <span className="text-2xl">💪🔥</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="text-right hidden md:block">
-              <p className="text-sm text-gray-400">Welcome back!</p>
-              <p className="text-sm font-semibold text-primary">
-                {user?.email}
-              </p>
+        <div className="w-full mx-auto px-3 sm:px-4 py-3 sm:py-4">
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
+            {/* Logo Section */}
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <motion.h1
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="text-lg sm:text-2xl md:text-3xl font-bold"
+              >
+                <span className="text-gradient">Rep Rumble</span>
+              </motion.h1>
+              <span className="text-base sm:text-xl md:text-2xl">💪🔥</span>
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={logout}
-              className="flex items-center gap-2"
-            >
-              <LogOut size={16} />
-              <span className="hidden sm:inline">Logout</span>
-            </Button>
+
+            {/* Navigation Tabs - Center */}
+            <nav className="flex gap-1 sm:gap-1.5 md:gap-2 overflow-x-auto flex-1 justify-center scrollbar-hide">
+              {tabs.map((tab) => {
+                const Icon = tab.icon;
+                return (
+                  <motion.button
+                    key={tab.id}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex items-center gap-1 sm:gap-1.5 md:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg font-medium transition-all whitespace-nowrap text-xs sm:text-sm md:text-base ${
+                      activeTab === tab.id
+                        ? "bg-primary/20 text-primary"
+                        : "text-gray-400 hover:text-app hover:bg-card/50"
+                    }`}
+                  >
+                    <Icon size={16} className="sm:w-[18px] sm:h-[18px]" />
+                    <span className="hidden xs:inline">{tab.label}</span>
+                  </motion.button>
+                );
+              })}
+            </nav>
+
+            {/* User Info & Logout - Right */}
+            <div className="flex items-center gap-1.5 sm:gap-2 md:gap-4 shrink-0">
+              <div className="text-right hidden lg:block">
+                <p className="text-xs text-gray-400">Welcome back!</p>
+                <p className="text-sm font-semibold text-primary truncate max-w-[150px]">
+                  {user?.email}
+                </p>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={logout}
+                className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm"
+              >
+                <LogOut size={14} className="sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Logout</span>
+              </Button>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Navigation Tabs */}
-      <nav className="sticky top-[73px] z-40 card-glass backdrop-blur-2xl border-b border-card">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex gap-2 overflow-x-auto">
-            {tabs.map((tab) => {
-              const Icon = tab.icon;
-              return (
-                <motion.button
-                  key={tab.id}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-6 py-4 font-semibold transition-all whitespace-nowrap ${
-                    activeTab === tab.id
-                      ? "text-primary border-b-2 border-primary"
-                      : "text-gray-400 hover:text-app border-b-2 border-transparent"
-                  }`}
-                >
-                  <Icon size={20} />
-                  <span>{tab.label}</span>
-                </motion.button>
-              );
-            })}
-          </div>
-        </div>
-      </nav>
-
       {/* Content Area */}
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="w-full mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
         <motion.div
           key={activeTab}
           initial={{ opacity: 0, y: 20 }}
@@ -98,10 +99,10 @@ export default function Dashboard() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-card mt-12 py-6 card-glass backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-          <p className="mb-2">Built for Gen Z fitness enthusiasts 💪</p>
-          <p className="text-xs">
+      <footer className="border-t border-card mt-8 sm:mt-12 py-4 sm:py-6 card-glass backdrop-blur-xl">
+        <div className="w-full mx-auto px-3 sm:px-4 text-center text-gray-500 text-xs sm:text-sm">
+          <p className="mb-1 sm:mb-2">Built for Gen Z fitness enthusiasts 💪</p>
+          <p className="text-[10px] sm:text-xs">
             © 2025 Rep Rumble - AI-Powered Nutrition Tracking
           </p>
         </div>

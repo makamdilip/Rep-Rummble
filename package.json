@@ -12,9 +12,17 @@
     "deploy": "npm run build && gh-pages -d dist",
     "server:dev": "cd server && npm run dev",
     "server:build": "cd server && npm run build",
-    "server:start": "cd server && npm start"
+    "server:start": "cd server && npm start",
+    "mobile:sync": "npm run build && npx cap sync",
+    "mobile:android": "npx cap open android",
+    "mobile:ios": "npx cap open ios",
+    "mobile:build": "npm run build && npx cap sync && npx cap copy"
   },
   "dependencies": {
+    "@capacitor/android": "^7.4.4",
+    "@capacitor/cli": "^7.4.4",
+    "@capacitor/core": "^7.4.4",
+    "@capacitor/ios": "^7.4.4",
     "@google/generative-ai": "^0.24.1",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-popover": "^1.1.15",
@@ -22,6 +30,7 @@
     "@radix-ui/react-toast": "^1.2.15",
     "@radix-ui/react-tooltip": "^1.2.8",
     "axios": "^1.7.7",
+    "bootstrap": "^5.3.8",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hot-toast": "^2.6.0",

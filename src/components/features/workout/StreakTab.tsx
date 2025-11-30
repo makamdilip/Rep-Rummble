@@ -35,16 +35,16 @@ export default function StreakTab() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-app flex items-center gap-2">
-          <Flame className="text-secondary" size={32} />
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-app flex items-center gap-2">
+          <Flame className="text-secondary" size={24} />
           Workout Tracker
         </h2>
-        <div className="text-center px-6 py-3 bg-secondary/20 border border-secondary rounded-lg">
-          <p className="text-sm text-gray-400">Current Streak</p>
-          <p className="text-3xl font-bold text-secondary flex items-center gap-1">
-            {streak} <Flame size={24} />
+        <div className="text-center px-4 sm:px-6 py-2 sm:py-3 bg-secondary/20 border border-secondary rounded-lg">
+          <p className="text-xs sm:text-sm text-gray-400">Current Streak</p>
+          <p className="text-2xl sm:text-3xl font-bold text-secondary flex items-center gap-1">
+            {streak} <Flame size={20} className="sm:w-6 sm:h-6" />
           </p>
         </div>
       </div>
@@ -70,20 +70,20 @@ export default function StreakTab() {
         )}
       </AnimatePresence>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4">
         {SAMPLE_WORKOUTS.map((workout, idx) => (
           <motion.div
             key={idx}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => handleLogWorkout(workout)}
-            className="card p-6 cursor-pointer text-center hover:shadow-secondary/30 transition-all border-l-secondary"
+            className="card p-4 sm:p-6 cursor-pointer text-center hover:shadow-secondary/30 transition-all border-l-secondary"
           >
-            <div className="text-6xl mb-3">{workout.icon}</div>
-            <h3 className="text-lg font-semibold text-app mb-1">
+            <div className="text-4xl sm:text-5xl md:text-6xl mb-2 sm:mb-3">{workout.icon}</div>
+            <h3 className="text-sm sm:text-base md:text-lg font-semibold text-app mb-1">
               {workout.name}
             </h3>
-            <p className="text-secondary font-medium">
+            <p className="text-xs sm:text-sm md:text-base text-secondary font-medium">
               {workout.reps
                 ? `${workout.reps} reps × ${workout.sets} sets`
                 : `${workout.duration} min`}

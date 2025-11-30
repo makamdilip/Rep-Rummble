@@ -100,16 +100,17 @@ export default function SnapTab() {
   )
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div className="flex items-center justify-between">
         <motion.h2
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-3xl font-bold text-app flex items-center gap-3"
+          className="text-xl sm:text-2xl md:text-3xl font-bold text-app flex items-center gap-2 sm:gap-3"
         >
-          <Camera className="text-primary" size={32} />
-          AI Food Scanner
-          <Sparkles className="text-accent animate-pulse" size={24} />
+          <Camera className="text-primary" size={24} />
+          <span className="hidden xs:inline">AI Food Scanner</span>
+          <span className="xs:hidden">Scanner</span>
+          <Sparkles className="text-accent animate-pulse" size={20} />
         </motion.h2>
       </div>
 
@@ -118,9 +119,9 @@ export default function SnapTab() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="card-glass p-6"
+          className="card-glass p-4 sm:p-6"
         >
-          <h3 className="text-lg font-semibold text-gray-300 mb-4">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-300 mb-3 sm:mb-4">
             Today's Nutrition
           </h3>
           <NutritionCard
@@ -139,36 +140,36 @@ export default function SnapTab() {
         transition={{ delay: 0.1 }}
       >
         <Card variant="glass">
-          <CardContent className="p-8">
-            <div className="space-y-4">
+          <CardContent className="p-4 sm:p-6 md:p-8">
+            <div className="space-y-3 sm:space-y-4">
               <div className="text-center">
-                <h3 className="text-xl font-bold text-app mb-2">
+                <h3 className="text-lg sm:text-xl font-bold text-app mb-1.5 sm:mb-2">
                   Snap or Upload Your Meal
                 </h3>
-                <p className="text-gray-400 text-sm">
+                <p className="text-gray-400 text-xs sm:text-sm">
                   AI will analyze your food and calculate calories & carbs
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <Button
                   size="lg"
-                  className="w-full h-24 text-lg"
+                  className="w-full h-20 sm:h-24 text-base sm:text-lg"
                   onClick={() => cameraInputRef.current?.click()}
                   disabled={analyzing}
                 >
-                  <Camera size={24} className="mr-2" />
+                  <Camera size={20} className="mr-2 sm:w-6 sm:h-6" />
                   Take Photo
                 </Button>
 
                 <Button
                   variant="outline"
                   size="lg"
-                  className="w-full h-24 text-lg"
+                  className="w-full h-20 sm:h-24 text-base sm:text-lg"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={analyzing}
                 >
-                  <Upload size={24} className="mr-2" />
+                  <Upload size={20} className="mr-2 sm:w-6 sm:h-6" />
                   Upload Image
                 </Button>
               </div>
@@ -202,15 +203,15 @@ export default function SnapTab() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="card-glass p-8"
+            className="card-glass p-4 sm:p-6 md:p-8"
           >
-            <div className="flex flex-col items-center justify-center space-y-4">
-              <Loader2 className="text-primary animate-spin" size={48} />
+            <div className="flex flex-col items-center justify-center space-y-3 sm:space-y-4">
+              <Loader2 className="text-primary animate-spin" size={40} />
               <div className="text-center">
-                <h3 className="text-xl font-semibold text-app mb-2">
+                <h3 className="text-lg sm:text-xl font-semibold text-app mb-1.5 sm:mb-2">
                   Analyzing your food...
                 </h3>
-                <p className="text-gray-400">
+                <p className="text-sm sm:text-base text-gray-400">
                   AI is calculating nutrition values
                 </p>
               </div>
@@ -218,7 +219,7 @@ export default function SnapTab() {
                 <img
                   src={previewImage}
                   alt="Food preview"
-                  className="mt-4 rounded-xl max-w-md w-full object-cover shadow-glass border border-card"
+                  className="mt-3 sm:mt-4 rounded-xl max-w-full sm:max-w-md w-full h-48 sm:h-auto object-cover shadow-glass border border-card"
                 />
               )}
             </div>
