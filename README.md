@@ -1,419 +1,337 @@
-# 🍽️💪✨ Rep Rumble - AI-Powered Fitness & Nutrition Tracker
+# 🔥 Rep Rumble - Fitness + Nutrition Social App
 
-> **AI-powered food tracking. Smart nutrition analysis. Achieve your fitness goals faster.**
+> "Track meals. Crush reps. Win with friends."
 
-A modern **MERN stack** fitness application combining AI-powered meal recognition, automatic nutrition analysis, workout tracking, and gamification with a beautiful glassmorphism UI.
-
-![Rep Rumble](https://img.shields.io/badge/version-1.0.0-brightgreen)
-![React](https://img.shields.io/badge/React-19.2-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
-![Node.js](https://img.shields.io/badge/Node.js-20+-green)
-![MongoDB](https://img.shields.io/badge/MongoDB-7.0-green)
-![Tailwind](https://img.shields.io/badge/Tailwind-4.x-38bdf8)
-
-[Live Demo](https://yourusername.github.io/Rep-Rummble/) • [Documentation](./SETUP.md) • [API Docs](./server/API.md) • [Report Bug](https://github.com/yourusername/Rep-Rummble/issues)
+A modern fitness app for Gen Z combining meal logging, workout tracking, and buddy challenges with gamification.
 
 ---
 
-## 📸 Screenshots
+## 🌟 Key Features
 
-[Add screenshots here]
-
----
-
-## ✨ Features
-
-### 🤖 AI-Powered Food Recognition
-- **Smart Image Analysis**: Upload or capture photos of meals
-- **Automatic Nutrition Detection**: AI identifies food and calculates macros
-- **Confidence Scoring**: Accuracy indicators for AI predictions
-- **Real-time Processing**: Instant nutrition breakdowns
-- **Meal History**: Review logged meals with photos and timestamps
-
-### 💪 Comprehensive Fitness Tracking
-- **Workout Logging**: Multiple exercise types with duration tracking
-- **Streak Counter**: Stay motivated with daily streaks
-- **Progress Visualization**: Charts and graphs for progress
-- **XP & Leveling System**: Gamified experience
-
-### 🏆 Social & Competitive Features
-- **Global Leaderboard**: Compete with friends and community
-- **Achievement System**: Unlock badges and rewards
-- **User Rankings**: XP-based competitive rankings
-
-### 🎨 Modern UI/UX
-- **Glassmorphism Design**: Beautiful frosted glass effects
-- **Dark Theme**: Eye-friendly dark mode
-- **Smooth Animations**: Powered by Framer Motion
-- **Responsive Design**: Works on all devices
-- **Accessibility**: WCAG 2.1 AA compliant
-
-### 🔐 Authentication & Security
-- **Email/Password Auth**: Secure user authentication
-- **JWT Tokens**: Stateless authentication
-- **Protected Routes**: Role-based access control
-- **Password Hashing**: BCrypt encryption
+- 📸 **Snap & Log**: Take a photo of your meal → AI recognizes the dish → logs calories & macros
+- 💪 **Workout Tracker**: Log exercises, build streaks, earn XP
+- 👯 **Buddy Challenges**: Create challenges with friends (3-day plank streak, 10k steps, etc.)
+- 🏆 **Gamification**: Badges, XP points, leaderboards, level system
+- 🌐 **Localization**: English + Hindi (expandable to more languages)
+- 🔒 **Privacy-First**: Local storage by default, cloud sync opt-in
 
 ---
 
-## 🏗️ Tech Stack
+## 🚀 Quick Start (5 Minutes)
 
-### Frontend
-- **React 19** - UI library
-- **TypeScript 5.9** - Type safety
-- **Vite 7** - Build tool
-- **Tailwind CSS 4** - Styling
-- **Framer Motion** - Animations
-- **React Router** - Navigation
-- **Firebase** - Authentication (alternative)
-- **Recharts** - Data visualization
+See [`QUICKSTART.md`](./QUICKSTART.md) for detailed instructions.
 
-### Backend
-- **Node.js 20+** - Runtime environment
-- **Express.js** - Web framework
-- **MongoDB** - Database
-- **Mongoose** - ODM
-- **JWT** - Authentication
-- **BCrypt** - Password hashing
-
-### AI & External Services
-- **Google Gemini AI** - Food recognition
-- **USDA FoodData Central** - Nutrition database (optional)
-
-### DevOps
-- **GitHub Actions** - CI/CD
-- **GitHub Pages** - Frontend hosting
-- **Heroku/Railway/Render** - Backend hosting options
-
----
-
-## 📁 Project Structure
-
-```
-Rep-Rummble/
-├── src/                         # Frontend source
-│   ├── components/
-│   │   ├── features/           # Feature-specific components
-│   │   │   ├── auth/           # Authentication
-│   │   │   ├── dashboard/      # Dashboard/Home
-│   │   │   ├── nutrition/      # Meal tracking & AI
-│   │   │   ├── workout/        # Workout tracking
-│   │   │   └── leaderboard/    # Rankings & achievements
-│   │   ├── ui/                 # Reusable UI components
-│   │   └── common/             # Shared components
-│   ├── context/                # React Context
-│   ├── hooks/                  # Custom hooks
-│   ├── services/               # API services
-│   │   ├── api/                # Backend API
-│   │   └── external/           # External APIs
-│   ├── types/                  # TypeScript types
-│   ├── pages/                  # Page components
-│   └── utils/                  # Helpers
-├── server/                      # Backend source
-│   └── src/
-│       ├── controllers/        # Request handlers
-│       ├── models/             # Mongoose models
-│       ├── routes/             # API routes
-│       ├── middleware/         # Express middleware
-│       ├── services/           # Business logic
-│       └── config/             # Configuration
-├── .github/workflows/          # CI/CD pipelines
-├── public/                     # Static assets
-├── SETUP.md                    # Setup guide
-├── DEPLOYMENT.md               # Deployment guide
-└── README.md                   # This file
-```
-
----
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Node.js 20+
-- npm 10+
-- MongoDB (local or Atlas)
-- Git
-
-### 1. Clone the Repository
-
+### TL;DR
 ```bash
-git clone https://github.com/yourusername/Rep-Rummble.git
-cd Rep-Rummble
-```
-
-### 2. Install Dependencies
-
-```bash
-# Frontend dependencies
+# 1. Install dependencies
 npm install
 
-# Backend dependencies
-cd server
-npm install
-cd ..
-```
-
-### 3. Configure Environment Variables
-
-```bash
-# Frontend
+# 2. Create .env file with Firebase credentials
 cp .env.example .env
-# Edit .env and add your API keys
 
-# Backend
-cp server/.env.example server/.env
-# Edit server/.env and add your configuration
-```
+# 3. Start backend (Terminal 1)
+node backend-starter.js
 
-### 4. Start MongoDB
-
-```bash
-# If using local MongoDB
-mongod
-
-# Or set up MongoDB Atlas (see SETUP.md)
-```
-
-### 5. Run the Application
-
-```bash
-# Terminal 1 - Frontend
+# 4. Start frontend (Terminal 2)
 npm run dev
 
-# Terminal 2 - Backend
-npm run server:dev
-```
-
-Visit:
-- **Frontend**: http://localhost:5173
-- **Backend**: http://localhost:5000/api
-
----
-
-## 📖 Documentation
-
-- **[Setup Guide](./SETUP.md)** - Complete installation instructions
-- **[Deployment Guide](./DEPLOYMENT.md)** - Production deployment
-- **[API Documentation](./server/API.md)** - Backend API reference
-- **[AI Setup Guide](./AI_SETUP_GUIDE.md)** - Configure AI services
-- **[Contributing Guide](./CONTRIBUTING.md)** - Contribution guidelines
-
----
-
-## 🔑 Environment Variables
-
-### Frontend (`.env`)
-
-```bash
-VITE_GEMINI_API_KEY=          # Google Gemini AI API key
-VITE_FIREBASE_API_KEY=        # Firebase configuration
-VITE_FIREBASE_AUTH_DOMAIN=
-VITE_FIREBASE_PROJECT_ID=
-VITE_FIREBASE_STORAGE_BUCKET=
-VITE_FIREBASE_MESSAGING_SENDER_ID=
-VITE_FIREBASE_APP_ID=
-VITE_USDA_API_KEY=            # USDA nutrition database (optional)
-VITE_API_URL=                 # Backend API URL (production)
-```
-
-### Backend (`server/.env`)
-
-```bash
-PORT=5000                      # Server port
-NODE_ENV=development           # Environment
-MONGODB_URI=                   # MongoDB connection string
-JWT_SECRET=                    # JWT secret key
-JWT_EXPIRE=7d                  # Token expiration
-CLIENT_URL=                    # Frontend URL (for CORS)
-```
-
-See [.env.example](./.env.example) and [server/.env.example](./server/.env.example) for complete templates.
-
----
-
-## 🧪 Testing
-
-```bash
-# Frontend tests
-npm run test
-
-# Backend tests
-cd server
-npm run test
-
-# E2E tests
-npm run test:e2e
+# 5. Test mobile app (Terminal 3)
+npm run mobile:web
 ```
 
 ---
 
-## 📦 Building for Production
+## 📚 Documentation
 
-### Frontend
+- **[QUICKSTART.md](./QUICKSTART.md)** — Get running in 5 minutes
+- **[SETUP.md](./SETUP.md)** — Detailed setup & configuration guide
+- **[API_DOCUMENTATION.md](./API_DOCUMENTATION.md)** — Complete API reference (50+ endpoints)
+- **[ROADMAP_AND_TECH_DECISIONS.md](./ROADMAP_AND_TECH_DECISIONS.md)** — Product roadmap + architecture
+- **[PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)** — File organization
 
-```bash
-npm run build
-npm run preview  # Preview build
+---
+
+## 🏗️ Architecture
+
+### Tech Stack
+- **Mobile**: React Native (Expo) — iOS, Android, Web
+- **Backend**: Node.js + Express — API server
+- **Database**: Firebase Firestore — Realtime, serverless
+- **Auth**: Firebase Authentication — Google, Apple, Email sign-in
+- **Storage**: Firebase Storage — Image uploads
+- **AI**: TensorFlow Lite (on-device) + API fallback — Food recognition
+- **Frontend**: React + Vite — Web dashboard
+
+### Project Structure
 ```
+rep-rumble/
+├── backend-starter.js          # Express API server
+├── HomeScreen.tsx              # Home/Dashboard
+├── SnapMealScreen.tsx          # Meal logging
+├── StreakDashboardScreen.tsx   # Workout + challenges
+├── .env.example                # Configuration template
+├── QUICKSTART.md               # 5-min setup guide
+├── SETUP.md                    # Full setup instructions
+├── API_DOCUMENTATION.md        # API reference
+└── ROADMAP_AND_TECH_DECISIONS.md  # Product roadmap
+```
+
+---
+
+## 🎯 Development Phases
+
+### Phase 1 (Week 1-3): Discovery & Design ✅
+- User interviews
+- Wireframes
+- Design system
+
+### Phase 2 (Week 4-7): MVP Build 🔄
+- Authentication
+- Meal logging + AI recognition
+- Workout tracking
+- Buddy challenges
+- Gamification basics
+
+### Phase 3 (Week 8-10): Closed Beta ⏳
+- 30-50 early users
+- Feedback collection
+- UX refinement
+
+### Phase 4 (Week 11-12): Soft Launch ⏳
+- Badges & rewards
+- App Store + Play Store
+- Marketing campaign
+
+---
+
+## 🔐 Authentication
+
+**Supported Sign-In Methods**:
+- ✅ Google sign-in
+- ✅ Apple sign-in (iOS)
+- ✅ Email & password
+- ⏳ WhatsApp (future)
+
+**Session Management**:
+- JWT tokens via Firebase
+- 24-hour expiry
+- Automatic refresh
+
+---
+
+## 📊 Core Endpoints
+
+### Meals
+- `POST /api/meals/log` — Log a meal with photo
+- `GET /api/meals/:userId` — Get meal history
+- `GET /api/meals/daily/:userId` — Daily summary
+
+### Workouts
+- `POST /api/workouts/log` — Log a workout
+- `GET /api/workouts/:userId` — Get workout history
+- `GET /api/users/:userId/streak` — Get current streak
+
+### Challenges
+- `POST /api/challenges/create` — Create buddy challenge
+- `GET /api/challenges/:userId` — Get active challenges
+- `PATCH /api/challenges/:challengeId/progress` — Update progress
+
+See [`API_DOCUMENTATION.md`](./API_DOCUMENTATION.md) for complete reference.
+
+---
+
+## 🎨 Design System
+
+### Color Palette
+- 🟢 **Primary**: #00FF00 (Neon Green) — Action, success
+- 🟠 **Secondary**: #FF6B00 (Neon Orange) — Emphasis
+- 🟣 **Accent**: #9D4EDD (Neon Purple) — Highlights
+- ⚫ **Background**: #0a0a0a (Dark Black)
+- ⚪ **Surface**: #1a1a1a (Dark Grey)
+
+### Typography
+- Headlines: Bold, 24-28px
+- Subheadings: SemiBold, 16-20px
+- Body: Regular, 12-14px
+
+---
+
+## 🎮 Gamification System
+
+### XP & Levels
+- 1 meal log = 10 XP
+- 1 workout = 50 XP
+- Challenge win = 100 XP bonus
+- Level up every 500 XP
+
+### Badges
+- 🎯 3-Day Warrior (3-day streak)
+- ⭐ Meal Master (50+ meals logged)
+- 👑 Gym Legend (20+ workouts)
+- 🚀 Challenge Champion (10 challenges completed)
+
+### Streaks
+- Daily workout streak
+- Weekly meal logging streak
+- Challenge streaks with buddies
+
+---
+
+## 🔄 API Workflow
+
+### Sign Up & Onboarding
+```
+1. User clicks "Sign Up"
+2. Firebase Authentication handles sign-in
+3. Create user profile in Firestore
+4. Set preferences (language, notifications)
+5. Show home screen
+```
+
+### Log a Meal
+```
+1. User taps "Snap" button
+2. Open camera (React Native camera API)
+3. Capture photo
+4. Send to AI recognition API
+5. Display recognized food + calories + macros
+6. Save to Firestore under user's meals collection
+7. Update daily totals
+```
+
+### Create Challenge
+```
+1. User selects buddy from contact list
+2. Choose challenge type (duration + name)
+3. API creates challenge doc in Firestore
+4. Send push notification to buddy
+5. Both see challenge on their Streak dashboard
+6. Log workouts to increase progress
+7. Winner determined on day completion
+8. XP awarded to participants
+```
+
+---
+
+## 🌐 Deployment
 
 ### Backend
+- **Platform**: Railway.app or Render
+- **Database**: Firebase Firestore (managed)
+- **Monitoring**: Sentry
 
-```bash
-cd server
-npm run build
-npm start
-```
+### Mobile
+- **iOS**: TestFlight → App Store
+- **Android**: Firebase App Distribution → Play Store
 
----
-
-## 🚢 Deployment
-
-### Automatic Deployment (GitHub Actions)
-
-Push to the `master` branch to automatically deploy:
-
-```bash
-git push origin master
-```
-
-### Manual Deployment
-
-```bash
-# Deploy frontend to GitHub Pages
-npm run deploy
-
-# Deploy backend (Heroku example)
-cd server
-heroku create
-git push heroku master
-```
-
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+### Web
+- **Platform**: Vercel or Netlify
+- **Auto-deploys**: On push to main branch
 
 ---
 
-## 🛠️ Available Scripts
+## 💰 Cost Estimate (Monthly for 10k DAU)
 
-### Frontend
+| Service | Cost |
+|---------|------|
+| Firebase Firestore + Storage | $50 |
+| Image Recognition API | $50 |
+| Backend Hosting | $5 |
+| **Total** | ~$105 |
 
+---
+
+## 🏃 Getting Started
+
+### 1. Read the Docs
+- [QUICKSTART.md](./QUICKSTART.md) — 5-minute setup
+- [SETUP.md](./SETUP.md) — Detailed guide
+- [ROADMAP_AND_TECH_DECISIONS.md](./ROADMAP_AND_TECH_DECISIONS.md) — Product strategy
+
+### 2. Set Up Environment
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run preview      # Preview production build
-npm run lint         # Run ESLint
-npm run deploy       # Deploy to GitHub Pages
+cp .env.example .env
+# Fill in Firebase credentials
 ```
 
-### Backend
-
+### 3. Start Development
 ```bash
-npm run server:dev   # Start backend dev server
-npm run server:build # Build backend
-npm run server:start # Start production server
+# Terminal 1: Backend
+node backend-starter.js
+
+# Terminal 2: Frontend
+npm run dev
+
+# Terminal 3: Mobile (optional)
+npm run mobile:web
 ```
+
+### 4. Build a Feature
+- Pick an endpoint from `API_DOCUMENTATION.md`
+- Implement in `backend-starter.js`
+- Test with `curl` or Postman
+- Add UI component in screen files
+
+---
+
+## 🐛 Troubleshooting
+
+**Backend won't start?**
+```bash
+lsof -ti:5000 | xargs kill -9  # Kill existing process
+node backend-starter.js
+```
+
+**Firebase auth failing?**
+1. Check `.env` has all credentials
+2. Verify auth methods enabled in Firebase Console
+3. Check Firestore rules
+
+**React Native issues?**
+```bash
+npm cache clean --force
+rm -rf node_modules
+npm install
+npm run mobile:web
+```
+
+See [SETUP.md](./SETUP.md#troubleshooting) for more.
+
+---
+
+## 📊 Success Metrics
+
+| Metric | Target |
+|--------|--------|
+| DAU | > 50% of registered users |
+| Meal logs | > 2 per day (average) |
+| Challenge participation | > 60% |
+| 7-day retention | > 40% |
+| AI accuracy | > 85% |
+| NPS | > 50 |
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our [Contributing Guide](./CONTRIBUTING.md) first.
-
-### Development Workflow
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+**Interested in helping build Rep Rumble?** Contact us:
+- GitHub Issues (coming soon)
+- Email: team@reprumble.com
 
 ---
 
-## 📝 API Endpoints
+## 📝 License
 
-### Authentication
-```
-POST   /api/auth/register    # Register new user
-POST   /api/auth/login       # Login user
-GET    /api/auth/me          # Get current user
-```
-
-### Meals
-```
-GET    /api/meals            # Get all user meals
-POST   /api/meals            # Create meal
-GET    /api/meals/:id        # Get single meal
-DELETE /api/meals/:id        # Delete meal
-```
-
-### Workouts
-```
-GET    /api/workouts         # Get all user workouts
-POST   /api/workouts         # Create workout
-GET    /api/workouts/:id     # Get single workout
-DELETE /api/workouts/:id     # Delete workout
-```
-
-### Leaderboard
-```
-GET    /api/leaderboard      # Get global leaderboard
-```
-
-See full [API Documentation](./server/API.md)
+Rep Rumble © 2025 - All Rights Reserved
 
 ---
 
-## 🎯 Roadmap
+## 🎯 Next Steps
 
-- [ ] Mobile app (React Native)
-- [ ] Social features (friend challenges)
-- [ ] Recipe suggestions based on goals
-- [ ] Integration with fitness trackers
-- [ ] Meal planning & grocery lists
-- [ ] Barcode scanning
-- [ ] Voice input for meal logging
-- [ ] Apple Health / Google Fit integration
-- [ ] Premium features & subscriptions
+1. ✅ Read [QUICKSTART.md](./QUICKSTART.md)
+2. ⏳ Set up Firebase project
+3. ⏳ Start backend + frontend
+4. ⏳ Implement first feature
+5. ⏳ Deploy MVP
 
----
-
-## 🐛 Known Issues
-
-See [GitHub Issues](https://github.com/yourusername/Rep-Rummble/issues) for current bugs and feature requests.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
----
-
-## 👏 Acknowledgments
-
-- Google Gemini AI for food recognition
-- Firebase for authentication
-- MongoDB Atlas for database hosting
-- Tailwind CSS for styling
-- Framer Motion for animations
-- All open-source contributors
-
----
-
-## 📧 Contact
-
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-- **Email**: your.email@example.com
-- **Twitter**: [@yourhandle](https://twitter.com/yourhandle)
-
----
-
-## 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/Rep-Rummble&type=Date)](https://star-history.com/#yourusername/Rep-Rummble&Date)
-
----
-
-**Built with ❤️ for fitness enthusiasts**
-
-[⬆ Back to Top](#-rep-rumble---ai-powered-fitness--nutrition-tracker)
+**Ready to build? Let's go! 🚀**
