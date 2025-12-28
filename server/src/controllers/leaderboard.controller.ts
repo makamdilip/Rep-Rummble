@@ -13,7 +13,7 @@ export const getLeaderboard = async (_req: AuthRequest, res: Response) => {
       .sort({ xp: -1 })
       .limit(100)
 
-    const leaderboard = users.map((user, index) => ({
+    const leaderboard = users.map((user: any, index: number) => ({
       rank: index + 1,
       userId: user._id,
       userName: user.displayName || user.email.split('@')[0],

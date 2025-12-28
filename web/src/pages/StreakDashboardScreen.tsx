@@ -1,138 +1,24 @@
-// Rep Rumble - Streak Dashboard Component
-// Buddy challenges, gamification, and streak tracking
+import React from 'react';
 
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Modal,
-  TextInput,
-  ScrollView,
-  Alert,
-} from 'react-native';
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  addDoc,
-  updateDoc,
-  doc,
-  getFirestore,
-} from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+// Mobile Streak Dashboard removed — website uses the simpler streak display in the Dashboard.
 
-const StreakDashboardScreen = () => {
-  const [streak, setStreak] = useState(0);
-  const [challenges, setChallenges] = useState([]);
-  const [buddies, setBuddies] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showNewChallenge, setShowNewChallenge] = useState(false);
-  const [selectedBuddy, setSelectedBuddy] = useState<string | null>(null);
-  const [challengeName, setChallengeName] = useState('');
-  const [challengeDays, setChallengeDays] = useState('3');
-  const auth = getAuth();
-  const db = getFirestore();
-  const currentUser = auth.currentUser;
+export default function StreakDashboardScreen() {
+  return (
+    <div style={{ padding: 24 }}>
+      <h2>Mobile Streak Dashboard removed</h2>
+      <p>Challenges and mobile-only streak features are not included in the website deliverable.</p>
+    </div>
+  );
+}
 
-  useEffect(() => {
-    if (currentUser) {
-      fetchStreakData();
-      fetchChallenges();
-    }
-  }, [currentUser]);
 
-  const fetchStreakData = async () => {
-    try {
-      const userDoc = await getDocs(
-        query(
-          collection(db, 'users'),
-          where('uid', '==', currentUser?.uid || '')
-        )
-      );
-      if (!userDoc.empty) {
-        setStreak(userDoc.docs[0].data().streak || 0);
-      }
-    } catch (error) {
-      console.error('Error fetching streak:', error);
-    }
-  };
 
-  const fetchChallenges = async () => {
-    try {
-      const snapshot = await getDocs(
-        query(
-          collection(db, 'challenges'),
-          where('status', '==', 'active')
-        )
-      );
-      const filteredChallenges = snapshot.docs
-        .map(doc => ({ id: doc.id, ...doc.data() }))
-        .filter(
-          (c: any) =>
-            c.creatorId === currentUser?.uid || c.buddyId === currentUser?.uid
-        );
-      setChallenges(filteredChallenges);
-    } catch (error) {
-      console.error('Error fetching challenges:', error);
-    }
-  };
 
-  const logWorkout = async () => {
-    try {
-      setLoading(true);
-      // Update streak
-      const userRef = doc(db, 'users', currentUser?.uid || '');
-      await updateDoc(userRef, {
-        streak: streak + 1,
-        lastWorkoutDate: new Date(),
-      });
-      setStreak(streak + 1);
-      Alert.alert('🔥 Awesome!', 'Workout logged! Streak increased.');
-    } catch (error) {
-      Alert.alert('❌ Error', 'Failed to log workout.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  const createChallenge = async () => {
-    if (!selectedBuddy || !challengeName || !challengeDays) {
-      Alert.alert('⚠️ Missing Info', 'Please fill all fields.');
-      return;
-    }
 
-    try {
-      setLoading(true);
-      await addDoc(collection(db, 'challenges'), {
-        creatorId: currentUser?.uid,
-        buddyId: selectedBuddy,
-        challengeName,
-        durationDays: parseInt(challengeDays),
-        status: 'active',
-        createdAt: new Date(),
-        creatorProgress: 0,
-        buddyProgress: 0,
-      });
 
-      Alert.alert(
-        '⚡ Challenge Created!',
-        `Challenge "${challengeName}" sent to buddy!`
-      );
-      setShowNewChallenge(false);
-      setChallengeName('');
-      setChallengeDays('3');
-      setSelectedBuddy(null);
-      fetchChallenges();
-    } catch (error) {
-      Alert.alert('❌ Error', 'Failed to create challenge.');
-    } finally {
-      setLoading(false);
-    }
-  };
+
+
 
   return (
     <ScrollView style={styles.container}>
