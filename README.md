@@ -23,21 +23,23 @@ See [`QUICKSTART.md`](./QUICKSTART.md) for detailed instructions.
 
 ### TL;DR
 ```bash
-# 1. Install dependencies
+# 1. Install dependencies (root will run frontend dev script in subfolder)
 npm install
 
 # 2. Create .env file with Firebase credentials
 cp .env.example .env
 
 # 3. Start backend (Terminal 1)
-node backend-starter.js
+npm run backend:dev
 
 # 4. Start frontend (Terminal 2)
 npm run dev
 
-# 5. Test mobile app (Terminal 3)
-npm run mobile:web
+# 5. Mobile: removed for this deliverable
+The mobile (Expo/React Native) app has been removed — this repository is focused on the website (`/web`) and the backend (`/server`).
 ```
+
+> Note: Legacy helper files and previous build output have been archived to `/legacy/`. The active frontend is in `/web/` and the server code is in `/server/`.
 
 ---
 
@@ -54,7 +56,7 @@ npm run mobile:web
 ## 🏗️ Architecture
 
 ### Tech Stack
-- **Mobile**: React Native (Expo) — iOS, Android, Web
+- **Mobile**: *Removed for this deliverable; use the Web dashboard in `/web`*
 - **Backend**: Node.js + Express — API server
 - **Database**: Firebase Firestore — Realtime, serverless
 - **Auth**: Firebase Authentication — Google, Apple, Email sign-in
@@ -65,15 +67,19 @@ npm run mobile:web
 ### Project Structure
 ```
 rep-rumble/
-├── backend-starter.js          # Express API server
-├── HomeScreen.tsx              # Home/Dashboard
-├── SnapMealScreen.tsx          # Meal logging
-├── StreakDashboardScreen.tsx   # Workout + challenges
-├── .env.example                # Configuration template
-├── QUICKSTART.md               # 5-min setup guide
-├── SETUP.md                    # Full setup instructions
-├── API_DOCUMENTATION.md        # API reference
-└── ROADMAP_AND_TECH_DECISIONS.md  # Product roadmap
+├── web/                        # Web frontend (Vite + React)
+│   └── src/
+│       ├── App.tsx
+│       ├── main.tsx
+│       ├── pages/
+│       └── components/
+├── backend/                    # API server (Express + Firebase Admin)
+│   └── server/
+│       └── src/
+│           └── server.ts
+├── .env.example                # Configuration template (see below)
+├── package.json                # Root scripts (run frontend/backend from project root)
+└── README.md                   # This single project README (updated for client-ready structure)
 ```
 
 ---
@@ -136,7 +142,7 @@ rep-rumble/
 - `GET /api/challenges/:userId` — Get active challenges
 - `PATCH /api/challenges/:challengeId/progress` — Update progress
 
-See [`API_DOCUMENTATION.md`](./API_DOCUMENTATION.md) for complete reference.
+API details are in the `backend/server/src` routes and controllers in code — `API_DOCUMENTATION.md` will be added on request.
 
 ---
 
@@ -220,7 +226,9 @@ See [`API_DOCUMENTATION.md`](./API_DOCUMENTATION.md) for complete reference.
 - **Database**: Firebase Firestore (managed)
 - **Monitoring**: Sentry
 
-### Mobile
+### Mobile (removed)
+This project no longer contains the mobile app. The website and backend are the canonical deliverables for this repo.
+
 - **iOS**: TestFlight → App Store
 - **Android**: Firebase App Distribution → Play Store
 
@@ -257,20 +265,20 @@ cp .env.example .env
 ### 3. Start Development
 ```bash
 # Terminal 1: Backend
-node backend-starter.js
+npm run backend:dev   # runs server from backend/server
 
 # Terminal 2: Frontend
-npm run dev
+npm run dev           # runs frontend from web/
 
 # Terminal 3: Mobile (optional)
 npm run mobile:web
 ```
 
 ### 4. Build a Feature
-- Pick an endpoint from `API_DOCUMENTATION.md`
-- Implement in `backend-starter.js`
+- Pick an endpoint from the backend code under `backend/server/src/routes` and `backend/server/src/controllers`
+- Implement the endpoint in the server code
 - Test with `curl` or Postman
-- Add UI component in screen files
+- Add the corresponding UI component under `web/src` for the frontend
 
 ---
 

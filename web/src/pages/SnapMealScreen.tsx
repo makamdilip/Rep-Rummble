@@ -1,30 +1,15 @@
-// Rep Rumble - Snap Meal Screen Component
-// Photo capture → AI recognition → Log meal
+import React from 'react';
 
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-  Image,
-  Alert,
-  ScrollView,
-} from 'react-native';
-import { collection, addDoc, getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+// Mobile Snap page removed — web app does not include camera-based image recognition.
 
-const SnapMealScreen = () => {
-  const [imageUri, setImageUri] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [recognizedFood, setRecognizedFood] = useState<string | null>(null);
-  const [calories, setCalories] = useState<number | null>(null);
-  const [macros, setMacros] = useState({ protein: 0, carbs: 0, fat: 0 });
-  const auth = getAuth();
-  const db = getFirestore();
-  const currentUser = auth.currentUser;
-
+export default function SnapMealScreen() {
+  return (
+    <div style={{ padding: 24 }}>
+      <h2>Mobile Snap Meal removed</h2>
+      <p>Camera snapshot and AI recognition are not included in the website. Use manual logging instead.</p>
+    </div>
+  );
+}
   // Mock AI food recognition (replace with real API call)
   const recognizeFood = async (imageUri: string) => {
     setLoading(true);
