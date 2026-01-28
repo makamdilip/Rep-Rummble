@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/components/hometab.tsx","./src/components/leaderboardtab.tsx","./src/components/snaptab.tsx","./src/components/streaktab.tsx","./src/context/authcontext.tsx","./src/pages/dashboard.tsx"],"version":"5.9.3"}
+{"root":["./src/app.tsx","./src/main.tsx"],"version":"5.9.3"}

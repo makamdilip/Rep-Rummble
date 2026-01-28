@@ -193,7 +193,7 @@ WorkoutPlanSchema.index({ userId: 1, isActive: 1 })
 WorkoutPlanSchema.index({ goal: 1, fitnessLevel: 1 })
 
 // Calculate total workouts before saving
-WorkoutPlanSchema.pre('save', function(next) {
+WorkoutPlanSchema.pre('save', function(next: any) {
   if (this.schedule) {
     const workoutDays = this.schedule.filter(day => !day.isRestDay).length
     this.totalWorkouts = workoutDays * this.durationWeeks

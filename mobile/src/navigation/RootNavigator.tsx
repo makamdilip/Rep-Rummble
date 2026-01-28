@@ -12,6 +12,7 @@ import RegisterScreen from '../screens/auth/RegisterScreen';
 import MainTabNavigator from './MainTabNavigator';
 import FoodScannerScreen from '../screens/FoodScannerScreen';
 import FoodResultsScreen from '../screens/FoodResultsScreen';
+import FoodSearchScreen from '../screens/FoodSearchScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -47,6 +48,14 @@ export default function RootNavigator() {
           <Stack.Screen
             name="FoodResults"
             component={FoodResultsScreen}
+            options={{
+              presentation: 'card',
+              animation: 'slide_from_right',
+            }}
+          />
+          <Stack.Screen
+            name="FoodSearch"
+            component={FoodSearchScreen}
             options={{
               presentation: 'card',
               animation: 'slide_from_right',

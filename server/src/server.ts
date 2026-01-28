@@ -6,7 +6,7 @@ import compression from 'compression'
 import dotenv from 'dotenv'
 import path from 'path'
 import fs from 'fs'
-import { connectDB } from './config/database'
+import { connectDB, isDBConnected } from './config/database'
 import { errorHandler } from './middleware/errorHandler'
 
 // Import routes
@@ -18,6 +18,9 @@ import leaderboardRoutes from './routes/leaderboard.routes'
 import aiRoutes from './routes/ai.routes'
 import exerciseRoutes from './routes/exercise.routes'
 import workoutPlanRoutes from './routes/workoutPlan.routes'
+import leadRoutes from './routes/lead.routes'
+import reportRoutes from './routes/report.routes'
+import contactRoutes from './routes/contact.routes'
 
 // Load environment variables
 dotenv.config()
@@ -67,6 +70,9 @@ app.use('/api/leaderboard', leaderboardRoutes)
 app.use('/api/ai', aiRoutes)
 app.use('/api/exercises', exerciseRoutes)
 app.use('/api/workout-plans', workoutPlanRoutes)
+app.use('/api/leads', leadRoutes)
+app.use('/api/reports', reportRoutes)
+app.use('/api/contact', contactRoutes)
 
 // 404 handler
 app.use((_req: Request, res: Response) => {
@@ -84,6 +90,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`)
   console.log(`📝 Environment: ${process.env.NODE_ENV}`)
   console.log(`🔗 API URL: http://localhost:${PORT}/api`)
+  console.log(`📊 MongoDB: ${isDBConnected() ? '✅ Connected' : '⚠️  Using mock data mode'}`)
 })
 
 export default app

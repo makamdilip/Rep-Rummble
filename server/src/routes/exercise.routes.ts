@@ -4,13 +4,6 @@ import {
   getExercise,
   generateExercise,
   seedDefaultExercises,
-  getWorkoutPlans,
-  getWorkoutPlan,
-  generateWorkoutPlanController,
-  deleteWorkoutPlan,
-  startWorkoutSession,
-  updateWorkoutSession,
-  getWorkoutSessions,
   analyzeExerciseForm,
   getFormFeedback
 } from '../controllers/exercise.controller'

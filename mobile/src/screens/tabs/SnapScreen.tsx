@@ -45,6 +45,21 @@ export default function SnapScreen() {
           </TouchableOpacity>
         </View>
 
+        <View style={styles.secondaryAction}>
+          <TouchableOpacity
+            style={styles.searchButton}
+            onPress={() => navigation.navigate('FoodSearch')}
+          >
+            <Ionicons name="search" size={22} color="#0a0f14" />
+            <View style={styles.searchText}>
+              <Text style={styles.searchTitle}>Search Food Database</Text>
+              <Text style={styles.searchSubtitle}>
+                Log meals by quantity with USDA nutrition
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
         {/* Features */}
         <View style={styles.features}>
           <View style={styles.featureItem}>
@@ -129,6 +144,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 20,
+  },
+  secondaryAction: {
+    paddingHorizontal: 12,
+    marginBottom: 24,
+  },
+  searchButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#22c55e',
+    borderRadius: 16,
+    padding: 16,
+    gap: 12,
+  },
+  searchText: {
+    flex: 1,
+  },
+  searchTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#0a0f14',
+  },
+  searchSubtitle: {
+    fontSize: 12,
+    color: '#0a0f14',
+    marginTop: 4,
   },
   scanButton: {
     width: 220,

@@ -1,105 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Dashboard from './pages/Dashboard';
-import { AuthProvider } from './context/AuthContext';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import Services from './pages/Services';
+import Analytics from './pages/Analytics';
+import Reports from './pages/Reports';
+import Wearables from './pages/Wearables';
+import Plans from './pages/Plans';
+import Profile from './pages/Profile';
+import Referral from './pages/Referral';
+import Payment from './pages/Payment';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import FAQ from './pages/FAQ';
+import Contact from './pages/Contact';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import Support from './pages/Support';
+import NotFound from './pages/NotFound';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem('rep_rumble_user');
-    if (savedUser) {
-      setIsLoggedIn(true);
-      setUserEmail(JSON.parse(savedUser).email);
-    }
-    setLoading(false);
-  }, []);
-
-  const handleLogin = (email: string) => {
-    const userData = {
-      uid: Math.random().toString(36).substr(2, 9),
-      email,
-      displayName: email.split('@')[0],
-      createdAt: new Date().toISOString(),
-      streak: 0,
-      totalXP: 0,
-    };
-    localStorage.setItem('rep_rumble_user', JSON.stringify(userData));
-    setUserEmail(email);
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('rep_rumble_user');
-    localStorage.removeItem('rep_rumble_meals');
-    localStorage.removeItem('rep_rumble_workouts');
-    localStorage.removeItem('rep_rumble_challenges');
-    setIsLoggedIn(false);
-    setUserEmail('');
-  };
-
-  if (loading) {
-    return <div className="loading">Loading Rep Rumble...</div>;
-  }
-
-  if (!isLoggedIn) {
-    return <LoginScreen onLogin={handleLogin} />;
-  }
-
   return (
-    <AuthProvider>
-      <div className="app">
-        <Dashboard userEmail={userEmail} onLogout={handleLogout} />
-      </div>
-    </AuthProvider>
-  );
-}
-
-function LoginScreen({ onLogin }: { onLogin: (email: string) => void }) {
-  const [email, setEmail] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      onLogin(email);
-    }
-  };
-
-  const demoLogin = () => {
-    onLogin('demo@reprumble.com');
-  };
-
-  return (
-    <div className="login-container">
-      <div className="login-card">
-        <h1 className="app-title">🔥 Rep Rumble</h1>
-        <p className="tagline">Track meals. Crush reps. Win with friends.</p>
-        
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="input-field"
-          />
-          <button type="submit" className="btn-primary">
-            Sign In
-          </button>
-        </form>
-
-        <div className="divider">OR</div>
-
-        <button className="btn-demo" onClick={demoLogin}>
-          🎯 Try Demo (No Setup Needed!)
-        </button>
-
-        <p className="login-note">✅ Demo data included - works immediately</p>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="services" element={<Services />} />
+          <Route path="analytics" element={<Analytics />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="wearables" element={<Wearables />} />
+          <Route path="plans" element={<Plans />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="referral" element={<Referral />} />
+          <Route path="payment" element={<Payment />} />
+          <Route path="faq" element={<FAQ />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="signin" element={<SignIn />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="terms" element={<Terms />} />
+          <Route path="support" element={<Support />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

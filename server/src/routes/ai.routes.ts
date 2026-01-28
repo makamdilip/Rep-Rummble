@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { analyzeFood, quickLogMeal, getNutritionInfo } from '../controllers/ai.controller'
+import { analyzeFood, quickLogMeal, getNutritionInfo, searchNutrition } from '../controllers/ai.controller'
 import { protect } from '../middleware/auth.middleware'
 
 const router = Router()
@@ -12,6 +12,9 @@ router.post('/analyze-food', analyzeFood)
 
 // POST /api/ai/quick-log - Quick log meal from text
 router.post('/quick-log', quickLogMeal)
+
+// GET /api/ai/nutrition - Search nutrition database
+router.get('/nutrition', searchNutrition)
 
 // GET /api/ai/nutrition/:foodName - Get nutrition info
 router.get('/nutrition/:foodName', getNutritionInfo)

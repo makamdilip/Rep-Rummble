@@ -57,12 +57,12 @@ export const getExercise = async (req: Request, res: Response) => {
       })
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: exercise
     })
   } catch (error: any) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message || 'Failed to fetch exercise'
     })
@@ -96,12 +96,12 @@ export const generateExercise = async (req: Request, res: Response) => {
     const exercise = new Exercise(exerciseData)
     await exercise.save()
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       data: exercise
     })
   } catch (error: any) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message || 'Failed to generate exercise'
     })
@@ -178,12 +178,12 @@ export const getWorkoutPlan = async (req: Request, res: Response) => {
       })
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: plan
     })
   } catch (error: any) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message || 'Failed to fetch workout plan'
     })
@@ -229,12 +229,12 @@ export const generateWorkoutPlanController = async (req: Request, res: Response)
       injuries
     })
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       data: plan
     })
   } catch (error: any) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message || 'Failed to generate workout plan'
     })
@@ -261,12 +261,12 @@ export const deleteWorkoutPlan = async (req: Request, res: Response) => {
       })
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: 'Workout plan deleted'
     })
   } catch (error: any) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message || 'Failed to delete workout plan'
     })
@@ -349,12 +349,12 @@ export const updateWorkoutSession = async (req: Request, res: Response) => {
 
     await session.save()
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: session
     })
   } catch (error: any) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message || 'Failed to update workout session'
     })
@@ -410,12 +410,12 @@ export const analyzeExerciseForm = async (req: Request, res: Response) => {
 
     const analysis = analyzeForm(exerciseSlug, keypoints, phase || 'middle')
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: analysis
     })
   } catch (error: any) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message || 'Failed to analyze form'
     })
@@ -440,12 +440,12 @@ export const getFormFeedback = async (req: Request, res: Response) => {
 
     const feedback = generateFormFeedback(analyses)
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: feedback
     })
   } catch (error: any) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message || 'Failed to generate feedback'
     })

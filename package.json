@@ -1,44 +1,67 @@
 {
-  "name": "rep-rumble",
-  "private": true,
+  "name": "@rep-rumble/monorepo",
   "version": "1.0.0",
-  "description": "Rep Rumble - Client-ready fitness & nutrition web app (frontend in /web, backend in /server)",
+  "description": "Rep Rumble - Fitness + Nutrition App for Gen Z/Alpha (MERN Stack)",
+  "private": true,
   "type": "module",
+  "keywords": [
+    "fitness",
+    "nutrition",
+    "meal-tracking",
+    "workout",
+    "gamification",
+    "mern",
+    "react",
+    "react-native",
+    "mobile",
+    "web"
+  ],
+  "author": "Dilip Makam",
+  "license": "MIT",
+  "workspaces": [
+    "server",
+    "web",
+    "mobile"
+  ],
   "scripts": {
-    "dev": "cd web && npm run dev",
-    "build": "cd web && npm run build",
-    "build:all": "cd web && npm run build && cd .. && cd server && npm run build",
-    "start:prod": "cd server && npm run start",
-    "lint": "eslint .",
-    "preview": "cd web && npm run preview",
-    "backend:dev": "cd server && npm run dev",
-    "backend:build": "cd server && npm run build",
-    "backend:start": "cd server && npm run start",
-    "mobile:start": "cd mobile && npm run start",
-    "mobile:android": "cd mobile && npm run android",
-    "mobile:ios": "cd mobile && npm run ios",
-    "setup": "npm install && cd server && npm install && cd ../web && npm install",
-    "setup:all": "npm install && cd server && npm install && cd ../web && npm install && cd ../mobile && npm install"
-  },
-  "license": "UNLICENSED",
-  "dependencies": {
-    "axios": "^1.7.7",
-    "firebase": "^11.0.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "dev": "npm run dev -w server & npm run dev -w web & npm run dev -w mobile",
+    "dev:backend": "npm run dev -w server",
+    "dev:web": "npm run dev -w web",
+    "dev:mobile": "npm run dev -w mobile",
+    "build": "npm run build -w server && npm run build -w web && npm run build -w mobile",
+    "build:server": "npm run build -w server",
+    "build:web": "npm run build -w web",
+    "build:mobile": "npm run build -w mobile",
+    "preview": "npm run preview -w web",
+    "lint": "eslint . --ext .ts,.tsx,.js",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,json,css,md}\"",
+    "type-check": "tsc --noEmit",
+    "setup": "npm install && npm install -w server && npm install -w web && npm install -w mobile",
+    "test": "npm run test -w server && npm run test -w web",
+    "clean": "npm run clean -w server && npm run clean -w web && npm run clean -w mobile && rm -rf node_modules",
+    "backend:start": "npm start -w server",
+    "mobile:android": "npm run android -w mobile",
+    "mobile:ios": "npm run ios -w mobile"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@types/node": "^24.10.1",
-    "@types/react": "^19.2.5",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.1",
-    "eslint": "^9.39.1",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.24",
-    "globals": "^16.5.0",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "^8.46.4",
-    "vite": "^7.2.4"
-  }
+    "@eslint/js": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/makamdilip/Rep-Rummble.git"
+  },
+  "bugs": {
+    "url": "https://github.com/makamdilip/Rep-Rummble/issues"
+  },
+  "homepage": "https://github.com/makamdilip/Rep-Rummble#readme"
 }

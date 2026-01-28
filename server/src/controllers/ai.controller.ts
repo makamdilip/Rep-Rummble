@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { analyzeFoodImage } from '../services/ai.service'
+import { searchFoods } from '../services/usda.service'
 
 /**
  * @route   POST /api/ai/analyze-food
@@ -38,7 +39,7 @@ export const analyzeFood = async (req: Request, res: Response) => {
     // Analyze the food image
     const analysisResult = await analyzeFoodImage(imageBase64, mealType)
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: analysisResult
     })
@@ -60,7 +61,7 @@ export const analyzeFood = async (req: Request, res: Response) => {
       })
     }
 
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message || 'Failed to analyze food image'
     })
@@ -85,7 +86,7 @@ export const quickLogMeal = async (req: Request, res: Response) => {
 
     // For now, return a simple response
     // This can be enhanced with AI text-based food recognition
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: 'Quick log feature coming soon',
       data: {
@@ -95,7 +96,7 @@ export const quickLogMeal = async (req: Request, res: Response) => {
     })
   } catch (error: any) {
     console.error('Quick log error:', error)
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message || 'Failed to process quick log'
     })
@@ -118,20 +119,67 @@ export const getNutritionInfo = async (req: Request, res: Response) => {
       })
     }
 
-    // Placeholder - integrate with Nutritionix or local database
-    res.status(200).json({
+    const results = await searchFoods(foodName)
+
+    return res.status(200).json({
       success: true,
-      message: 'Nutrition lookup feature coming soon',
       data: {
-        foodName,
-        // Will return detailed nutrition data
+        query: foodName,
+        results
       }
     })
   } catch (error: any) {
     console.error('Nutrition lookup error:', error)
-    res.status(500).json({
+    if (error.message?.includes('USDA_API_KEY')) {
+      return res.status(503).json({
+        success: false,
+        message: 'Nutrition service unavailable. USDA API key not configured.'
+      })
+    }
+    return res.status(500).json({
       success: false,
       message: error.message || 'Failed to get nutrition info'
+    })
+  }
+}
+
+/**
+ * @route   GET /api/ai/nutrition
+ * @desc    Search nutrition database with query param
+ * @access  Private
+ */
+export const searchNutrition = async (req: Request, res: Response) => {
+  try {
+    const query = String(req.query.query || '').trim()
+    const limit = Number(req.query.limit || 12)
+
+    if (!query) {
+      return res.status(400).json({
+        success: false,
+        message: 'Query is required'
+      })
+    }
+
+    const results = await searchFoods(query, Number.isFinite(limit) ? limit : 12)
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        query,
+        results
+      }
+    })
+  } catch (error: any) {
+    console.error('Nutrition search error:', error)
+    if (error.message?.includes('USDA_API_KEY')) {
+      return res.status(503).json({
+        success: false,
+        message: 'Nutrition service unavailable. USDA API key not configured.'
+      })
+    }
+    return res.status(500).json({
+      success: false,
+      message: error.message || 'Failed to search nutrition info'
     })
   }
 }
