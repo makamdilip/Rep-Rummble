@@ -17,11 +17,8 @@ jobs:
         with:
           node-version: '20'
       
-      - name: Clean install dependencies
-        run: |
-          cd web
-          rm -rf node_modules
-          npm install
+      - name: Install dependencies
+        run: cd web && npm ci
       
       - name: Build
         run: cd web && npm run build
