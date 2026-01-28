@@ -17,17 +17,14 @@ jobs:
         with:
           node-version: '20'
       
-      - name: Setup Yarn
-        run: npm install -g yarn
-      
       - name: Clean install dependencies
         run: |
           cd web
-          rm -rf node_modules yarn.lock
-          yarn install
+          rm -rf node_modules
+          npm install
       
       - name: Build
-        run: cd web && yarn build
+        run: cd web && npm run build
       
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
