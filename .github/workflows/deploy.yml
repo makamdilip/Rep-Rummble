@@ -17,11 +17,17 @@ jobs:
         with:
           node-version: '20'
       
+      - name: Clean dependencies
+        run: rm -rf node_modules package-lock.json
+        working-directory: ./web
+      
       - name: Install dependencies
-        run: npm install -w web
+        run: npm install
+        working-directory: ./web
       
       - name: Build
-        run: npm run build -w web
+        run: npm run build
+        working-directory: ./web
       
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
