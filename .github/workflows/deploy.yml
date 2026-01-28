@@ -17,17 +17,15 @@ jobs:
         with:
           node-version: '20'
       
-      - name: Clean dependencies
-        run: rm -rf node_modules package-lock.json
-        working-directory: ./web
+      - name: Clean up previous installs
+        run: |
+          rm -rf web/node_modules web/package-lock.json
       
       - name: Install dependencies
-        run: npm install
-        working-directory: ./web
+        run: cd web && npm install
       
       - name: Build
-        run: npm run build
-        working-directory: ./web
+        run: cd web && npm run build
       
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
