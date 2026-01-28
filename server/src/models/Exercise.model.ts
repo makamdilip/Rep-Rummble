@@ -184,7 +184,7 @@ ExerciseSchema.index({ muscleGroups: 1 })
 ExerciseSchema.index({ name: 'text', description: 'text' })
 
 // Generate slug before saving
-ExerciseSchema.pre('save', function(next) {
+ExerciseSchema.pre('save', function(next: any) {
   if (this.isModified('name')) {
     this.slug = this.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
   }

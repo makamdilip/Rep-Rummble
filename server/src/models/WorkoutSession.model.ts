@@ -215,7 +215,7 @@ WorkoutSessionSchema.index({ userId: 1, startTime: -1 })
 WorkoutSessionSchema.index({ userId: 1, status: 1 })
 
 // Calculate metrics before saving
-WorkoutSessionSchema.pre('save', function(next) {
+WorkoutSessionSchema.pre('save', function(next: any) {
   if (this.exercises && this.exercises.length > 0) {
     // Calculate totals
     this.totalReps = this.exercises.reduce((sum, ex) => sum + ex.completedReps, 0)

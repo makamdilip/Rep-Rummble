@@ -1,5 +1,5 @@
 import api from '../config/api';
-import { FoodAnalysisResponse, Meal } from '../types';
+import { FoodAnalysisResponse, Meal, NutritionSearchItem } from '../types';
 
 /**
  * Analyze food image using AI
@@ -66,6 +66,17 @@ export const getTodaysSummary = async () => {
   };
 };
 
+/**
+ * Search nutrition database (USDA) via backend
+ */
+export const searchNutrition = async (query: string, limit = 12): Promise<NutritionSearchItem[]> => {
+  const response = await api.get('/ai/nutrition', {
+    params: { query, limit },
+  });
+
+  return response.data.data?.results || [];
+};
+
 export default {
   analyzeFoodImage,
   saveMeal,
@@ -73,4 +84,5 @@ export default {
   getMealById,
   deleteMeal,
   getTodaysSummary,
+  searchNutrition,
 };

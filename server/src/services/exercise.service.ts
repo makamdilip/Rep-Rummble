@@ -3,9 +3,14 @@ import { Exercise, IExercise } from '../models/Exercise.model'
 import { WorkoutPlan, IWorkoutPlan, IWorkoutDay } from '../models/WorkoutPlan.model'
 import mongoose from 'mongoose'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-})
+let openai: OpenAI | null = null
+if (process.env.OPENAI_API_KEY) {
+  openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+  })
+} else {
+  console.warn('⚠️  WARNING: OPENAI_API_KEY is not set. AI features will be disabled.')
+}
 
 // Types
 export interface GenerateExerciseParams {
@@ -207,6 +212,11 @@ const EXERCISE_POSE_DATA: Record<string, any> = {
  */
 export async function generateExerciseWithAI(params: GenerateExerciseParams): Promise<Partial<IExercise>> {
   try {
+    // Use fallback if no OpenAI API key
+    if (!openai) {
+      return getMockExerciseData(params)
+    }
+
     const response = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: [
@@ -275,7 +285,51 @@ Respond only with valid JSON.`
     }
   } catch (error: any) {
     console.error('AI Exercise Generation Error:', error)
-    throw new Error(`Failed to generate exercise: ${error.message}`)
+    // Return fallback data on error
+    return getMockExerciseData(params)
+  }
+}
+
+function getMockExerciseData(params: GenerateExerciseParams): Partial<IExercise> {
+  const slug = params.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+  return {
+    name: params.name,
+    slug,
+    category: params.category as any,
+    difficulty: params.difficulty as any,
+    muscleGroups: params.muscleGroups,
+    equipment: params.equipment || ['bodyweight'],
+    description: `${params.name} is a ${params.difficulty} difficulty exercise targeting ${params.muscleGroups.join(', ')}. This is mock data generated without AI.`,
+    instructions: [
+      'Step 1: Start in proper position',
+      'Step 2: Execute the movement with control',
+      'Step 3: Return to starting position'
+    ],
+    commonMistakes: [
+      'Rushing the movement',
+      'Poor form or posture',
+      'Not using full range of motion'
+    ],
+    breathingPattern: 'Exhale during effort, inhale during return',
+    safetyTips: [
+      'Warm up before exercise',
+      'Maintain proper form throughout',
+      'Stop if you feel pain'
+    ],
+    benefits: [
+      'Builds strength',
+      'Improves muscle endurance',
+      'Increases caloric burn'
+    ],
+    modifications: {
+      easier: 'Reduce the difficulty or range of motion',
+      harder: 'Increase resistance or volume'
+    },
+    caloriesPerMinute: 5,
+    defaultSets: 3,
+    defaultReps: 12,
+    restBetweenSets: 60,
+    isAIGenerated: false
   }
 }
 
@@ -293,6 +347,11 @@ export async function generateWorkoutPlan(params: GenerateWorkoutPlanParams): Pr
       muscles: e.muscleGroups,
       difficulty: e.difficulty
     }))
+
+    // Use fallback if no OpenAI API key
+    if (!openai) {
+      return getMockWorkoutPlan(params, exercises)
+    }
 
     const response = await openai.chat.completions.create({
       model: 'gpt-4o',
@@ -405,8 +464,55 @@ Respond only with valid JSON.`
     return workoutPlan
   } catch (error: any) {
     console.error('AI Workout Plan Generation Error:', error)
-    throw new Error(`Failed to generate workout plan: ${error.message}`)
+    // Return fallback data on error
+    return getMockWorkoutPlan(params, await Exercise.find({ isActive: true }).select('name _id'))
   }
+}
+
+function getMockWorkoutPlan(params: GenerateWorkoutPlanParams, exercises: any[]): IWorkoutPlan {
+  const schedule: IWorkoutDay[] = []
+  
+  // Create mock schedule based on days per week
+  for (let day = 1; day <= params.daysPerWeek; day++) {
+    const dayNames = ['Leg Day', 'Upper Body', 'Full Body', 'Push Day', 'Pull Day', 'Cardio', 'Rest Day']
+    schedule.push({
+      day,
+      name: dayNames[day - 1] || `Day ${day}`,
+      focus: 'Mixed focus',
+      exercises: day === params.daysPerWeek ? [] : [
+        {
+          exerciseName: exercises[Math.floor(Math.random() * exercises.length)]?.name || 'Push-ups',
+          sets: 3,
+          reps: 10,
+          restSeconds: 60,
+          notes: 'Standard form',
+          order: 1,
+          exerciseId: exercises[0]?._id || null
+        }
+      ],
+      estimatedDuration: day === params.daysPerWeek ? 0 : params.minutesPerWorkout,
+      estimatedCalories: day === params.daysPerWeek ? 0 : params.minutesPerWorkout * 5,
+      isRestDay: day === params.daysPerWeek
+    })
+  }
+
+  const workoutPlan = new WorkoutPlan({
+    userId: new mongoose.Types.ObjectId(params.userId),
+    name: `${params.goal} - ${params.fitnessLevel} Plan (Mock)`,
+    description: `A mock ${params.durationWeeks}-week workout plan. Configure OPENAI_API_KEY for personalized AI plans.`,
+    goal: params.goal,
+    fitnessLevel: params.fitnessLevel,
+    durationWeeks: params.durationWeeks,
+    daysPerWeek: params.daysPerWeek,
+    minutesPerWorkout: params.minutesPerWorkout,
+    availableEquipment: params.availableEquipment,
+    schedule,
+    progressions: [],
+    isAIGenerated: false,
+    aiPrompt: JSON.stringify(params)
+  })
+
+  return workoutPlan
 }
 
 /**

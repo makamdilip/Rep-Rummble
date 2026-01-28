@@ -61,6 +61,22 @@ export interface NutritionData {
   micronutrients?: Micronutrients;
 }
 
+export interface NutritionSearchItem {
+  fdcId: number;
+  name: string;
+  brand?: string | null;
+  dataType?: string;
+  nutrientsPer100g: {
+    calories: number;
+    protein: number;
+    carbs: number;
+    fat: number;
+    fiber?: number;
+    sugar?: number;
+    sodium?: number;
+  };
+}
+
 export interface FoodAlternative {
   name: string;
   calories: number;
@@ -139,6 +155,7 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   FoodScanner: undefined;
+  FoodSearch: undefined;
   FoodResults: {
     analysisResult: FoodAnalysisResponse['data'];
     imageUri: string;

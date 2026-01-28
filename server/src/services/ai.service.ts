@@ -1,10 +1,16 @@
 import OpenAI from 'openai'
 import axios from 'axios'
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-})
+// Initialize OpenAI client (optional for development)
+let openai: OpenAI | null = null
+
+if (process.env.OPENAI_API_KEY) {
+  openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+  })
+} else {
+  console.warn('⚠️  WARNING: OPENAI_API_KEY is not set. AI features will be disabled.')
+}
 
 // Nutritionix API configuration
 const NUTRITIONIX_APP_ID = process.env.NUTRITIONIX_APP_ID
@@ -101,6 +107,11 @@ export async function analyzeFoodImage(
   mealType?: 'breakfast' | 'lunch' | 'dinner' | 'snack'
 ): Promise<FoodAnalysisResult> {
   try {
+    // Check if OpenAI is available
+    if (!openai) {
+      return getMockFoodAnalysis()
+    }
+
     // Call GPT-4 Vision API
     const response = await openai.chat.completions.create({
       model: 'gpt-4o',
@@ -423,6 +434,50 @@ function getFallbackAnalysis(mealType?: string): FoodAnalysisResult {
     ],
     confidence: 0.75,
     mealType: (mealType as any) || detectMealType()
+  }
+}
+
+/**
+ * Mock food analysis for development when OpenAI API key is not available
+ */
+function getMockFoodAnalysis(): FoodAnalysisResult {
+  const mockFoods: DetectedFood[] = [
+    {
+      name: 'Sample Food Item',
+      confidence: 0.8,
+      portion: 'medium',
+      estimatedCalories: 350,
+      estimatedProtein: 15,
+      estimatedCarbs: 45,
+      estimatedFat: 12
+    }
+  ]
+
+  return {
+    detectedFoods: mockFoods,
+    totalNutrition: {
+      calories: 350,
+      protein: 15,
+      carbs: 45,
+      fat: 12,
+      fiber: 4,
+      sugar: 8,
+      sodium: 500
+    },
+    healthScore: 70,
+    suggestions: [
+      'This is mock data. Configure OPENAI_API_KEY for real AI analysis.',
+      'Set OPENAI_API_KEY environment variable to enable meal recognition'
+    ],
+    alternatives: [
+      {
+        name: 'Grilled chicken with vegetables',
+        calories: 280,
+        reason: 'Lower calories with more nutrients'
+      }
+    ],
+    confidence: 0.5,
+    mealType: 'lunch'
   }
 }
 
