@@ -17,12 +17,11 @@ jobs:
         with:
           node-version: '20'
       
-      - name: Clean up previous installs
+      - name: Clean install dependencies
         run: |
-          rm -rf web/node_modules web/package-lock.json
-      
-      - name: Install dependencies
-        run: cd web && npm install
+          cd web
+          rm -rf node_modules package-lock.json
+          npm install
       
       - name: Build
         run: cd web && npm run build
