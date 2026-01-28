@@ -4,6 +4,8 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import compression from 'compression'
 import dotenv from 'dotenv'
+import path from 'path'
+import fs from 'fs'
 import { connectDB } from './config/database'
 import { errorHandler } from './middleware/errorHandler'
 
@@ -13,6 +15,9 @@ import userRoutes from './routes/user.routes'
 import mealRoutes from './routes/meal.routes'
 import workoutRoutes from './routes/workout.routes'
 import leaderboardRoutes from './routes/leaderboard.routes'
+import aiRoutes from './routes/ai.routes'
+import exerciseRoutes from './routes/exercise.routes'
+import workoutPlanRoutes from './routes/workoutPlan.routes'
 
 // Load environment variables
 dotenv.config()
@@ -32,8 +37,8 @@ app.use(cors({
 }))
 app.use(compression()) // Compress responses
 app.use(morgan('dev')) // Logging
-app.use(express.json()) // Parse JSON bodies
-app.use(express.urlencoded({ extended: true })) // Parse URL-encoded bodies
+app.use(express.json({ limit: '50mb' })) // Parse JSON bodies (increased for image uploads)
+app.use(express.urlencoded({ extended: true, limit: '50mb' })) // Parse URL-encoded bodies
 
 // Health check endpoint
 app.get("/api/health", (_req: Request, res: Response) => {
@@ -44,12 +49,24 @@ app.get("/api/health", (_req: Request, res: Response) => {
   });
 });
 
+// Serve frontend static files if present
+const clientBuildPath = path.join(__dirname, '..', '..', 'web', 'dist')
+if (fs.existsSync(clientBuildPath)) {
+  app.use(express.static(clientBuildPath))
+  app.get('*', (_req: Request, res: Response) => {
+    res.sendFile(path.join(clientBuildPath, 'index.html'))
+  })
+}
+
 // API Routes
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/meals', mealRoutes)
 app.use('/api/workouts', workoutRoutes)
 app.use('/api/leaderboard', leaderboardRoutes)
+app.use('/api/ai', aiRoutes)
+app.use('/api/exercises', exerciseRoutes)
+app.use('/api/workout-plans', workoutPlanRoutes)
 
 // 404 handler
 app.use((_req: Request, res: Response) => {

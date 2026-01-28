@@ -1,5 +1,25 @@
 import mongoose, { Document, Schema } from 'mongoose'
 
+// Detected food item from AI analysis
+export interface IDetectedFood {
+  name: string
+  confidence: number
+  portion: 'small' | 'medium' | 'large' | 'xl'
+  boundingBox?: {
+    x: number
+    y: number
+    width: number
+    height: number
+  }
+}
+
+// Food alternative suggestion
+export interface IFoodAlternative {
+  name: string
+  calories: number
+  reason: string
+}
+
 export interface IMeal extends Document {
   userId: mongoose.Types.ObjectId
   foodName: string
@@ -16,6 +36,14 @@ export interface IMeal extends Document {
   timestamp: Date
   createdAt: Date
   updatedAt: Date
+
+  // AI-enhanced fields
+  isAIGenerated?: boolean
+  detectedFoods?: IDetectedFood[]
+  mealType?: 'breakfast' | 'lunch' | 'dinner' | 'snack'
+  healthScore?: number
+  aiSuggestions?: string[]
+  alternatives?: IFoodAlternative[]
 }
 
 const MealSchema = new Schema<IMeal>({
@@ -73,7 +101,43 @@ const MealSchema = new Schema<IMeal>({
     type: Date,
     default: Date.now,
     index: true
-  }
+  },
+
+  // AI-enhanced fields
+  isAIGenerated: {
+    type: Boolean,
+    default: false
+  },
+  detectedFoods: [{
+    name: { type: String, required: true },
+    confidence: { type: Number, min: 0, max: 1 },
+    portion: {
+      type: String,
+      enum: ['small', 'medium', 'large', 'xl'],
+      default: 'medium'
+    },
+    boundingBox: {
+      x: Number,
+      y: Number,
+      width: Number,
+      height: Number
+    }
+  }],
+  mealType: {
+    type: String,
+    enum: ['breakfast', 'lunch', 'dinner', 'snack']
+  },
+  healthScore: {
+    type: Number,
+    min: 0,
+    max: 100
+  },
+  aiSuggestions: [String],
+  alternatives: [{
+    name: { type: String, required: true },
+    calories: { type: Number, required: true },
+    reason: { type: String, required: true }
+  }]
 }, {
   timestamps: true
 })

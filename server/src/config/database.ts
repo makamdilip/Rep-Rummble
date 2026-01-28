@@ -10,7 +10,9 @@ export const connectDB = async (): Promise<void> => {
     console.log(`📊 Database: ${mongoose.connection.name}`)
   } catch (error) {
     console.error('❌ MongoDB connection error:', error)
-    process.exit(1)
+    // Do not exit the process; allow the server to start even if MongoDB is unavailable.
+    // API routes that depend on the database should handle lack of connection appropriately.
+    return
   }
 }
 

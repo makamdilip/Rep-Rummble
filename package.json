@@ -7,12 +7,18 @@
   "scripts": {
     "dev": "cd web && npm run dev",
     "build": "cd web && npm run build",
+    "build:all": "cd web && npm run build && cd .. && cd server && npm run build",
+    "start:prod": "cd server && npm run start",
     "lint": "eslint .",
     "preview": "cd web && npm run preview",
     "backend:dev": "cd server && npm run dev",
     "backend:build": "cd server && npm run build",
     "backend:start": "cd server && npm run start",
-    "setup": "npm install && cd server && npm install && cd .. && cd web && npm install"
+    "mobile:start": "cd mobile && npm run start",
+    "mobile:android": "cd mobile && npm run android",
+    "mobile:ios": "cd mobile && npm run ios",
+    "setup": "npm install && cd server && npm install && cd ../web && npm install",
+    "setup:all": "npm install && cd server && npm install && cd ../web && npm install && cd ../mobile && npm install"
   },
   "license": "UNLICENSED",
   "dependencies": {

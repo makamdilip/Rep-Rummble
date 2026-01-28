@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "Rep Rumble",
+    "slug": "rep-rumble",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1e1e1e"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.reprumble.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Rep Rumble needs camera access to scan your meals and track your workout form.",
+        "NSPhotoLibraryUsageDescription": "Rep Rumble needs photo library access to select meal photos for nutrition analysis."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1e1e1e"
+      },
+      "package": "com.reprumble.app",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Rep Rumble to access your camera for meal scanning and workout tracking."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Rep Rumble to access your photos for meal analysis."
+        }
+      ]
+    ]
+  }
+}
