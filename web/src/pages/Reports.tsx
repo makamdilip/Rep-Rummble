@@ -33,7 +33,7 @@ export default function Reports() {
   };
 
   return (
-    <section className="section page-section">
+    <section className="section page-section" data-reveal>
       <div className="section-head">
         <h2>Reports for doctors and coaches</h2>
         <p>
@@ -42,7 +42,7 @@ export default function Reports() {
         </p>
       </div>
 
-      <div className="tabs">
+      <div className="tabs" data-reveal>
         <input type="radio" id="tab-monthly" name="report-tabs" defaultChecked />
         <input type="radio" id="tab-yearly" name="report-tabs" />
         <input type="radio" id="tab-historical" name="report-tabs" />
@@ -67,13 +67,13 @@ export default function Reports() {
         </div>
       </div>
 
-      <div className="split">
-        <div className="report-card">
+      <div className="split" data-stagger>
+        <div className="report-card" data-reveal>
           <div className="report-header">
             <h4>Report Center</h4>
             <span className="pill">Ready</span>
           </div>
-          <div className="report-list">
+          <div className="report-list" data-stagger>
             <div className="report-row">
               <span>Monthly Summary</span>
               <button className="ghost-btn" onClick={() => downloadReport('monthly')}>

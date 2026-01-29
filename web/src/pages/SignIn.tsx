@@ -34,13 +34,13 @@ export default function SignIn() {
   };
 
   return (
-    <section className="section page-section auth-page">
+    <section className="section page-section auth-page" data-reveal>
       <div className="section-head">
         <h2>Sign in</h2>
         <p>Access your Rep Rumble account.</p>
       </div>
 
-      <form className="form-card" onSubmit={handleSubmit}>
+      <form className="form-card" data-reveal onSubmit={handleSubmit}>
         <label className="field-label">
           Email
           <input

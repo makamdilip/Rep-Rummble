@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Wearables() {
   return (
-    <section className="section page-section">
+    <section className="section page-section" data-reveal>
       <div className="section-head">
         <h2>Wearables ready</h2>
         <p>
@@ -12,7 +12,7 @@ export default function Wearables() {
         </p>
       </div>
 
-      <div className="card-grid">
+      <div className="card-grid" data-stagger>
         <div className="info-card">
           <h3>Unified health data</h3>
           <p>Pull activity, heart rate, sleep, and recovery into one dashboard.</p>
@@ -27,7 +27,7 @@ export default function Wearables() {
         </div>
       </div>
 
-      <div className="page-actions">
+      <div className="page-actions" data-stagger>
         <Link className="solid-btn" to="/plans">
           View Plans
         </Link>

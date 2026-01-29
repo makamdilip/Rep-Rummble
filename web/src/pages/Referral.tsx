@@ -15,18 +15,18 @@ export default function Referral() {
   };
 
   return (
-    <section className="section page-section">
+    <section className="section page-section" data-reveal>
       <div className="section-head">
         <h2>Referral rewards</h2>
         <p>Invite friends and unlock free months and exclusive perks.</p>
       </div>
 
-      <div className="referral-card">
+      <div className="referral-card" data-reveal>
         <div>
           <h3>Share your link</h3>
           <p>Each referral boosts your points and unlocks discounts.</p>
         </div>
-        <div className="referral-action">
+        <div className="referral-action" data-stagger>
           <input type="text" value={link} readOnly />
           <button className="ghost-btn" onClick={handleCopy}>
             {copied ? 'Copied' : 'Copy'}
