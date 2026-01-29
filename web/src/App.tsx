@@ -22,7 +22,7 @@ import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Rep-Rummble">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
