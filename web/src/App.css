@@ -10,21 +10,32 @@
   flex-direction: column;
   min-height: 100vh;
   gap: 32px;
-  padding-bottom: 32px;
+  padding-top: 96px;
+  padding-bottom: 96px;
 }
 
 .marketing-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px clamp(20px, 6vw, 80px);
-  background: rgba(9, 12, 18, 0.75);
-  border-bottom: 1px solid var(--stroke);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.marketing-header.hidden {
+  transform: translateY(-110%);
+  opacity: 0;
 }
 
 .brand {
@@ -100,6 +111,15 @@
   font-weight: 600;
 }
 
+.profile-button.icon-only {
+  padding: 6px;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+  background: rgba(15, 23, 34, 0.5);
+}
+
 .profile-button:hover {
   box-shadow: var(--shadow-soft);
 }
@@ -139,6 +159,146 @@
   -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
 }
+
+.profile-popover.single {
+  grid-template-columns: 1fr;
+}
+
+.profile-popover.menu-only {
+  width: min(340px, 88vw);
+  grid-template-columns: 1fr;
+}
+
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 10, 16, 0.6);
+  display: grid;
+  place-items: center;
+  z-index: 30;
+  padding: 24px;
+}
+
+.auth-card {
+  width: min(520px, 92vw);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(15, 23, 34, 0.12);
+  border-radius: 26px;
+  box-shadow: 0 30px 70px rgba(15, 23, 34, 0.2);
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.auth-card .popover-tabs,
+.auth-card .popover-form,
+.auth-card .social-buttons {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.auth-card .popover-form {
+  width: 100%;
+}
+
+.auth-card .field-label {
+  width: min(360px, 100%);
+  text-align: left;
+}
+
+.auth-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  position: relative;
+  padding: 0 28px;
+}
+
+.auth-card-header h2 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  color: #0f172a;
+}
+
+.auth-card-header p {
+  margin: 0;
+  color: rgba(15, 23, 34, 0.7);
+  font-size: 13px;
+}
+
+.icon-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid rgba(15, 23, 34, 0.18);
+  background: rgba(15, 23, 34, 0.05);
+  color: #0f172a;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.auth-card .tab-chip {
+  background: rgba(15, 23, 34, 0.04);
+  border-color: rgba(15, 23, 34, 0.16);
+  color: rgba(15, 23, 34, 0.7);
+}
+
+.auth-card .tab-chip.active {
+  background: rgba(16, 185, 129, 0.16);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #0f172a;
+}
+
+.auth-card .field-label {
+  color: rgba(15, 23, 34, 0.7);
+}
+
+.auth-card .field-input {
+  background: rgba(15, 23, 34, 0.04);
+  border-color: rgba(15, 23, 34, 0.14);
+  color: #0f172a;
+}
+
+.auth-card .field-input::placeholder {
+  color: rgba(15, 23, 34, 0.45);
+}
+
+.auth-card .solid-btn {
+  width: auto;
+  min-width: 120px;
+  padding: 8px 14px;
+  font-size: 12px;
+}
+
+.auth-card .popover-form .solid-btn {
+  width: auto;
+  align-self: center;
+}
+
+.social-icon.google-multi {
+  width: 20px;
+  height: 20px;
+}
+.auth-card .form-error {
+  color: #dc2626;
+}
+
+.popover-form.compact {
+  gap: 10px;
+}
+
+.popover-form.compact .field-input {
+  padding: 10px 12px;
+}
+
 
 .popover-column {
   display: flex;
@@ -187,8 +347,8 @@
   width: 52px;
   height: 52px;
   border-radius: 16px;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  background: rgba(17, 24, 39, 0.65);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(255, 255, 255, 0.95);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -204,43 +364,39 @@
 
 .social-icon {
   font-size: 20px;
-  color: #0a0f14;
 }
 
 .social-btn.google {
-  background: rgba(250, 204, 21, 0.15);
-  border-color: rgba(250, 204, 21, 0.4);
+  background: #ffffff;
+  border-color: rgba(15, 23, 34, 0.12);
 }
 
-.social-btn.google .social-icon {
-  color: #facc15;
-}
 
 .social-btn.apple {
-  background: rgba(226, 232, 240, 0.1);
-  border-color: rgba(226, 232, 240, 0.35);
+  background: #ffffff;
+  border-color: rgba(15, 23, 34, 0.12);
 }
 
 .social-btn.apple .social-icon {
-  color: #e2e8f0;
+  color: #0f172a;
 }
 
 .social-btn.facebook {
-  background: rgba(96, 165, 250, 0.12);
-  border-color: rgba(96, 165, 250, 0.4);
+  background: #ffffff;
+  border-color: rgba(15, 23, 34, 0.12);
 }
 
 .social-btn.facebook .social-icon {
-  color: #60a5fa;
+  color: #1877f2;
 }
 
 .social-btn.twitter {
-  background: rgba(56, 189, 248, 0.12);
-  border-color: rgba(56, 189, 248, 0.4);
+  background: #ffffff;
+  border-color: rgba(15, 23, 34, 0.12);
 }
 
 .social-btn.twitter .social-icon {
-  color: #38bdf8;
+  color: #111827;
 }
 
 .sr-only {
@@ -408,10 +564,24 @@
   color: #111827;
 }
 
+.hero-stage .hero-visual {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(17, 24, 39, 0.2);
+  box-shadow: 0 20px 40px rgba(17, 24, 39, 0.15);
+}
+
+.hero-stage .hero-visual-meta {
+  color: #111827;
+}
+
 .hero-decor {
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+
+.hero-stage .hero-decor {
+  display: none;
 }
 
 .float-item {
@@ -533,6 +703,13 @@
   color: var(--text-2);
 }
 
+.hero-subtext {
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(17, 24, 39, 0.7);
+}
+
 .hero-links {
   display: flex;
   gap: 12px;
@@ -542,13 +719,13 @@
 
 .brutalist-btn {
   padding: 12px 18px;
-  border: 3px solid #0a0f14;
-  background: #ff8a3d;
-  color: #0a0f14;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  box-shadow: 4px 4px 0 #0a0f14;
+  border: none;
+  background: linear-gradient(120deg, #0f172a, #111827);
+  color: #f8fafc;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: 0 14px 30px rgba(15, 23, 34, 0.25);
+  border-radius: 999px;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -556,8 +733,8 @@
 }
 
 .brutalist-btn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 #0a0f14;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(15, 23, 34, 0.3);
 }
 
 .hero-card {
@@ -604,6 +781,22 @@
   flex-direction: column;
   gap: 8px;
   color: var(--text-2);
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.preview-grid h4 {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.preview-grid p {
+  font-size: 12px;
+  color: rgba(17, 24, 39, 0.7);
 }
 
 .hero-card-top {
@@ -1370,10 +1563,25 @@
 }
 
 .marketing-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: space-between;
-  padding: 0 clamp(20px, 6vw, 80px);
+  padding: 16px clamp(20px, 6vw, 80px);
   color: var(--text-2);
+  background: transparent;
+  border-top: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  z-index: 8;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.marketing-footer.hidden {
+  transform: translateY(110%);
+  opacity: 0;
 }
 
 .marketing-footer div {

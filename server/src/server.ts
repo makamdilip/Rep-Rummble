@@ -54,11 +54,9 @@ app.get("/api/health", (_req: Request, res: Response) => {
 
 // Serve frontend static files if present
 const clientBuildPath = path.join(__dirname, '..', '..', 'web', 'dist')
-if (fs.existsSync(clientBuildPath)) {
+const hasClientBuild = fs.existsSync(clientBuildPath)
+if (hasClientBuild) {
   app.use(express.static(clientBuildPath))
-  app.get('*', (_req: Request, res: Response) => {
-    res.sendFile(path.join(clientBuildPath, 'index.html'))
-  })
 }
 
 // API Routes
@@ -73,6 +71,23 @@ app.use('/api/workout-plans', workoutPlanRoutes)
 app.use('/api/leads', leadRoutes)
 app.use('/api/reports', reportRoutes)
 app.use('/api/contact', contactRoutes)
+
+if (hasClientBuild) {
+  app.get('*', (req: Request, res: Response, next) => {
+    if (req.path.startsWith('/api')) {
+      return next()
+    }
+    return res.sendFile(path.join(clientBuildPath, 'index.html'))
+  })
+} else {
+  const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173'
+  app.get('*', (req: Request, res: Response, next) => {
+    if (req.path.startsWith('/api')) {
+      return next()
+    }
+    return res.redirect(clientUrl)
+  })
+}
 
 // 404 handler
 app.use((_req: Request, res: Response) => {

@@ -1,42 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import heroImage from '../assets/hero-illustration.svg';
 import reportPreview from '../assets/report-preview.svg';
 
-type LeadStatus = 'idle' | 'loading' | 'success' | 'error';
-
 export default function Home() {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<LeadStatus>('idle');
-  const [message, setMessage] = useState('');
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!email) return;
-    setStatus('loading');
-    setMessage('');
-
-    try {
-      const response = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: 'homepage' }),
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data?.message || 'Unable to submit');
-      }
-
-      setStatus('success');
-      setMessage(data?.message || 'Thanks! We will reach out soon.');
-      setEmail('');
-    } catch (error: any) {
-      setStatus('error');
-      setMessage(error?.message || 'Something went wrong.');
-    }
-  };
-
   return (
     <>
       <section className="hero hero-stage">
@@ -54,43 +21,37 @@ export default function Home() {
             one place. Start on mobile, share progress with your care team, and
             keep your goals on track.
           </p>
-          <form onSubmit={handleSubmit} className="hero-form">
-            <input
-              type="email"
-              placeholder="you@reprumble.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="hero-input"
-            />
-            <button type="submit" className="solid-btn" disabled={status === 'loading'}>
-              Get Early Access
-            </button>
-          </form>
-          {message && (
-            <div className={status === 'error' ? 'form-error' : 'form-success'}>
-              {message}
-            </div>
-          )}
-          <div className="hero-meta">
-            <span>14-day free trial</span>
-            <span>Cancel anytime</span>
-            <span>Mobile + Web</span>
-          </div>
           <div className="hero-links">
             <Link className="brutalist-btn" to="/signup">
               Start Free Trial
             </Link>
-            <Link className="ghost-btn" to="/reports">
-              See Reports
-            </Link>
+          </div>
+          <div className="hero-subtext">
+            Start free in minutes. Upgrade anytime from your dashboard.
           </div>
         </div>
         <div className="hero-visual tilt-card">
           <img src={heroImage} alt="Rep Rumble preview" />
           <div className="hero-visual-meta">
-            <span className="status-pill">Live sync</span>
-            <p>Daily progress, nutrition, and training snapshots.</p>
+            <div className="status-pill">Live sync</div>
+            <div className="preview-grid">
+              <div>
+                <h4>Meals</h4>
+                <p>2 logged · 1,420 kcal</p>
+              </div>
+              <div>
+                <h4>Workout</h4>
+                <p>45 min · Strength</p>
+              </div>
+              <div>
+                <h4>Protein</h4>
+                <p>118g of 140g goal</p>
+              </div>
+              <div>
+                <h4>Recovery</h4>
+                <p>7h 40m sleep</p>
+              </div>
+            </div>
           </div>
         </div>
         <div className="hero-wave" />
