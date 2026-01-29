@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { FaApple, FaFacebookF } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 export default function Layout() {
+  const location = useLocation();
   const [profileOpen, setProfileOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   const [authMessage, setAuthMessage] = useState('');
@@ -12,6 +13,7 @@ export default function Layout() {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [footerVisible, setFooterVisible] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,6 +21,18 @@ export default function Layout() {
   });
   const profileRef = useRef<HTMLDivElement>(null);
   const lastScroll = useRef(0);
+  const hasMounted = useRef(false);
+
+  useEffect(() => {
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
+
+    setTransitioning(true);
+    const timeout = window.setTimeout(() => setTransitioning(false), 750);
+    return () => window.clearTimeout(timeout);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -67,6 +81,32 @@ export default function Layout() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const nodes = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal], [data-stagger]'));
+    if (!nodes.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      nodes.forEach((node) => node.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+
+    return () => observer.disconnect();
+  }, [location.pathname]);
 
   const handleAuthSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -137,6 +177,10 @@ export default function Layout() {
 
   return (
     <div className="marketing-page">
+      <div className={`route-transition${transitioning ? ' active' : ''}`} aria-hidden="true">
+        <span />
+        <span />
+      </div>
       <header className={`marketing-header${headerVisible ? '' : ' hidden'}`}>
         <Link to="/" className="brand brand-link">
           <span className="brand-mark">RR</span>
@@ -294,7 +338,7 @@ export default function Layout() {
         </div>
       )}
 
-      <main className="page">
+      <main className="page" key={location.pathname}>
         <Outlet />
       </main>
 

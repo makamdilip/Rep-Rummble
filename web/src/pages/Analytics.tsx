@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Analytics() {
   return (
-    <section className="section page-section">
+    <section className="section page-section" data-reveal>
       <div className="section-head">
         <h2>Actionable analytics</h2>
         <p>
@@ -12,7 +12,7 @@ export default function Analytics() {
         </p>
       </div>
 
-      <div className="analytics-grid">
+      <div className="analytics-grid" data-stagger>
         <div className="analytics-card">
           <h3>Nutrition balance</h3>
           <p>Track calories, macros, hydration, and micronutrients.</p>
@@ -35,7 +35,7 @@ export default function Analytics() {
         </div>
       </div>
 
-      <div className="chart-grid">
+      <div className="chart-grid" data-stagger>
         <div className="chart-card animated-card">
           <div className="chart-header">
             <h4>Weekly training load</h4>
@@ -67,7 +67,7 @@ export default function Analytics() {
         </div>
       </div>
 
-      <div className="skeleton-grid">
+      <div className="skeleton-grid" data-stagger>
         <div className="skeleton-card">
           <div className="skeleton-line wide" />
           <div className="skeleton-line" />
@@ -85,7 +85,7 @@ export default function Analytics() {
         </div>
       </div>
 
-      <div className="page-actions">
+      <div className="page-actions" data-stagger>
         <Link className="solid-btn" to="/reports">
           Export Reports
         </Link>

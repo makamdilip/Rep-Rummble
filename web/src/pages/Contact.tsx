@@ -37,13 +37,13 @@ export default function Contact() {
   };
 
   return (
-    <section className="section page-section">
+    <section className="section page-section" data-reveal>
       <div className="section-head">
         <h2>Contact us</h2>
         <p>Tell us what you need and we will get back quickly.</p>
       </div>
 
-      <form className="form-card contact-form" onSubmit={handleSubmit}>
+      <form className="form-card contact-form" data-reveal onSubmit={handleSubmit}>
         <label className="field-label">
           Name
           <input

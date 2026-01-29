@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Services() {
   return (
-    <section className="section page-section">
+    <section className="section page-section" data-reveal>
       <div className="section-head">
         <h2>Services built for real results</h2>
         <p>
@@ -12,7 +12,7 @@ export default function Services() {
         </p>
       </div>
 
-      <div className="card-grid">
+      <div className="card-grid" data-stagger>
         <div className="info-card">
           <h3>Nutrition coaching</h3>
           <p>Macro and micronutrient tracking, meal suggestions, and smart swaps.</p>
@@ -39,7 +39,7 @@ export default function Services() {
         </div>
       </div>
 
-      <div className="accordion">
+      <div className="accordion" data-stagger>
         <details className="accordion-item" open>
           <summary>How fast can I start?</summary>
           <p>Create an account and you can log meals or workouts in minutes.</p>
@@ -58,7 +58,7 @@ export default function Services() {
         </details>
       </div>
 
-      <div className="page-actions">
+      <div className="page-actions" data-stagger>
         <Link className="solid-btn" to="/plans">
           View Plans
         </Link>

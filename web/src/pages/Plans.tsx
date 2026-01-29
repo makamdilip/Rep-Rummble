@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 export default function Plans() {
   return (
-    <section className="section page-section">
+    <section className="section page-section" data-reveal>
       <div className="section-head">
         <h2>Subscription plans</h2>
         <p>Choose a plan that matches your goals.</p>
       </div>
-      <div className="pricing-grid">
+      <div className="pricing-grid" data-stagger>
         <div className="price-card">
           <h3>Starter</h3>
           <p className="price">$0</p>

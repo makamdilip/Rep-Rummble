@@ -3,20 +3,20 @@ import { Link } from 'react-router-dom';
 
 export default function Profile() {
   return (
-    <section className="section split page-section">
+    <section className="section split page-section" data-reveal>
       <div>
         <h2>Your profile is the control center</h2>
         <p>
           Manage goals, health notes, nutrition preferences, and wearable data
           from one place.
         </p>
-        <div className="checklist">
+        <div className="checklist" data-stagger>
           <span>Weight loss or weight gain paths</span>
           <span>Meal preferences and allergies</span>
           <span>Health issues & doctor notes</span>
           <span>Progress history and snapshots</span>
         </div>
-        <div className="page-actions">
+        <div className="page-actions" data-stagger>
           <Link className="solid-btn" to="/reports">
             View Reports
           </Link>
@@ -25,7 +25,7 @@ export default function Profile() {
           </Link>
         </div>
       </div>
-      <div className="profile-card">
+      <div className="profile-card" data-reveal>
         <div className="profile-row">
           <div>
             <h4>Profile Signal</h4>

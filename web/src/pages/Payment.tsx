@@ -3,20 +3,20 @@ import { Link } from 'react-router-dom';
 
 export default function Payment() {
   return (
-    <section className="section split page-section">
+    <section className="section split page-section" data-reveal>
       <div>
         <h2>Secure payments</h2>
         <p>
           All payments are encrypted and PCI-ready. Pay with cards, wallets, or
           local payment methods.
         </p>
-        <div className="payment-row">
+        <div className="payment-row" data-stagger>
           <span>Visa</span>
           <span>Mastercard</span>
           <span>Apple Pay</span>
           <span>Google Pay</span>
         </div>
-        <div className="page-actions">
+        <div className="page-actions" data-stagger>
           <Link className="solid-btn" to="/plans">
             Choose a Plan
           </Link>
@@ -25,7 +25,7 @@ export default function Payment() {
           </Link>
         </div>
       </div>
-      <div className="payment-card">
+      <div className="payment-card" data-reveal>
         <h4>Checkout Preview</h4>
         <div className="checkout-item">
           <span>Pro Plan</span>

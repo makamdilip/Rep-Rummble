@@ -6,7 +6,7 @@ import reportPreview from '../assets/report-preview.svg';
 export default function Home() {
   return (
     <>
-      <section className="hero hero-stage">
+      <section className="hero hero-stage" data-reveal>
         <div className="hero-decor">
           <span className="float-item item-watch" />
           <span className="float-item item-camera" />
@@ -57,12 +57,12 @@ export default function Home() {
         <div className="hero-wave" />
       </section>
 
-      <section className="section">
+      <section className="section" data-reveal>
         <div className="section-head">
           <h2>Everything connected in one dashboard</h2>
           <p>High-level highlights. Explore each page for full details.</p>
         </div>
-        <div className="bento-grid">
+        <div className="bento-grid" data-stagger>
           <article className="bento-card glass span-2 animated-card">
             <h3>Meal intelligence</h3>
             <p>Track macros, micros, and smart portions with AI support.</p>
@@ -102,7 +102,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section split">
+      <section className="section split" data-reveal>
         <div>
           <h2>Made for mobile first</h2>
           <p>
@@ -126,7 +126,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section cta">
+      <section className="section cta" data-reveal>
         <div>
           <h2>Ready to start your transformation?</h2>
           <p>Pick a plan and start building consistent habits.</p>
