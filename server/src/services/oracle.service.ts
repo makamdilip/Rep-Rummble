@@ -1,4 +1,4 @@
-import oracledb from 'oracledb'
+import * as oracledb from 'oracledb'
 
 // Oracle connection configuration
 let pool: oracledb.Pool | null = null
@@ -14,8 +14,10 @@ export async function initOracleDB(): Promise<boolean> {
   }
 
   try {
-    // For Oracle Autonomous Database, use Thin mode (no Oracle Client needed)
-    oracledb.initOracleClient()
+    // Prefer thin mode by default; only init thick client if explicitly configured
+    if (process.env.ORACLE_CLIENT_LIB_DIR) {
+      oracledb.initOracleClient({ libDir: process.env.ORACLE_CLIENT_LIB_DIR })
+    }
 
     pool = await oracledb.createPool({
       user: process.env.ORACLE_USER,

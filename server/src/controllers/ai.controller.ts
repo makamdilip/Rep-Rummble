@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { analyzeFoodImageWithGemini, quickLogMealWithGemini, getNutritionInfoWithGemini } from '../services/gemini.service'
+import { analyzeFoodImageWithGemini, quickLogMealWithGemini } from '../services/gemini.service'
 import { searchFoods } from '../services/usda.service'
 
 /**

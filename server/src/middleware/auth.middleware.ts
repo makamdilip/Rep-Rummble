@@ -71,6 +71,7 @@ export const protect = async (req: AuthRequest, res: Response, next: NextFunctio
 // Optional auth - doesn't require token but will attach user if present
 export const optionalAuth = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
+    void res
     let token: string | undefined
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {

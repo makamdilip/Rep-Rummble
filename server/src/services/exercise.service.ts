@@ -1,16 +1,6 @@
-import OpenAI from 'openai'
 import { Exercise, IExercise } from '../models/Exercise.model'
 import { WorkoutPlan, IWorkoutPlan, IWorkoutDay } from '../models/WorkoutPlan.model'
 import mongoose from 'mongoose'
-
-let openai: OpenAI | null = null
-if (process.env.OPENAI_API_KEY) {
-  openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
-  })
-} else {
-  console.warn('⚠️  WARNING: OPENAI_API_KEY is not set. AI features will be disabled.')
-}
 
 // Types
 export interface GenerateExerciseParams {
@@ -212,77 +202,7 @@ const EXERCISE_POSE_DATA: Record<string, any> = {
  */
 export async function generateExerciseWithAI(params: GenerateExerciseParams): Promise<Partial<IExercise>> {
   try {
-    // Use fallback if no OpenAI API key
-    if (!openai) {
-      return getMockExerciseData(params)
-    }
-
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [
-        {
-          role: 'system',
-          content: `You are an expert fitness coach and exercise specialist. Generate detailed exercise information.
-
-Your response must be valid JSON with this structure:
-{
-  "description": "Brief description of the exercise (2-3 sentences)",
-  "instructions": ["Step 1", "Step 2", "Step 3", ...],
-  "commonMistakes": ["Mistake 1", "Mistake 2", ...],
-  "breathingPattern": "When to inhale/exhale",
-  "safetyTips": ["Safety tip 1", "Safety tip 2", ...],
-  "benefits": ["Benefit 1", "Benefit 2", ...],
-  "modifications": {
-    "easier": "Easier variation description",
-    "harder": "Harder variation description"
-  },
-  "caloriesPerMinute": number,
-  "defaultSets": number,
-  "defaultReps": number,
-  "restBetweenSets": number (seconds)
-}`
-        },
-        {
-          role: 'user',
-          content: `Generate detailed exercise information for:
-Name: ${params.name}
-Category: ${params.category}
-Difficulty: ${params.difficulty}
-Target Muscles: ${params.muscleGroups.join(', ')}
-Equipment: ${params.equipment?.join(', ') || 'bodyweight'}
-
-Respond only with valid JSON.`
-        }
-      ],
-      max_tokens: 1000,
-      temperature: 0.7
-    })
-
-    const content = response.choices[0]?.message?.content
-    if (!content) throw new Error('No response from AI')
-
-    // Parse JSON
-    let jsonStr = content
-    const jsonMatch = content.match(/```(?:json)?\s*([\s\S]*?)\s*```/)
-    if (jsonMatch) jsonStr = jsonMatch[1]
-
-    const aiData = JSON.parse(jsonStr)
-
-    // Get pose data if available
-    const slug = params.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-    const poseData = EXERCISE_POSE_DATA[slug] || {}
-
-    return {
-      name: params.name,
-      slug,
-      category: params.category as any,
-      difficulty: params.difficulty as any,
-      muscleGroups: params.muscleGroups,
-      equipment: params.equipment || ['bodyweight'],
-      ...aiData,
-      ...poseData,
-      isAIGenerated: true
-    }
+    return getMockExerciseData(params)
   } catch (error: any) {
     console.error('AI Exercise Generation Error:', error)
     // Return fallback data on error
@@ -348,120 +268,7 @@ export async function generateWorkoutPlan(params: GenerateWorkoutPlanParams): Pr
       difficulty: e.difficulty
     }))
 
-    // Use fallback if no OpenAI API key
-    if (!openai) {
-      return getMockWorkoutPlan(params, exercises)
-    }
-
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [
-        {
-          role: 'system',
-          content: `You are an expert fitness coach creating personalized workout plans.
-
-Create a workout plan using ONLY these available exercises:
-${JSON.stringify(exerciseList, null, 2)}
-
-Your response must be valid JSON with this structure:
-{
-  "name": "Plan Name",
-  "description": "Brief description of the plan",
-  "schedule": [
-    {
-      "day": 1,
-      "name": "Day Name (e.g., Push Day)",
-      "focus": "Focus area",
-      "exercises": [
-        {
-          "exerciseName": "Exercise Name (must match available exercises)",
-          "sets": number,
-          "reps": number or "to_failure",
-          "restSeconds": number,
-          "notes": "optional tips",
-          "order": 1
-        }
-      ],
-      "estimatedDuration": minutes,
-      "estimatedCalories": number,
-      "isRestDay": false
-    }
-  ],
-  "progressions": [
-    {
-      "week": 1,
-      "adjustments": ["adjustment 1", "adjustment 2"],
-      "intensityMultiplier": 1.0
-    }
-  ]
-}
-
-Guidelines:
-- Match exercises exactly to the available list
-- Include warm-up and cool-down recommendations in notes
-- Balance muscle groups appropriately
-- Consider recovery time between similar muscle groups
-- Progressive overload through the weeks`
-        },
-        {
-          role: 'user',
-          content: `Create a ${params.durationWeeks}-week workout plan with these requirements:
-
-Goal: ${params.goal}
-Fitness Level: ${params.fitnessLevel}
-Days per Week: ${params.daysPerWeek}
-Minutes per Workout: ${params.minutesPerWorkout}
-Available Equipment: ${params.availableEquipment.join(', ')}
-${params.focusAreas ? `Focus Areas: ${params.focusAreas.join(', ')}` : ''}
-${params.injuries ? `Injuries/Limitations: ${params.injuries.join(', ')}` : ''}
-
-Respond only with valid JSON.`
-        }
-      ],
-      max_tokens: 3000,
-      temperature: 0.7
-    })
-
-    const content = response.choices[0]?.message?.content
-    if (!content) throw new Error('No response from AI')
-
-    // Parse JSON
-    let jsonStr = content
-    const jsonMatch = content.match(/```(?:json)?\s*([\s\S]*?)\s*```/)
-    if (jsonMatch) jsonStr = jsonMatch[1]
-
-    const planData = JSON.parse(jsonStr)
-
-    // Map exercise names to IDs
-    const exerciseMap = new Map(exercises.map(e => [e.name.toLowerCase(), e._id]))
-
-    const schedule: IWorkoutDay[] = planData.schedule.map((day: any) => ({
-      ...day,
-      exercises: day.exercises.map((ex: any) => ({
-        ...ex,
-        exerciseId: exerciseMap.get(ex.exerciseName.toLowerCase()) || null
-      }))
-    }))
-
-    // Create the workout plan
-    const workoutPlan = new WorkoutPlan({
-      userId: new mongoose.Types.ObjectId(params.userId),
-      name: planData.name,
-      description: planData.description,
-      goal: params.goal,
-      fitnessLevel: params.fitnessLevel,
-      durationWeeks: params.durationWeeks,
-      daysPerWeek: params.daysPerWeek,
-      minutesPerWorkout: params.minutesPerWorkout,
-      availableEquipment: params.availableEquipment,
-      schedule,
-      progressions: planData.progressions || [],
-      isAIGenerated: true,
-      aiPrompt: JSON.stringify(params)
-    })
-
-    await workoutPlan.save()
-    return workoutPlan
+    return getMockWorkoutPlan(params, exercises)
   } catch (error: any) {
     console.error('AI Workout Plan Generation Error:', error)
     // Return fallback data on error
