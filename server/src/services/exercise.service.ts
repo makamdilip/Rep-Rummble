@@ -261,13 +261,6 @@ export async function generateWorkoutPlan(params: GenerateWorkoutPlanParams): Pr
     // Get available exercises from database
     const exercises = await Exercise.find({ isActive: true }).select('name slug category muscleGroups difficulty equipment')
 
-    const exerciseList = exercises.map(e => ({
-      name: e.name,
-      category: e.category,
-      muscles: e.muscleGroups,
-      difficulty: e.difficulty
-    }))
-
     return getMockWorkoutPlan(params, exercises)
   } catch (error: any) {
     console.error('AI Workout Plan Generation Error:', error)
