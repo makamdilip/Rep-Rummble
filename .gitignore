@@ -65,3 +65,5 @@ Thumbs.db
 secrets.json
 .env.production.local
 *.pem
+*firebase-adminsdk*.json
+*.service-account.json
