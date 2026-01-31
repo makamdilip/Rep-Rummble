@@ -14,7 +14,6 @@ export default function Home() {
           <span className="float-item item-badge" />
         </div>
         <div className="hero-copy">
-          <div className="hero-chip">Fitness + Nutrition Platform</div>
           <h1>Build a healthier life with one connected membership.</h1>
           <p>
             Rep Rummble keeps workouts, meals, recovery, and health insights in

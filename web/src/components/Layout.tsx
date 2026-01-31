@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { FaApple, FaFacebookF } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
@@ -22,6 +22,26 @@ export default function Layout() {
   const profileRef = useRef<HTMLDivElement>(null);
   const lastScroll = useRef(0);
   const hasMounted = useRef(false);
+
+  useLayoutEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    return () => {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'auto';
+      }
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    lastScroll.current = 0;
+    setHeaderVisible(true);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (!hasMounted.current) {
@@ -63,6 +83,8 @@ export default function Layout() {
         setHeaderVisible(true);
       } else if (scrollingDown) {
         setHeaderVisible(false);
+      } else {
+        setHeaderVisible(true);
       }
 
       if (nearBottom) {
@@ -75,6 +97,7 @@ export default function Layout() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    lastScroll.current = window.scrollY;
     handleScroll();
 
     return () => {

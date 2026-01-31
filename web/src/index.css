@@ -43,20 +43,7 @@ body,
 }
 
 body {
-  background:
-    linear-gradient(135deg,
-      rgba(255, 214, 163, 0.5) 0%,
-      rgba(247, 242, 234, 0.6) 25%,
-      rgba(184, 228, 255, 0.4) 50%,
-      rgba(181, 241, 215, 0.45) 75%,
-      rgba(255, 200, 180, 0.4) 100%
-    ),
-    linear-gradient(45deg,
-      rgba(181, 241, 215, 0.3) 0%,
-      rgba(255, 214, 163, 0.35) 50%,
-      rgba(184, 228, 255, 0.3) 100%
-    ),
-    linear-gradient(180deg, #f7f2ea 0%, #f0e6d8 100%);
+  background: var(--paper);
   background-attachment: fixed;
   color: var(--ink);
   min-height: 100vh;
@@ -68,10 +55,9 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(rgba(23, 23, 23, 0.08) 1px, transparent 1px);
-  background-size: 110px 110px;
+  background-image: none;
   pointer-events: none;
-  opacity: 0.2;
+  opacity: 0;
   z-index: 0;
 }
 
