@@ -2,6 +2,7 @@
 
 This folder contains the operational and legal policies for Rep Rumble.
 These are templates and must be reviewed by counsel before publishing.
+Replace any [TBD] placeholders before publishing.
 
 - docs/policies/SECURITY_AND_SECRETS.md
 - docs/policies/PRIVACY.md

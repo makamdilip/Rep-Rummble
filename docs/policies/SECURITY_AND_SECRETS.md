@@ -1,7 +1,7 @@
 # Security and Secrets Management Policy
 
 Effective date: January 31, 2026
-Owner: Rep Rumble Security Team
+Owner: [TBD Security Owner]
 
 This policy defines how we create, store, use, and rotate secrets and how we protect production systems.
 It applies to all employees, contractors, and systems that handle Rep Rumble data.
@@ -70,4 +70,4 @@ If a secret is exposed:
 - This policy is reviewed at least annually.
 - Violations may result in access removal and disciplinary action.
 
-Contact: security@rep-rumble.com
+Contact: [TBD Security Email]

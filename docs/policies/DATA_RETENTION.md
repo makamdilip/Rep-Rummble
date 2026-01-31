@@ -34,4 +34,4 @@ Backup retention: 30-90 days (configurable by operations).
 
 If we receive a valid legal request, we may retain data longer.
 
-Contact: privacy@rep-rumble.com
+Contact: [TBD Privacy Email]

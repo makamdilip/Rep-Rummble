@@ -17,4 +17,4 @@ This is a template and must be reviewed by legal counsel.
 
 We may suspend or terminate accounts for violations.
 
-Contact: support@rep-rumble.com
+Contact: [TBD Support Email]

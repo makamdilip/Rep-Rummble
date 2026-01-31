@@ -27,4 +27,4 @@ We may use third-party analytics or service providers that set cookies. Their po
 
 We may update this policy. Material changes will be communicated in-app or by email.
 
-Contact: privacy@rep-rumble.com
+Contact: [TBD Privacy Email]

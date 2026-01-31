@@ -7,9 +7,9 @@ This is a template and must be reviewed by legal counsel before publishing.
 
 ## 1) Who we are
 
-Company name: Rep Rumble
-Contact email: privacy@rep-rumble.com
-Address: [Add company address]
+Company name: [TBD Legal Entity]
+Contact email: [TBD Privacy Email]
+Address: [TBD Company Address]
 
 ## 2) Information we collect
 
@@ -90,4 +90,4 @@ We do not knowingly collect data from children.
 
 We may update this policy. Material changes will be communicated in-app or by email.
 
-Contact: privacy@rep-rumble.com
+Contact: [TBD Privacy Email]
