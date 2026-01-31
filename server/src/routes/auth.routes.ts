@@ -1,14 +1,19 @@
 import { Router } from 'express'
-import { register, login, getMe } from '../controllers/auth.controller'
-import { oauthCallback, startOAuth } from '../controllers/oauth.controller'
+import { register, login, getMe, getOAuthUrl, logout, updateProfile } from '../controllers/auth.controller'
 import { protect } from '../middleware/auth.middleware'
 
 const router = Router()
 
+// Public routes
 router.post('/register', register)
 router.post('/login', login)
+
+// OAuth routes (Supabase handles the callback)
+router.get('/oauth/:provider', getOAuthUrl)
+
+// Protected routes
 router.get('/me', protect, getMe)
-router.get('/oauth/:provider', startOAuth)
-router.get('/oauth/:provider/callback', oauthCallback)
+router.post('/logout', protect, logout)
+router.put('/profile', protect, updateProfile)
 
 export default router

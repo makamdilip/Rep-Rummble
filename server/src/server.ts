@@ -1,12 +1,16 @@
+// Load environment variables FIRST before any other imports
+import dotenv from 'dotenv'
+dotenv.config()
+
 import express, { Express, Request, Response } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import compression from 'compression'
-import dotenv from 'dotenv'
 import path from 'path'
 import fs from 'fs'
 import { connectDB, isDBConnected } from './config/database'
+import { initOracleDB, isOracleConnected } from './services/oracle.service'
 import { errorHandler } from './middleware/errorHandler'
 
 // Import routes
@@ -22,20 +26,42 @@ import leadRoutes from './routes/lead.routes'
 import reportRoutes from './routes/report.routes'
 import contactRoutes from './routes/contact.routes'
 
-// Load environment variables
-dotenv.config()
-
 // Create Express app
 const app: Express = express()
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001
 
-// Connect to MongoDB
-connectDB()
+// Initialize databases
+async function initDatabases() {
+  // Try Oracle Database first (primary)
+  await initOracleDB()
+
+  // Fallback to MongoDB if Oracle not configured
+  if (!isOracleConnected()) {
+    connectDB()
+  }
+}
+
+initDatabases()
 
 // Middleware
 app.use(helmet()) // Security headers
+
+// CORS configuration for multiple origins
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  process.env.CLIENT_URL,
+].filter(Boolean) as string[]
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, Postman, etc.)
+    if (!origin) return callback(null, true)
+    if (allowedOrigins.some(allowed => origin.startsWith(allowed.replace(/\/$/, '')))) {
+      return callback(null, true)
+    }
+    callback(new Error('Not allowed by CORS'))
+  },
   credentials: true
 }))
 app.use(compression()) // Compress responses
@@ -43,12 +69,18 @@ app.use(morgan('dev')) // Logging
 app.use(express.json({ limit: '50mb' })) // Parse JSON bodies (increased for image uploads)
 app.use(express.urlencoded({ extended: true, limit: '50mb' })) // Parse URL-encoded bodies
 
-// Health check endpoint
+// Health check endpoint with service status
 app.get("/api/health", (_req: Request, res: Response) => {
   res.json({
     status: "OK",
     message: "Rep Rumble API is running",
     timestamp: new Date().toISOString(),
+    services: {
+      oracle: isOracleConnected() ? "connected" : "not configured",
+      mongodb: isDBConnected() ? "connected" : "not configured",
+      supabase: process.env.SUPABASE_URL ? "configured" : "not configured",
+      gemini: process.env.GEMINI_API_KEY ? "configured" : "not configured",
+    }
   });
 });
 
@@ -102,10 +134,20 @@ app.use(errorHandler)
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`)
-  console.log(`📝 Environment: ${process.env.NODE_ENV}`)
-  console.log(`🔗 API URL: http://localhost:${PORT}/api`)
-  console.log(`📊 MongoDB: ${isDBConnected() ? '✅ Connected' : '⚠️  Using mock data mode'}`)
+  console.log('')
+  console.log('╔════════════════════════════════════════════════════════╗')
+  console.log('║           REP RUMBLE API SERVER                        ║')
+  console.log('╠════════════════════════════════════════════════════════╣')
+  console.log(`║  🚀 Server:    http://localhost:${PORT}`)
+  console.log(`║  📝 Environment: ${process.env.NODE_ENV || 'development'}`)
+  console.log('╠════════════════════════════════════════════════════════╣')
+  console.log('║  SERVICES STATUS:                                      ║')
+  console.log(`║  🔐 Supabase Auth: ${process.env.SUPABASE_URL ? '✅ Configured' : '⚠️  Not configured'}`)
+  console.log(`║  🗄️  Oracle DB:     ${isOracleConnected() ? '✅ Connected' : '⚠️  Not configured'}`)
+  console.log(`║  🍃 MongoDB:       ${isDBConnected() ? '✅ Connected' : '⚠️  Fallback mode'}`)
+  console.log(`║  🤖 Gemini AI:     ${process.env.GEMINI_API_KEY ? '✅ Configured' : '⚠️  Not configured'}`)
+  console.log('╚════════════════════════════════════════════════════════╝')
+  console.log('')
 })
 
 export default app

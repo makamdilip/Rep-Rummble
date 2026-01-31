@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { analyzeFoodImage } from '../services/ai.service'
+import { analyzeFoodImageWithGemini, quickLogMealWithGemini, getNutritionInfoWithGemini } from '../services/gemini.service'
 import { searchFoods } from '../services/usda.service'
 
 /**
@@ -36,8 +36,8 @@ export const analyzeFood = async (req: Request, res: Response) => {
       })
     }
 
-    // Analyze the food image
-    const analysisResult = await analyzeFoodImage(imageBase64, mealType)
+    // Analyze the food image using Gemini (FREE)
+    const analysisResult = await analyzeFoodImageWithGemini(imageBase64, mealType)
 
     return res.status(200).json({
       success: true,
@@ -84,14 +84,15 @@ export const quickLogMeal = async (req: Request, res: Response) => {
       })
     }
 
-    // For now, return a simple response
-    // This can be enhanced with AI text-based food recognition
+    // Use Gemini for quick meal logging (FREE)
+    const analysisResult = await quickLogMealWithGemini(description)
+
     return res.status(200).json({
       success: true,
-      message: 'Quick log feature coming soon',
       data: {
+        ...analysisResult,
         description,
-        mealType
+        mealType: mealType || analysisResult.mealType
       }
     })
   } catch (error: any) {

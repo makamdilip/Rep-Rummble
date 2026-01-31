@@ -825,6 +825,7 @@
 
 .page-section {
   padding-top: 12px;
+  min-height: 100vh;
 }
 
 .card-grid {
@@ -1309,6 +1310,16 @@
 
 .auth-page {
   align-items: flex-start;
+}
+
+.contact-page {
+  align-items: center;
+  text-align: center;
+}
+
+.contact-page .form-card {
+  width: 100%;
+  text-align: left;
 }
 
 .field-label {
