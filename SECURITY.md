@@ -1,21 +1,17 @@
-# Security Policy
+# Security Policy (Internal)
+
+This repository is proprietary and not intended for public disclosure.
+Report vulnerabilities to [TBD Security Email].
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+All active production releases and the current main branch are supported.
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+Email the security contact with:
+- Steps to reproduce
+- Impact assessment
+- Suggested remediation (if any)
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+We aim to acknowledge within 72 hours and provide status updates until resolved.

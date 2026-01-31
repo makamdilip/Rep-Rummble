@@ -17,7 +17,7 @@
     "web"
   ],
   "author": "Dilip Makam",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "workspaces": [
     "server",
     "web",
