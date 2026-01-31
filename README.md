@@ -100,6 +100,7 @@ See `docs/SETUP.md` for detailed instructions.
 
 - `docs/SETUP.md` - Installation, configuration, and local dev
 - `docs/DEPLOYMENT.md` - Production deployment (Vercel + Oracle VM)
+- `docs/POLICIES.md` - Security, privacy, and data policies
 
 ---
 
