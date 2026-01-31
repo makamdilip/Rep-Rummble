@@ -154,10 +154,4 @@ npm run format
 
 ---
 
-## License
-
-MIT License - see `LICENSE`.
-
----
-
 *Last Updated: January 31, 2026*
