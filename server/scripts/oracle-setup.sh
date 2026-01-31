@@ -40,26 +40,30 @@ npm run build
 
 # Create .env file
 echo "📝 Creating .env file..."
+# Oracle ATP wallet directory (upload and unzip your wallet here)
+mkdir -p ~/wallet
 cat > .env << 'EOF'
 # Server Configuration
 PORT=5001
 NODE_ENV=production
 CLIENT_URL=https://your-frontend.vercel.app
 
-# MongoDB Atlas
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/rep-rumble
+# Supabase (Auth)
+SUPABASE_URL=https://xxxxx.supabase.co
+SUPABASE_SERVICE_KEY=eyJhbG...your-service-key
 
-# Authentication
+# Oracle Autonomous Database (ATP)
+ORACLE_USER=ADMIN
+ORACLE_PASSWORD=your-db-password
+ORACLE_CONNECTION_STRING=reprumble_high
+TNS_ADMIN=/home/ubuntu/wallet
+
+# Authentication (JWT fallback)
 JWT_SECRET=your-super-secure-secret-key
 JWT_EXPIRE=7d
 
-# OpenAI
-OPENAI_API_KEY=sk-your-openai-key
-
-# Firebase (optional - add your config)
-# FIREBASE_PROJECT_ID=
-# FIREBASE_PRIVATE_KEY=
-# FIREBASE_CLIENT_EMAIL=
+# Gemini AI
+GEMINI_API_KEY=AIzaSy...your-key
 EOF
 
 echo "⚠️  IMPORTANT: Edit ~/apps/Rep-Rummble/server/.env with your actual values!"

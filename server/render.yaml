@@ -12,11 +12,21 @@ services:
         value: production
       - key: PORT
         value: 10000
-      - key: MONGODB_URI
+      - key: CLIENT_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: ORACLE_USER
+        sync: false
+      - key: ORACLE_PASSWORD
+        sync: false
+      - key: ORACLE_CONNECTION_STRING
+        sync: false
+      - key: TNS_ADMIN
+        sync: false
+      - key: GEMINI_API_KEY
         sync: false
       - key: JWT_SECRET
-        sync: false
-      - key: OPENAI_API_KEY
-        sync: false
-      - key: CLIENT_URL
         sync: false

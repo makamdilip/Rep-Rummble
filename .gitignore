@@ -67,3 +67,5 @@ secrets.json
 *.pem
 *firebase-adminsdk*.json
 *.service-account.json
+Wallet_*.zip
+**/wallet/**
