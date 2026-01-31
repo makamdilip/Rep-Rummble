@@ -73,7 +73,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' })) // Parse URL-enco
 app.get("/api/health", (_req: Request, res: Response) => {
   res.json({
     status: "OK",
-    message: "Rep Rumble API is running",
+    message: "Rep Rummble API is running",
     timestamp: new Date().toISOString(),
     services: {
       oracle: isOracleConnected() ? "connected" : "not configured",
@@ -136,7 +136,7 @@ app.use(errorHandler)
 app.listen(PORT, () => {
   console.log('')
   console.log('╔════════════════════════════════════════════════════════╗')
-  console.log('║           REP RUMBLE API SERVER                        ║')
+  console.log('║           REP RUMMBLE API SERVER                        ║')
   console.log('╠════════════════════════════════════════════════════════╣')
   console.log(`║  🚀 Server:    http://localhost:${PORT}`)
   console.log(`║  📝 Environment: ${process.env.NODE_ENV || 'development'}`)
@@ -151,3 +151,4 @@ app.listen(PORT, () => {
 })
 
 export default app
+

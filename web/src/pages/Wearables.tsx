@@ -7,7 +7,7 @@ export default function Wearables() {
       <div className="section-head">
         <h2>Wearables ready</h2>
         <p>
-          Rep Rumble is designed to sync with all major wearables and smart
+          Rep Rummble is designed to sync with all major wearables and smart
           fitness devices so your data always stays connected.
         </p>
       </div>
@@ -38,3 +38,4 @@ export default function Wearables() {
     </section>
   );
 }
+

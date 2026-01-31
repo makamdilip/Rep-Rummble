@@ -2,7 +2,7 @@
 
 Effective date: January 31, 2026
 
-These Terms govern your use of Rep Rumble. This is a template and must be reviewed by legal counsel.
+These Terms govern your use of Rep Rummble. This is a template and must be reviewed by legal counsel.
 
 ## 1) Agreement to terms
 
@@ -38,7 +38,7 @@ You grant us a license to store and process it to operate the service.
 
 ## 6) Health disclaimer
 
-Rep Rumble provides general fitness and nutrition information and is not a medical service.
+Rep Rummble provides general fitness and nutrition information and is not a medical service.
 Consult a qualified professional before starting any exercise or diet program.
 
 ## 7) Service availability
@@ -66,4 +66,5 @@ These Terms are governed by the laws of [Your jurisdiction].
 
 ## 12) Contact
 
-support@rep-rumble.com
+support@rep-rummble.com
+

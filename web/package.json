@@ -1,8 +1,8 @@
 {
-  "name": "rep-rumble-frontend",
+  "name": "rep-rummble-frontend",
   "private": true,
   "version": "1.0.0",
-  "description": "Rep Rumble - Fitness app frontend",
+  "description": "Rep Rummble - Fitness app frontend",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -34,3 +34,4 @@
     "vite": "^6.2.0"
   }
 }
+

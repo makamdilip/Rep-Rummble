@@ -17,7 +17,7 @@ export default function Home() {
           <div className="hero-chip">Fitness + Nutrition Platform</div>
           <h1>Build a healthier life with one connected membership.</h1>
           <p>
-            Rep Rumble keeps workouts, meals, recovery, and health insights in
+            Rep Rummble keeps workouts, meals, recovery, and health insights in
             one place. Start on mobile, share progress with your care team, and
             keep your goals on track.
           </p>
@@ -31,7 +31,7 @@ export default function Home() {
           </div>
         </div>
         <div className="hero-visual tilt-card">
-          <img src={heroImage} alt="Rep Rumble preview" />
+          <img src={heroImage} alt="Rep Rummble preview" />
           <div className="hero-visual-meta">
             <div className="status-pill">Live sync</div>
             <div className="preview-grid">
@@ -120,7 +120,7 @@ export default function Home() {
         <div className="media-card">
           <div className="media-layer" />
           <div className="media-content">
-            <span className="media-title">Rep Rumble Mobile</span>
+            <span className="media-title">Rep Rummble Mobile</span>
             <p>Track progress, meals, and recovery in one place.</p>
           </div>
         </div>
@@ -143,3 +143,4 @@ export default function Home() {
     </>
   );
 }
+

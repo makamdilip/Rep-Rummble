@@ -2,7 +2,7 @@
 
 Effective date: January 31, 2026
 
-This policy describes prohibited and permitted use of Rep Rumble.
+This policy describes prohibited and permitted use of Rep Rummble.
 This is a template and must be reviewed by legal counsel.
 
 ## You may not:
@@ -18,3 +18,4 @@ This is a template and must be reviewed by legal counsel.
 We may suspend or terminate accounts for violations.
 
 Contact: [TBD Support Email]
+

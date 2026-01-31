@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: rep-rumble-api
+    name: rep-rummble-api
     env: node
     region: oregon
     plan: free
@@ -30,3 +30,4 @@ services:
         sync: false
       - key: JWT_SECRET
         sync: false
+

@@ -20,7 +20,7 @@ export default function Reports() {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `rep-rumble-${period}-report.csv`;
+      link.download = `rep-rummble-${period}-report.csv`;
       link.click();
       window.URL.revokeObjectURL(url);
 
@@ -109,3 +109,4 @@ export default function Reports() {
     </section>
   );
 }
+

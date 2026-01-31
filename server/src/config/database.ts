@@ -4,7 +4,7 @@ let isMongoConnected = false
 
 export const connectDB = async (): Promise<void> => {
   try {
-    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/rep-rumble'
+    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/rep-rummble'
 
     await mongoose.connect(mongoURI)
 
@@ -49,3 +49,4 @@ process.on('SIGINT', async () => {
   console.log('🔌 MongoDB connection closed due to app termination')
   process.exit(0)
 })
+

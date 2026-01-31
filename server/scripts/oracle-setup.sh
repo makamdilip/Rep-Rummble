@@ -1,10 +1,10 @@
 #!/bin/bash
 # ===========================================
-# Oracle Cloud VM Setup Script for Rep Rumble
+# Oracle Cloud VM Setup Script for Rep Rummble
 # Run this on your Oracle Cloud VM
 # ===========================================
 
-echo "🚀 Setting up Rep Rumble Backend on Oracle Cloud..."
+echo "🚀 Setting up Rep Rummble Backend on Oracle Cloud..."
 
 # Update system
 sudo apt update && sudo apt upgrade -y
@@ -76,7 +76,7 @@ sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
 
 # Start with PM2
 echo "🚀 Starting server with PM2..."
-pm2 start dist/server.js --name rep-rumble-api
+pm2 start dist/server.js --name rep-rummble-api
 
 # Save PM2 config
 pm2 save
@@ -89,7 +89,8 @@ echo "✅ Setup complete!"
 echo ""
 echo "Next steps:"
 echo "1. Edit .env file: nano ~/apps/Rep-Rummble/server/.env"
-echo "2. Restart server: pm2 restart rep-rumble-api"
-echo "3. View logs: pm2 logs rep-rumble-api"
+echo "2. Restart server: pm2 restart rep-rummble-api"
+echo "3. View logs: pm2 logs rep-rummble-api"
 echo ""
 echo "Your API will be available at: http://YOUR_VM_IP:5001"
+

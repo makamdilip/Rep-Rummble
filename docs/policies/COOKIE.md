@@ -2,7 +2,7 @@
 
 Effective date: January 31, 2026
 
-This Cookie Policy explains how Rep Rumble uses cookies and similar technologies.
+This Cookie Policy explains how Rep Rummble uses cookies and similar technologies.
 This is a template and must be reviewed by legal counsel.
 
 ## 1) What are cookies?
@@ -28,3 +28,4 @@ We may use third-party analytics or service providers that set cookies. Their po
 We may update this policy. Material changes will be communicated in-app or by email.
 
 Contact: [TBD Privacy Email]
+

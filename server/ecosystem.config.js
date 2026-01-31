@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'rep-rumble-api',
+      name: 'rep-rummble-api',
       script: 'dist/server.js',
       instances: 1,
       autorestart: true,
@@ -27,3 +27,4 @@ module.exports = {
     }
   ]
 }
+

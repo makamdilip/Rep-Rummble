@@ -1,6 +1,6 @@
 # Setup
 
-This guide sets up local development for Rep Rumble using Supabase Auth, Oracle ATP, and Gemini AI.
+This guide sets up local development for Rep Rummble using Supabase Auth, Oracle ATP, and Gemini AI.
 
 ## Prerequisites
 
@@ -94,3 +94,4 @@ Services:
 - Use Vercel environment variables in production.
 - Rotate keys immediately if exposed.
 - Enable GitHub secret scanning on the repo.
+

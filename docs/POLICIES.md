@@ -1,6 +1,6 @@
 # Policies Index
 
-This folder contains the operational and legal policies for Rep Rumble.
+This folder contains the operational and legal policies for Rep Rummble.
 These are templates and must be reviewed by counsel before publishing.
 Replace any [TBD] placeholders before publishing.
 
@@ -12,3 +12,4 @@ Replace any [TBD] placeholders before publishing.
 - docs/policies/ACCEPTABLE_USE.md
 
 Last updated: January 31, 2026
+

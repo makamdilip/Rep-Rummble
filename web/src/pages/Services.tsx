@@ -7,7 +7,7 @@ export default function Services() {
       <div className="section-head">
         <h2>Services built for real results</h2>
         <p>
-          Rep Rumble combines nutrition, training, recovery, and accountability
+          Rep Rummble combines nutrition, training, recovery, and accountability
           into one platform.
         </p>
       </div>
@@ -50,7 +50,7 @@ export default function Services() {
         </details>
         <details className="accordion-item">
           <summary>Do you support wearables?</summary>
-          <p>Rep Rumble is designed to sync with major devices and platforms.</p>
+          <p>Rep Rummble is designed to sync with major devices and platforms.</p>
         </details>
         <details className="accordion-item">
           <summary>Is it good for weight loss and weight gain?</summary>
@@ -69,3 +69,4 @@ export default function Services() {
     </section>
   );
 }
+

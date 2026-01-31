@@ -184,7 +184,7 @@ export default function Layout() {
       <header className={`marketing-header${headerVisible ? '' : ' hidden'}`}>
         <Link to="/" className="brand brand-link">
           <span className="brand-mark">RR</span>
-          <span className="brand-name">Rep Rumble</span>
+          <span className="brand-name">Rep Rummble</span>
         </Link>
         <nav className="marketing-nav">
           <NavLink to="/services" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
@@ -347,7 +347,7 @@ export default function Layout() {
       </Link>
 
       <footer className={`marketing-footer${footerVisible ? '' : ' hidden'}`}>
-        <span>(c) 2026 Rep Rumble</span>
+        <span>(c) 2026 Rep Rummble</span>
         <div>
           <Link to="/privacy">Privacy</Link>
           <Link to="/terms">Terms</Link>
@@ -357,3 +357,4 @@ export default function Layout() {
     </div>
   );
 }
+

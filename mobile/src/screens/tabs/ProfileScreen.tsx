@@ -140,7 +140,7 @@ export default function ProfileScreen() {
         </TouchableOpacity>
 
         {/* App Version */}
-        <Text style={styles.version}>Rep Rumble v1.0.0</Text>
+        <Text style={styles.version}>Rep Rummble v1.0.0</Text>
 
         <View style={{ height: 24 }} />
       </ScrollView>
@@ -316,3 +316,4 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
 });
+

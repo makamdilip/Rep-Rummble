@@ -37,7 +37,7 @@ export default function SignIn() {
     <section className="section page-section auth-page" data-reveal>
       <div className="section-head">
         <h2>Sign in</h2>
-        <p>Access your Rep Rumble account.</p>
+        <p>Access your Rep Rummble account.</p>
       </div>
 
       <form className="form-card" data-reveal onSubmit={handleSubmit}>
@@ -76,3 +76,4 @@ export default function SignIn() {
     </section>
   );
 }
+

@@ -9,7 +9,7 @@ export default function Privacy() {
       </div>
       <div className="info-card" data-reveal>
         <p>
-          Rep Rumble stores only the data you choose to share. We never sell
+          Rep Rummble stores only the data you choose to share. We never sell
           personal or health information. Reports are shared only when you
           download or explicitly send them.
         </p>
@@ -17,3 +17,4 @@ export default function Privacy() {
     </section>
   );
 }
+

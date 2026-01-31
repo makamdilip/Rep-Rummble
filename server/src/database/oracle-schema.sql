@@ -1,5 +1,5 @@
 -- ============================================
--- REP RUMBLE - ORACLE DATABASE SCHEMA
+-- REP RUMMBLE - ORACLE DATABASE SCHEMA
 -- Run this in Oracle SQL Developer or Cloud Shell
 -- ============================================
 
@@ -228,3 +228,4 @@ INSERT INTO exercises (name, muscle_group, equipment, difficulty, calories_per_m
 ('Cycling', 'Cardio', 'Bike', 'Beginner', 10);
 
 COMMIT;
+

@@ -2,7 +2,7 @@
 
 Effective date: January 31, 2026
 
-This Privacy Policy explains how Rep Rumble ("we", "us", "our") collects, uses, and shares information.
+This Privacy Policy explains how Rep Rummble ("we", "us", "our") collects, uses, and shares information.
 This is a template and must be reviewed by legal counsel before publishing.
 
 ## 1) Who we are
@@ -75,7 +75,7 @@ Depending on your location, you may have rights to:
 - Export your data (portability)
 - Withdraw consent
 
-Contact privacy@rep-rumble.com to make a request.
+Contact privacy@rep-rummble.com to make a request.
 
 ## 9) International transfers
 
@@ -83,7 +83,7 @@ If data is transferred internationally, we use appropriate safeguards.
 
 ## 10) Children's privacy
 
-Rep Rumble is not intended for children under 13 (or the age required by local law).
+Rep Rummble is not intended for children under 13 (or the age required by local law).
 We do not knowingly collect data from children.
 
 ## 11) Changes to this policy
@@ -91,3 +91,4 @@ We do not knowingly collect data from children.
 We may update this policy. Material changes will be communicated in-app or by email.
 
 Contact: [TBD Privacy Email]
+

@@ -2,7 +2,7 @@
 
 Effective date: January 31, 2026
 
-This policy describes how Rep Rumble retains and deletes data.
+This policy describes how Rep Rummble retains and deletes data.
 This is a template and must be reviewed by legal counsel.
 
 ## 1) Retention principles
@@ -35,3 +35,4 @@ Backup retention: 30-90 days (configurable by operations).
 If we receive a valid legal request, we may retain data longer.
 
 Contact: [TBD Privacy Email]
+
