@@ -1,7 +1,7 @@
 # Security Policy (Internal)
 
 This repository is proprietary and not intended for public disclosure.
-Report vulnerabilities to [TBD Security Email].
+Report vulnerabilities to makamdilip@outlook.com.
 
 ## Supported Versions
 
