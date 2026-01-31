@@ -154,19 +154,6 @@ npm run format
 
 ---
 
-## FAQ
-
-**Q: How do I get a Gemini API key?**
-A: Create a key in Google AI Studio and set `GEMINI_API_KEY` in `server/.env`.
-
-**Q: Where do I put Supabase keys?**
-A: `SUPABASE_URL` + `SUPABASE_SERVICE_KEY` go in `server/.env`. Only `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` go in `web/.env.local`.
-
-**Q: Is mobile deployment ready?**
-A: Not yet. Web + API deployment is ready now; mobile deployment is TBD.
-
----
-
 ## License
 
 MIT License - see `LICENSE`.
