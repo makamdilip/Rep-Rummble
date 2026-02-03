@@ -101,7 +101,7 @@ export default function Analytics() {
           </div>
           <div className="chart-bars">
             {weeklyLoad.map((h, idx) => (
-              <span key={idx} style={{ '--bar-height': `${h}%` } as React.CSSProperties} />
+              <span key={idx} className="chart-bar" data-height={h} />
             ))}
           </div>
         </div>

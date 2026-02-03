@@ -43,7 +43,7 @@ export default function Referral() {
             <p>Each referral boosts your points and unlocks discounts.</p>
           </div>
           <div className="referral-action" data-stagger>
-            <input type="text" value={link} readOnly />
+            <input type="text" value={link} readOnly placeholder="Your referral link" />
             <button className="ghost-btn" onClick={handleCopy}>
               {copied ? 'Copied' : 'Copy'}
             </button>
