@@ -1,15 +1,17 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { FaApple, FaFacebookF } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { DEV_BYPASS_AUTH, DEV_USER } from '../config/devAuth';
 
 export default function Layout() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [profileOpen, setProfileOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   const [authMessage, setAuthMessage] = useState('');
   const [authStatus, setAuthStatus] = useState<'idle' | 'loading' | 'error' | 'success'>('idle');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(DEV_BYPASS_AUTH);
   const [headerVisible, setHeaderVisible] = useState(true);
   const [footerVisible, setFooterVisible] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
@@ -22,6 +24,33 @@ export default function Layout() {
   const profileRef = useRef<HTMLDivElement>(null);
   const lastScroll = useRef(0);
   const hasMounted = useRef(false);
+  const privateRoutes = ['/analytics', '/reports', '/referral', '/payment', '/profile', '/wearables'];
+
+  useEffect(() => {
+    if (DEV_BYPASS_AUTH) {
+      setIsLoggedIn(true);
+      setAuthOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (DEV_BYPASS_AUTH || isLoggedIn) return;
+    const params = new URLSearchParams(location.search);
+    const authParam = params.get('auth');
+    if (authParam === 'signin' || authParam === 'signup') {
+      setAuthMode(authParam);
+      setAuthOpen(true);
+    }
+  }, [location.search, isLoggedIn]);
+
+  useEffect(() => {
+    if (DEV_BYPASS_AUTH || isLoggedIn) return;
+    const needsAuth = privateRoutes.some((route) => location.pathname.startsWith(route));
+    if (needsAuth) {
+      sessionStorage.setItem('postAuthPath', location.pathname);
+      navigate('/?auth=signin', { replace: true });
+    }
+  }, [location.pathname, isLoggedIn, navigate]);
 
   useLayoutEffect(() => {
     if ('scrollRestoration' in window.history) {
@@ -170,6 +199,13 @@ export default function Layout() {
       setIsLoggedIn(true);
       setAuthOpen(false);
       setFormData({ name: '', email: '', password: '' });
+      const postAuthPath = sessionStorage.getItem('postAuthPath');
+      if (postAuthPath) {
+        sessionStorage.removeItem('postAuthPath');
+        navigate(postAuthPath, { replace: true });
+      } else if (location.search) {
+        navigate(location.pathname, { replace: true });
+      }
     } catch (error: any) {
       setAuthStatus('error');
       setAuthMessage(error?.message || 'Something went wrong.');
@@ -183,6 +219,7 @@ export default function Layout() {
   };
 
   const handleSignOut = () => {
+    if (DEV_BYPASS_AUTH) return;
     setIsLoggedIn(false);
     setAuthMode('signin');
     setAuthMessage('');
@@ -222,6 +259,31 @@ export default function Layout() {
           <NavLink to="/contact" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
             Contact Us
           </NavLink>
+          {isLoggedIn && (
+            <details className="nav-dropdown">
+              <summary>Dashboard</summary>
+              <div className="nav-dropdown-menu">
+                <NavLink to="/analytics" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+                  Analytics
+                </NavLink>
+                <NavLink to="/reports" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+                  Reports
+                </NavLink>
+                <NavLink to="/referral" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+                  Referrals
+                </NavLink>
+                <NavLink to="/payment" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+                  Payments
+                </NavLink>
+                <NavLink to="/profile" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+                  Profile
+                </NavLink>
+                <NavLink to="/wearables" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+                  Wearables
+                </NavLink>
+              </div>
+            </details>
+          )}
         </nav>
         <div className="profile-shell" ref={profileRef}>
           <button className="profile-button icon-only" onClick={handleProfileClick} aria-label="Open profile">
@@ -234,8 +296,8 @@ export default function Layout() {
                   <div className="menu-header">
                     <span className="avatar large">RR</span>
                     <div>
-                      <div className="menu-title">Your account</div>
-                      <div className="menu-sub">rep@rumble.app</div>
+                      <div className="menu-title">{DEV_BYPASS_AUTH ? DEV_USER.name : 'Your account'}</div>
+                      <div className="menu-sub">{DEV_BYPASS_AUTH ? DEV_USER.email : 'rep@rumble.app'}</div>
                     </div>
                   </div>
                   <div className="menu-list">
@@ -365,7 +427,7 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      <Link className="fab" to="/signup" aria-label="Create account">
+      <Link className="fab" to="/?auth=signup" aria-label="Create account">
         +
       </Link>
 

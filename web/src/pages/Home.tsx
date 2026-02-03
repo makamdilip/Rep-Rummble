@@ -22,7 +22,7 @@ export default function Home() {
             wearables, and share your progress with your care team anytime.
           </p>
           <div className="hero-links">
-            <Link className="brutalist-btn" to="/signup">
+            <Link className="brutalist-btn" to="/?auth=signup">
               Start Free Trial
             </Link>
             <Link className="ghost-btn" to="/plans">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -11,8 +11,6 @@ import Plans from './pages/Plans';
 import Profile from './pages/Profile';
 import Referral from './pages/Referral';
 import Payment from './pages/Payment';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
 import Privacy from './pages/Privacy';
@@ -36,8 +34,8 @@ function App() {
           <Route path="payment" element={<Payment />} />
           <Route path="faq" element={<FAQ />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="signin" element={<SignIn />} />
-          <Route path="signup" element={<SignUp />} />
+          <Route path="signin" element={<Navigate to="/?auth=signin" replace />} />
+          <Route path="signup" element={<Navigate to="/?auth=signup" replace />} />
           <Route path="privacy" element={<Privacy />} />
           <Route path="terms" element={<Terms />} />
           <Route path="support" element={<Support />} />

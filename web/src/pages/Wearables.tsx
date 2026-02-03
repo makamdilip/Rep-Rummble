@@ -1,39 +1,56 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export default function Wearables() {
+  const devices = [
+    { name: 'Apple Watch', status: 'Live', lastSync: '2m ago' },
+    { name: 'Oura Ring', status: 'Live', lastSync: '5m ago' },
+    { name: 'Garmin Scale', status: 'Queued', lastSync: '12m ago' },
+    { name: 'Whoop', status: 'Paused', lastSync: '1d ago' },
+  ];
+
+  const metrics = [
+    'Sleep stages',
+    'Resting HR',
+    'HRV',
+    'Steps + activity',
+    'Workouts',
+    'Weight + body fat',
+  ];
+
   return (
     <section className="section page-section" data-reveal>
       <div className="section-head">
         <h2>Wearables ready</h2>
         <p>
-          Rep Rummble is designed to sync with all major wearables and smart
-          fitness devices so your data always stays connected.
+          Connect the devices you already use and keep data flowing across
+          sleep, activity, recovery, and composition.
         </p>
       </div>
 
-      <div className="card-grid" data-stagger>
-        <div className="info-card">
-          <h3>Unified health data</h3>
-          <p>Pull activity, heart rate, sleep, and recovery into one dashboard.</p>
-        </div>
-        <div className="info-card">
-          <h3>Automatic workout detection</h3>
-          <p>Auto-log sessions and keep progress history intact.</p>
-        </div>
-        <div className="info-card">
-          <h3>Multi-device support</h3>
-          <p>Apple Watch, Fitbit, Whoop, Garmin, Oura, and Android watches.</p>
-        </div>
+      <div className="device-grid" data-stagger>
+        {devices.map((d) => (
+          <div className="device-card" key={d.name}>
+            <div className="device-row">
+              <strong>{d.name}</strong>
+              <span className={`pill ${d.status === 'Live' ? 'pill-live' : d.status === 'Queued' ? 'pill-queued' : ''}`}>
+                {d.status}
+              </span>
+            </div>
+            <small className="muted">Last sync · {d.lastSync}</small>
+          </div>
+        ))}
       </div>
 
-      <div className="page-actions" data-stagger>
-        <Link className="solid-btn" to="/plans">
-          View Plans
-        </Link>
-        <Link className="ghost-btn" to="/reports">
-          See Reports
-        </Link>
+      <div className="info-card" data-reveal>
+        <h3>What we sync</h3>
+        <p>Data ingested in real time and routed into analytics and reports.</p>
+        <div className="detail-tags">
+          {metrics.map((m) => (
+            <span className="tag" key={m}>
+              {m}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

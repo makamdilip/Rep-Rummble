@@ -6,6 +6,11 @@ type DownloadState = 'idle' | 'loading' | 'success' | 'error';
 export default function Reports() {
   const [status, setStatus] = useState<DownloadState>('idle');
   const [message, setMessage] = useState('');
+  const reportMeta = [
+    { label: 'Monthly Summary', size: '1.8 MB', updated: 'Today' },
+    { label: 'Yearly Trends', size: '4.2 MB', updated: '2 days ago' },
+    { label: 'All-time History', size: '6.5 MB', updated: 'This week' },
+  ];
 
   const downloadReport = async (period: 'monthly' | 'yearly' | 'historical') => {
     setStatus('loading');
@@ -42,6 +47,21 @@ export default function Reports() {
         </p>
       </div>
 
+      <div className="report-highlights" data-stagger>
+        <div className="report-highlight">
+          <h4>Clinical-ready summaries</h4>
+          <p>Clean charts, trend callouts, and adherence scoring.</p>
+        </div>
+        <div className="report-highlight">
+          <h4>Multi-format exports</h4>
+          <p>PDF for printouts, CSV for deeper analysis.</p>
+        </div>
+        <div className="report-highlight">
+          <h4>Share in minutes</h4>
+          <p>Generate a report link or download instantly.</p>
+        </div>
+      </div>
+
       <div className="tabs" data-reveal>
         <input type="radio" id="tab-monthly" name="report-tabs" defaultChecked />
         <input type="radio" id="tab-yearly" name="report-tabs" />
@@ -53,45 +73,57 @@ export default function Reports() {
         </div>
         <div className="tab-panels">
           <div className="tab-panel panel-monthly">
-            <h4>Monthly insight</h4>
-            <p>See nutrition and training trends for the last 30 days.</p>
-          </div>
-          <div className="tab-panel panel-yearly">
-            <h4>Yearly insight</h4>
-            <p>Track long-term changes in weight, activity, and wellness.</p>
-          </div>
-          <div className="tab-panel panel-historical">
-            <h4>Historical insight</h4>
-            <p>All-time data for deep medical or coaching review.</p>
-          </div>
+          <h4>Monthly insight</h4>
+          <p>See nutrition and training trends for the last 30 days.</p>
+        </div>
+        <div className="tab-panel panel-yearly">
+          <h4>Yearly insight</h4>
+          <p>Track long-term changes in weight, activity, and wellness.</p>
+        </div>
+        <div className="tab-panel panel-historical">
+          <h4>Historical insight</h4>
+          <p>All-time data for deep medical or coaching review.</p>
         </div>
       </div>
+    </div>
 
-      <div className="split" data-stagger>
-        <div className="report-card" data-reveal>
-          <div className="report-header">
-            <h4>Report Center</h4>
-            <span className="pill">Ready</span>
-          </div>
-          <div className="report-list" data-stagger>
-            <div className="report-row">
-              <span>Monthly Summary</span>
-              <button className="ghost-btn" onClick={() => downloadReport('monthly')}>
+    <div className="report-grid" data-stagger>
+      <div className="report-card" data-reveal>
+        <div className="report-header">
+          <h4>Report Center</h4>
+          <span className="pill">Ready</span>
+        </div>
+        <div className="report-list" data-stagger>
+          {reportMeta.map((item) => (
+            <div className="report-row" key={item.label}>
+              <div className="report-row-meta">
+                <span>{item.label}</span>
+                <small>
+                  {item.size} · Updated {item.updated}
+                </small>
+              </div>
+              <button
+                className="ghost-btn"
+                onClick={() =>
+                  downloadReport(
+                    item.label.toLowerCase().includes('monthly')
+                      ? 'monthly'
+                      : item.label.toLowerCase().includes('yearly')
+                        ? 'yearly'
+                        : 'historical'
+                  )
+                }
+              >
                 Download
               </button>
             </div>
-            <div className="report-row">
-              <span>Yearly Trends</span>
-              <button className="ghost-btn" onClick={() => downloadReport('yearly')}>
-                Download
-              </button>
-            </div>
-            <div className="report-row">
-              <span>All-time History</span>
-              <button className="ghost-btn" onClick={() => downloadReport('historical')}>
-                Download
-              </button>
-            </div>
+          ))}
+        </div>
+        <div className="report-meta">
+          <span>Meal adherence</span>
+          <span>Workout volume</span>
+          <span>Recovery signals</span>
+            <span>Health notes</span>
           </div>
           <div className="report-footer">
             PDF and CSV exports, ready for clinical review.
