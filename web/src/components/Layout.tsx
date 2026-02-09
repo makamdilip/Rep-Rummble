@@ -432,7 +432,7 @@ export default function Layout() {
       </Link>
 
       <footer className={`marketing-footer${footerVisible ? '' : ' hidden'}`}>
-        <span>(c) 2026 Rep Rummble</span>
+        <span>© 2025 Rep Rummble</span>
         <div>
           <Link to="/privacy">Privacy</Link>
           <Link to="/terms">Terms</Link>
