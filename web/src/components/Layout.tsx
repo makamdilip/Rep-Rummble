@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-do
 import { FaApple, FaFacebookF } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { DEV_BYPASS_AUTH, DEV_USER } from '../config/devAuth';
+import api from '../config/api';
 
 export default function Layout() {
   const location = useLocation();
@@ -177,21 +178,13 @@ export default function Layout() {
         return;
       }
 
-      const endpoint = authMode === 'signin' ? '/api/auth/login' : '/api/auth/register';
-      const payload =
+      const result =
         authMode === 'signin'
-          ? { email: formData.email, password: formData.password }
-          : { email: formData.email, password: formData.password, displayName: formData.name };
+          ? await api.auth.login(formData.email, formData.password)
+          : await api.auth.register(formData.email, formData.password, formData.name);
 
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data?.message || 'Unable to sign in');
+      if (result.error) {
+        throw new Error(result.error);
       }
 
       setAuthStatus('success');
