@@ -2,7 +2,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import express, { Express, Request, Response } from 'express'
+import express, { Express, Request, Response, NextFunction } from 'express'
 import { createServer } from 'http'
 import cors from 'cors'
 import helmet from 'helmet'
@@ -103,7 +103,7 @@ app.use('/api/chat', chatRoutes)
 app.use('/api/agent', agentRoutes)
 
 if (hasClientBuild) {
-  app.get('*', (req: Request, res: Response, next) => {
+  app.get('*', (req: Request, res: Response, next: NextFunction) => {
     if (req.path.startsWith('/api')) {
       return next()
     }
@@ -111,7 +111,7 @@ if (hasClientBuild) {
   })
 } else {
   const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173'
-  app.get('*', (req: Request, res: Response, next) => {
+  app.get('*', (req: Request, res: Response, next: NextFunction) => {
     if (req.path.startsWith('/api')) {
       return next()
     }
