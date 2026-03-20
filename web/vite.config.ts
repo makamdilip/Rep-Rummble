@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: mode === 'production' ? '/Rep-Rummble/' : '/',
+  base: '/',
   plugins: [react()],
   define: {
     'import.meta.env.VITE_API_URL': JSON.stringify(
