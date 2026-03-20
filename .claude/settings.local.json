@@ -3,7 +3,12 @@
     "allow": [
       "Bash(npm install:*)",
       "Bash(npx tsc:*)",
-      "Bash(node -e:*)"
+      "Bash(node -e:*)",
+      "Bash(find /Users/makamdilip/Rep-Rummble/mobile/src -type f -name *.tsx -o -name *.ts)",
+      "Bash(grep -E \"\\\\.tsx?$\")",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }

@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken"
 import { AuthRequest } from "../middleware/auth.middleware"
 import { ApiError } from "../types"
 import * as supabaseService from "../services/supabase.service"
-import User from "../models/User.model"
+import { User } from "../models/User.model"
 
 // Generate JWT Token
 const generateToken = (id: string): string => {
