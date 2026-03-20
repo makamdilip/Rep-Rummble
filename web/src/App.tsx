@@ -15,8 +15,8 @@ import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
-import Support from './pages/Support';
 import NotFound from './pages/NotFound';
+import AgentDashboard from './pages/agent/AgentDashboard';
 
 function App() {
   return (
@@ -38,7 +38,7 @@ function App() {
           <Route path="signup" element={<Navigate to="/?auth=signup" replace />} />
           <Route path="privacy" element={<Privacy />} />
           <Route path="terms" element={<Terms />} />
-          <Route path="support" element={<Support />} />
+          <Route path="agent" element={<AgentDashboard />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

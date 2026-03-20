@@ -9,50 +9,48 @@ export default function Home() {
     <>
       <section className="hero hero-stage" data-reveal>
         <div className="hero-decor">
-          <span className="float-item item-watch" />
-          <span className="float-item item-camera" />
           <span className="float-item item-weight" />
           <span className="float-item item-badge" />
         </div>
         <div className="hero-copy">
-          <h1>Your all-in-one membership for nutrition, training, and recovery.</h1>
+          <h1>Turn sweat into momentum — train smarter, live stronger.</h1>
           <p>
-            Rep Rummble keeps meals, workouts, recovery, and progress insights
-            connected in one adaptive plan. Start on mobile, connect your
-            wearables, and share your progress with your care team anytime.
+            Rep Rummble turns your workouts, meals, and recovery into a single
+            plan that adapts as you get better. Start small. See real results.
           </p>
           <div className="hero-links">
             <Link className="brutalist-btn" to="/?auth=signup">
               Start Free Trial
             </Link>
             <Link className="ghost-btn" to="/plans">
-              See Plans & Pricing
+              Pick a Plan
             </Link>
           </div>
           <div className="hero-subtext">
-            Start free in minutes. Upgrade anytime from your dashboard.
+            Join thousands who built consistency — challenges, coaches, and data
+            to keep you moving.
           </div>
         </div>
         <div className="hero-visual tilt-card">
           <img src={heroImage} alt="Rep Rummble preview" />
           <div className="hero-visual-meta">
-            <div className="status-pill">Live sync</div>
+            <div className="status-pill">30-day challenge</div>
             <div className="preview-grid">
               <div>
-                <h4>Meals</h4>
-                <p>3 logged · 1,620 kcal</p>
+                <h4>Consistency</h4>
+                <p>+42% weekly activity</p>
               </div>
               <div>
-                <h4>Workout</h4>
-                <p>52 min · Strength</p>
-              </div>
-              <div>
-                <h4>Protein</h4>
-                <p>132g of 150g goal</p>
+                <h4>Strength</h4>
+                <p>Avg +6 kg squat progress</p>
               </div>
               <div>
                 <h4>Recovery</h4>
-                <p>7h 25m sleep</p>
+                <p>Better sleep & reduced soreness</p>
+              </div>
+              <div>
+                <h4>Nutrition</h4>
+                <p>Smart targets, easy swaps</p>
               </div>
             </div>
           </div>
@@ -62,87 +60,88 @@ export default function Home() {
 
       <section className="section" data-reveal>
         <div className="section-head">
-          <h2>Membership that moves with your life</h2>
-          <p>More than tracking. Rep Rummble builds a plan that adapts as you do.</p>
+          <h2>What we do — simple, focused, effective</h2>
+          <p>
+            Tools that create momentum: plans, reminders, recovery, and
+            community.
+          </p>
         </div>
         <div className="card-grid" data-stagger>
           <div className="info-card">
-            <h3>Personalized weekly plan</h3>
-            <p>Adaptive workouts and nutrition targets built around your goals.</p>
+            <h3>Personalized plans</h3>
+            <p>Goals-first programming that fits your schedule and gear.</p>
           </div>
           <div className="info-card">
-            <h3>Real-time accountability</h3>
-            <p>Streaks, reminders, and progress nudges that keep you consistent.</p>
+            <h3>Daily momentum</h3>
+            <p>Short, clear tasks every day so progress becomes automatic.</p>
           </div>
           <div className="info-card">
-            <h3>Recovery-aware coaching</h3>
-            <p>Sleep and readiness insights that prevent overtraining and burnout.</p>
+            <h3>Recovery-first</h3>
+            <p>
+              Sleep, readiness, and load management so you progress without
+              pain.
+            </p>
           </div>
           <div className="info-card">
-            <h3>Care-team visibility</h3>
-            <p>Export reports that summarize your trends in minutes.</p>
+            <h3>Community & challenges</h3>
+            <p>
+              Friendly leaderboards, small-group challenges, and coach nudges.
+            </p>
           </div>
         </div>
       </section>
 
       <section className="section" data-reveal>
         <div className="section-head">
-          <h2>Everything included with membership</h2>
-          <p>All the tools you need to stay consistent and keep improving.</p>
+          <h2>Proof in the numbers</h2>
+          <p>Real people. Real momentum.</p>
         </div>
-        <div className="bento-grid" data-stagger>
-          <article className="bento-card glass span-2 animated-card">
-            <h3>Meal intelligence</h3>
-            <p>Track macros, micros, and smart portions with guided swaps.</p>
-            <div className="bento-actions">
-              <Link className="ghost-btn" to="/services">
-                Nutrition Services
-              </Link>
-            </div>
+        <div className="stats-grid" data-stagger>
+          <article className="stat-card animated-card">
+            <div className="stat-icon">💪</div>
+            <h3 className="stat-value">75k+</h3>
+            <p className="stat-label">Workouts completed</p>
           </article>
-          <article className="bento-card brutal animated-card">
-            <h3>Training intelligence</h3>
-            <p>Volume, load, and cardio insights tailored to your goal.</p>
-            <div className="bento-badge">Performance</div>
+          <article className="stat-card animated-card">
+            <div className="stat-icon">👥</div>
+            <h3 className="stat-value">18k+</h3>
+            <p className="stat-label">Active members</p>
           </article>
-          <article className="bento-card glass animated-card">
-            <h3>Wearable sync</h3>
-            <p>Connect the devices you already use for sleep and activity.</p>
-            <div className="orb" />
+          <article className="stat-card animated-card">
+            <div className="stat-icon">📈</div>
+            <h3 className="stat-value">Avg +5%</h3>
+            <p className="stat-label">Weekly consistency increase</p>
           </article>
-          <article className="bento-card span-2 animated-card">
-            <div className="bento-media">
-              <img src={reportPreview} alt="Report preview" />
-            </div>
+          <article className="stat-card featured animated-card">
+            <div className="stat-icon">📋</div>
             <div>
               <h3>Doctor-ready reports</h3>
-              <p>Monthly, yearly, and historical exports for your care team.</p>
+              <p>Share progress simply with professionals and coaches.</p>
             </div>
-          </article>
-          <article className="bento-card glass animated-card">
-            <h3>Community momentum</h3>
-            <p>Challenges, points, and accountability in one feed.</p>
-          </article>
-          <article className="bento-card animated-card">
-            <h3>Health notes</h3>
-            <p>Log symptoms, injuries, and recovery notes securely.</p>
           </article>
         </div>
       </section>
 
       <section className="section split" data-reveal>
         <div>
-          <h2>Designed for busy schedules</h2>
+          <h2>Real stories, small wins</h2>
           <p>
-            Log meals in seconds, follow the workout of the day, and get
-            reminders when it matters. The membership stays lightweight so you
-            can be consistent without the overwhelm.
+            Quick wins keep you curious. See how small habits stacked into big
+            changes for members just like you.
           </p>
-          <div className="checklist">
-            <span>Meal logging with guided nutrition</span>
-            <span>Weekly training blocks that evolve</span>
-            <span>Recovery-aware day planning</span>
-            <span>Exportable health reports</span>
+          <div className="testimonials">
+            <blockquote className="testimonial">
+              “I hit a 10kg PR in 12 weeks — and still feel rested.”
+              <cite>— Maya, 28</cite>
+            </blockquote>
+            <blockquote className="testimonial">
+              “Logging meals became simple; my energy stayed steady all day.”
+              <cite>— Alex, 34</cite>
+            </blockquote>
+            <blockquote className="testimonial">
+              “Challenges made training fun again. I stayed consistent.”
+              <cite>— Jorge, 41</cite>
+            </blockquote>
           </div>
         </div>
         <div className="device-stage">
@@ -150,16 +149,6 @@ export default function Home() {
           <div className="phone-shell">
             <div className="phone-notch" />
             <div className="phone-screen ios">
-              <div className="phone-status">
-                <span className="phone-time">9:41</span>
-                <div className="phone-status-icons">
-                  <span className="phone-signal" aria-hidden="true" />
-                  <span className="phone-wifi" aria-hidden="true" />
-                  <span className="phone-battery" aria-hidden="true">
-                    <span className="phone-battery-fill" />
-                  </span>
-                </div>
-              </div>
               <div className="phone-header">
                 <div className="phone-title-group">
                   <span className="phone-title">Rep Rummble Mobile</span>
@@ -169,55 +158,13 @@ export default function Home() {
               </div>
               <div className="phone-home">
                 <div className="phone-hero-card">
-                  <h4>Build a healthier life</h4>
-                  <p>Meals, workouts, recovery, and insights in one membership.</p>
+                  <h4>Start with one small win</h4>
+                  <p>Log a meal, finish today’s workout, and celebrate.</p>
                   <span className="phone-cta">Start Free Trial</span>
                 </div>
-                <span className="phone-home-label">Home</span>
-                <div className="phone-metrics">
-                  <div>
-                    <h4>Meals</h4>
-                    <p>3 logged · 1,620 kcal</p>
-                  </div>
-                  <div>
-                    <h4>Workout</h4>
-                    <p>52 min · Strength</p>
-                  </div>
-                  <div>
-                    <h4>Protein</h4>
-                    <p>132g of 150g goal</p>
-                  </div>
-                  <div>
-                    <h4>Recovery</h4>
-                    <p>7h 25m sleep</p>
-                  </div>
-                </div>
               </div>
-              <div className="phone-footer">
-                Track progress, meals, and recovery in one smooth flow.
-              </div>
+              <div className="phone-footer">Stay curious. Start today.</div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section" data-reveal>
-        <div className="section-head">
-          <h2>How your membership works</h2>
-          <p>Three steps to start seeing momentum in your first week.</p>
-        </div>
-        <div className="card-grid" data-stagger>
-          <div className="info-card">
-            <h3>Set your direction</h3>
-            <p>Pick fat loss, lean muscle, or performance and we shape the plan.</p>
-          </div>
-          <div className="info-card">
-            <h3>Get daily clarity</h3>
-            <p>Meals, workouts, and reminders arrive right when you need them.</p>
-          </div>
-          <div className="info-card">
-            <h3>Evolve each week</h3>
-            <p>Weekly check-ins update targets based on your real progress.</p>
           </div>
         </div>
       </section>
@@ -226,33 +173,22 @@ export default function Home() {
         <div className="download-band">
           <div className="download-copy">
             <span className="download-chip">iOS & Android</span>
-            <h2>Take Rep Rummble with you</h2>
+            <h2>Take your momentum everywhere</h2>
             <p>
-              Your membership lives on mobile. Log meals, follow the workout of
-              the day, and see recovery insights in one place.
+              Log fast, follow daily guidance, and track progress that matters.
             </p>
             <div className="store-buttons">
               <AppStoreButton size="lg" />
               <GooglePlayButton size="lg" />
             </div>
             <div className="download-meta">
-              <span>Scan once, sync everywhere.</span>
-              <span>Cancel anytime.</span>
+              <span>Start free — cancel anytime.</span>
+              <span>Challenges, coaching, and reports included.</span>
             </div>
           </div>
           <div className="download-visual">
             <div className="ios-phone primary">
               <div className="ios-notch" />
-              <div className="ios-status">
-                <span>9:41</span>
-                <div className="ios-icons">
-                  <span className="ios-signal" />
-                  <span className="ios-wifi" />
-                  <span className="ios-battery">
-                    <span className="ios-battery-fill" />
-                  </span>
-                </div>
-              </div>
               <div className="ios-screen">
                 <div className="ios-app-header">
                   <div>
@@ -261,47 +197,12 @@ export default function Home() {
                   </div>
                   <span className="ios-avatar">RR</span>
                 </div>
-                <span className="ios-home-label">Home</span>
                 <div className="ios-hero-card">
                   <h4>Build a healthier life</h4>
-                  <p>Meals, workouts, recovery, and insights in one membership.</p>
+                  <p>
+                    Meals, workouts, recovery, and insights in one membership.
+                  </p>
                   <span className="ios-cta">Start Free Trial</span>
-                </div>
-                <div className="ios-metrics">
-                  <div>
-                    <h5>Meals</h5>
-                    <p>3 logged · 1,620 kcal</p>
-                  </div>
-                  <div>
-                    <h5>Workout</h5>
-                    <p>52 min · Strength</p>
-                  </div>
-                  <div>
-                    <h5>Protein</h5>
-                    <p>132g of 150g goal</p>
-                  </div>
-                  <div>
-                    <h5>Recovery</h5>
-                    <p>7h 25m sleep</p>
-                  </div>
-                </div>
-                <div className="ios-footer">
-                  Track progress, meals, and recovery in one smooth flow.
-                </div>
-              </div>
-            </div>
-            <div className="ios-phone ghost" aria-hidden="true">
-              <div className="ios-notch" />
-              <div className="ios-screen compact">
-                <div className="ios-app-header">
-                  <div>
-                    <span className="ios-app-title">Home</span>
-                    <span className="ios-app-pill">Today</span>
-                  </div>
-                </div>
-                <div className="ios-mini">
-                  <p>Workout complete · 52 min</p>
-                  <p>Recovery score: 86</p>
                 </div>
               </div>
             </div>
@@ -313,15 +214,15 @@ export default function Home() {
 
       <section className="section cta" data-reveal>
         <div>
-          <h2>Ready to start your membership?</h2>
-          <p>Pick a plan and start building consistent habits today.</p>
+          <h2>Ready to try Rep Rummble?</h2>
+          <p>Start with a free trial and join the 30-day challenge.</p>
         </div>
         <div className="cta-actions">
-          <Link className="solid-btn" to="/plans">
+          <Link className="solid-btn" to="/?auth=signup">
             Start Free Trial
           </Link>
-          <Link className="ghost-btn" to="/services">
-            Explore Services
+          <Link className="ghost-btn" to="/plans">
+            See Plans
           </Link>
         </div>
       </section>

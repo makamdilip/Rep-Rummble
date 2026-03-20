@@ -13,6 +13,7 @@ import MainTabNavigator from './MainTabNavigator';
 import FoodScannerScreen from '../screens/FoodScannerScreen';
 import FoodResultsScreen from '../screens/FoodResultsScreen';
 import FoodSearchScreen from '../screens/FoodSearchScreen';
+import ChatScreen from '../screens/ChatScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -59,6 +60,14 @@ export default function RootNavigator() {
             options={{
               presentation: 'card',
               animation: 'slide_from_right',
+            }}
+          />
+          <Stack.Screen
+            name="Chat"
+            component={ChatScreen}
+            options={{
+              presentation: 'fullScreenModal',
+              animation: 'slide_from_bottom',
             }}
           />
         </>

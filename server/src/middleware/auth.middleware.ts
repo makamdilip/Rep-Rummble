@@ -123,3 +123,39 @@ export const adminOnly = async (req: AuthRequest, res: Response, next: NextFunct
   // For now, allow all authenticated users
   next()
 }
+
+// Agent check middleware - ensures user is a support agent
+export const agentOnly = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  if (!req.user) {
+    res.status(401).json({
+      success: false,
+      message: 'Not authorized'
+    })
+    return
+  }
+
+  try {
+    // Dynamic import to avoid circular dependency
+    const { SupportAgent } = await import('../models/SupportAgent.model')
+
+    const agent = await SupportAgent.findOne({ userId: req.user.id })
+
+    if (!agent) {
+      res.status(403).json({
+        success: false,
+        message: 'Agent access required'
+      })
+      return
+    }
+
+    // Attach agent to request for use in controllers
+    ;(req as any).agent = agent
+    next()
+  } catch (error) {
+    console.error('Agent middleware error:', error)
+    res.status(500).json({
+      success: false,
+      message: 'Server error during agent verification'
+    })
+  }
+}

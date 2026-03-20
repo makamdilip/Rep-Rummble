@@ -160,6 +160,7 @@ export type RootStackParamList = {
     analysisResult: FoodAnalysisResponse['data'];
     imageUri: string;
   };
+  Chat: { conversationId?: string } | undefined;
 };
 
 export type MainTabParamList = {

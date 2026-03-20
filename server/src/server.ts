@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import express, { Express, Request, Response } from 'express'
+import { createServer } from 'http'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
@@ -10,7 +11,7 @@ import compression from 'compression'
 import path from 'path'
 import fs from 'fs'
 import { connectDB, isDBConnected } from './config/database'
-import { initOracleDB, isOracleConnected } from './services/oracle.service'
+import { initializeSocket } from './config/socket'
 import { errorHandler } from './middleware/errorHandler'
 
 // Import routes
@@ -25,23 +26,19 @@ import workoutPlanRoutes from './routes/workoutPlan.routes'
 import leadRoutes from './routes/lead.routes'
 import reportRoutes from './routes/report.routes'
 import contactRoutes from './routes/contact.routes'
+import chatRoutes from './routes/chat.routes'
+import agentRoutes from './routes/agent.routes'
 
-// Create Express app
+// Create Express app and HTTP server
 const app: Express = express()
+const httpServer = createServer(app)
 const PORT = process.env.PORT || 5001
 
-// Initialize databases
-async function initDatabases() {
-  // Try Oracle Database first (primary)
-  await initOracleDB()
+// Initialize Socket.io for real-time chat
+initializeSocket(httpServer)
 
-  // Fallback to MongoDB if Oracle not configured
-  if (!isOracleConnected()) {
-    connectDB()
-  }
-}
-
-initDatabases()
+// Connect to MongoDB
+connectDB()
 
 // Middleware
 app.use(helmet()) // Security headers
@@ -76,7 +73,6 @@ app.get("/api/health", (_req: Request, res: Response) => {
     message: "Rep Rummble API is running",
     timestamp: new Date().toISOString(),
     services: {
-      oracle: isOracleConnected() ? "connected" : "not configured",
       mongodb: isDBConnected() ? "connected" : "not configured",
       supabase: process.env.SUPABASE_URL ? "configured" : "not configured",
       gemini: process.env.GEMINI_API_KEY ? "configured" : "not configured",
@@ -103,6 +99,8 @@ app.use('/api/workout-plans', workoutPlanRoutes)
 app.use('/api/leads', leadRoutes)
 app.use('/api/reports', reportRoutes)
 app.use('/api/contact', contactRoutes)
+app.use('/api/chat', chatRoutes)
+app.use('/api/agent', agentRoutes)
 
 if (hasClientBuild) {
   app.get('*', (req: Request, res: Response, next) => {
@@ -132,8 +130,8 @@ app.use((_req: Request, res: Response) => {
 // Error handler (must be last)
 app.use(errorHandler)
 
-// Start server
-app.listen(PORT, () => {
+// Start server with Socket.io
+httpServer.listen(PORT, () => {
   console.log('')
   console.log('╔════════════════════════════════════════════════════════╗')
   console.log('║           REP RUMMBLE API SERVER                        ║')
@@ -143,9 +141,9 @@ app.listen(PORT, () => {
   console.log('╠════════════════════════════════════════════════════════╣')
   console.log('║  SERVICES STATUS:                                      ║')
   console.log(`║  🔐 Supabase Auth: ${process.env.SUPABASE_URL ? '✅ Configured' : '⚠️  Not configured'}`)
-  console.log(`║  🗄️  Oracle DB:     ${isOracleConnected() ? '✅ Connected' : '⚠️  Not configured'}`)
-  console.log(`║  🍃 MongoDB:       ${isDBConnected() ? '✅ Connected' : '⚠️  Fallback mode'}`)
+  console.log(`║  🍃 MongoDB:       ${isDBConnected() ? '✅ Connected' : '⚠️  Connecting...'}`)
   console.log(`║  🤖 Gemini AI:     ${process.env.GEMINI_API_KEY ? '✅ Configured' : '⚠️  Not configured'}`)
+  console.log(`║  💬 Socket.io:     ✅ Enabled (Real-time chat)`)
   console.log('╚════════════════════════════════════════════════════════╝')
   console.log('')
 })

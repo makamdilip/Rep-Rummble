@@ -8,11 +8,17 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAuth } from '../../context/AuthContext';
 import api from '../../config/api';
-import { Meal, Workout } from '../../types';
+import { Meal, Workout, RootStackParamList } from '../../types';
+import ChatFAB from '../../components/chat/ChatFAB';
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function HomeScreen() {
+  const navigation = useNavigation<NavigationProp>();
   const { user } = useAuth();
   const [meals, setMeals] = useState<Meal[]>([]);
   const [workouts, setWorkouts] = useState<Workout[]>([]);
@@ -185,8 +191,11 @@ export default function HomeScreen() {
           )}
         </View>
 
-        <View style={{ height: 24 }} />
+        <View style={{ height: 100 }} />
       </ScrollView>
+
+      {/* Chat Support FAB */}
+      <ChatFAB onPress={() => navigation.navigate('Chat')} />
     </SafeAreaView>
   );
 }
