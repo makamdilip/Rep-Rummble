@@ -28,7 +28,7 @@ export const downloadSampleReport = (req: Request, res: Response) => {
   const csv = [header, ...rows].map((row) => row.join(',')).join('\n')
 
   res.setHeader('Content-Type', 'text/csv')
-  res.setHeader('Content-Disposition', `attachment; filename="reprummble-${period}-report.csv"`)
+  res.setHeader('Content-Disposition', `attachment; filename="rep-rummble-${period}-report.csv"`)
   return res.status(200).send(csv)
 }
 

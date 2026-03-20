@@ -1,5 +1,5 @@
 {
-  "name": "reprummble-backend",
+  "name": "rep-rummble-backend",
   "version": "1.0.0",
   "description": "Backend API for Reprummble",
   "main": "dist/server.js",
