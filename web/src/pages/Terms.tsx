@@ -17,7 +17,7 @@ const termsSections: TermsSection[] = [
     details: (
       <>
         <p>
-          By accessing or using Rep Rummble's mobile application and website
+          By accessing or using Reprummble's mobile application and website
           (the "Service"), you agree to be bound by these Terms of Service. If
           you do not agree to these terms, please do not use the Service.
         </p>
@@ -33,11 +33,11 @@ const termsSections: TermsSection[] = [
     id: "service",
     title: "What We Provide",
     icon: "📱",
-    summary: "Description of Rep Rummble services and features",
+    summary: "Description of Reprummble services and features",
     details: (
       <>
         <p>
-          Rep Rummble is a wellness platform that provides tools for tracking
+          Reprummble is a wellness platform that provides tools for tracking
           nutrition, workouts, and recovery. Our Service includes:
         </p>
         <ul>
@@ -72,13 +72,13 @@ const termsSections: TermsSection[] = [
     id: "medical",
     title: "Medical Disclaimer",
     icon: "⚠️",
-    summary: "Rep Rummble is not a medical service",
+    summary: "Reprummble is not a medical service",
     details: (
       <>
         <div className="highlight-box">
           <p>
             <strong>
-              Rep Rummble is not a medical service and does not provide medical
+              Reprummble is not a medical service and does not provide medical
               advice, diagnosis, or treatment.
             </strong>
           </p>
@@ -224,8 +224,8 @@ const termsSections: TermsSection[] = [
     details: (
       <>
         <p>
-          Rep Rummble, its name, logo, design, and all content, features, and
-          functionality are owned by Rep Rummble and protected by intellectual
+          Reprummble, its name, logo, design, and all content, features, and
+          functionality are owned by Reprummble and protected by intellectual
           property laws.
         </p>
         <p>You agree not to:</p>
@@ -308,7 +308,7 @@ const termsSections: TermsSection[] = [
     details: (
       <>
         <p>
-          <strong>TO THE MAXIMUM EXTENT PERMITTED BY LAW,</strong> Rep Rummble
+          <strong>TO THE MAXIMUM EXTENT PERMITTED BY LAW,</strong> Reprummble
           shall not be liable for:
         </p>
         <ul>

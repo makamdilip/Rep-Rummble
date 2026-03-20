@@ -8,7 +8,13 @@
       "Bash(grep -E \"\\\\.tsx?$\")",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git -C /Users/makamdilip/Rep-Rummble add web/vite.config.ts)",
+      "Bash(git -C:*)",
+      "Bash(git -C /Users/makamdilip/Rep-Rummble push origin master)",
+      "WebFetch(domain:rep-rummble-qi0lpvatm-reprummble.vercel.app)",
+      "Bash(grep -ri \"rep rummble\\\\|rep-rummble\\\\|repremmble\\\\|Rep Rummble\\\\|rep_rummble\" --include=*.ts --include=*.tsx --include=*.json --include=*.html --include=*.md --include=*.css -l)",
+      "Bash(grep -ri \"rep rummble\\\\|rep-rummble\\\\|repremmble\\\\|Rep Rummble\\\\|rep_rummble\" --include=*.ts --include=*.tsx --include=*.json --include=*.html --include=*.md --include=*.css -h)"
     ]
   }
 }

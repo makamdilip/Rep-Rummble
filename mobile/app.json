@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Rep Rummble",
-    "slug": "rep-rummble",
+    "name": "Reprummble",
+    "slug": "reprummble",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,8 +18,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.reprumble.app",
       "infoPlist": {
-        "NSCameraUsageDescription": "Rep Rummble needs camera access to scan your meals and track your workout form.",
-        "NSPhotoLibraryUsageDescription": "Rep Rummble needs photo library access to select meal photos for nutrition analysis."
+        "NSCameraUsageDescription": "Reprummble needs camera access to scan your meals and track your workout form.",
+        "NSPhotoLibraryUsageDescription": "Reprummble needs photo library access to select meal photos for nutrition analysis."
       }
     },
     "android": {
@@ -41,13 +41,13 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow Rep Rummble to access your camera for meal scanning and workout tracking."
+          "cameraPermission": "Allow Reprummble to access your camera for meal scanning and workout tracking."
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "Allow Rep Rummble to access your photos for meal analysis."
+          "photosPermission": "Allow Reprummble to access your photos for meal analysis."
         }
       ]
     ]

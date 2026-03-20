@@ -1,6 +1,6 @@
 # Setup
 
-This guide sets up local development for Rep Rummble using Supabase Auth, Oracle ATP, and Gemini AI.
+This guide sets up local development for Reprummble using Supabase Auth, Oracle ATP, and Gemini AI.
 
 ## Prerequisites
 

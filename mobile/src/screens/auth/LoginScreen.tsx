@@ -54,7 +54,7 @@ export default function LoginScreen() {
           {/* Logo & Title */}
           <View style={styles.header}>
             <Text style={styles.logo}>💪</Text>
-            <Text style={styles.title}>Rep Rummble</Text>
+            <Text style={styles.title}>Reprummble</Text>
             <Text style={styles.subtitle}>Train. Track. Triumph.</Text>
           </View>
 

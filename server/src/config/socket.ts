@@ -131,7 +131,7 @@ export function initializeSocket(httpServer: HttpServer) {
           const aiMessage = await SupportMessage.create({
             conversationId,
             senderType: 'ai',
-            senderName: 'Rep Rummble Assistant',
+            senderName: 'Reprummble Assistant',
             content: aiResponse.response,
             contentType: 'text',
             aiConfidence: aiResponse.confidence,
@@ -345,7 +345,7 @@ export function initializeSocket(httpServer: HttpServer) {
         const systemMessage = await SupportMessage.create({
           conversationId,
           senderType: 'system',
-          content: 'This conversation has been resolved. Thank you for contacting Rep Rummble support!',
+          content: 'This conversation has been resolved. Thank you for contacting Reprummble support!',
           contentType: 'text'
         })
 

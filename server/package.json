@@ -1,7 +1,7 @@
 {
-  "name": "rep-rummble-backend",
+  "name": "reprummble-backend",
   "version": "1.0.0",
-  "description": "Backend API for Rep Rummble",
+  "description": "Backend API for Reprummble",
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node src/server.ts",

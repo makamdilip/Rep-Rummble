@@ -1,8 +1,8 @@
-# Rep Rummble - Fitness + Nutrition for Gen Z/Alpha
+# Reprummble - Fitness + Nutrition for Gen Z/Alpha
 
 > Track meals. Crush reps. Win with friends.
 
-Rep Rummble is a multi-platform fitness app with AI-powered meal logging, workout tracking, and social gamification.
+Reprummble is a multi-platform fitness app with AI-powered meal logging, workout tracking, and social gamification.
 The stack is built around Supabase Auth, Oracle Autonomous Database (ATP), Gemini AI, a Node/Express backend on an
 Oracle VM, and a React + Vite web frontend deployed to Vercel.
 
@@ -11,7 +11,7 @@ Oracle VM, and a React + Vite web frontend deployed to Vercel.
 ## Proprietary Notice
 
 This repository is proprietary and confidential. No license is granted to copy, modify,
-distribute, or use this software without explicit written permission from Rep Rummble.
+distribute, or use this software without explicit written permission from Reprummble.
 
 ---
 

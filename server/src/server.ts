@@ -70,7 +70,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' })) // Parse URL-enco
 app.get("/api/health", (_req: Request, res: Response) => {
   res.json({
     status: "OK",
-    message: "Rep Rummble API is running",
+    message: "Reprummble API is running",
     timestamp: new Date().toISOString(),
     services: {
       mongodb: isDBConnected() ? "connected" : "not configured",
@@ -134,7 +134,7 @@ app.use(errorHandler)
 httpServer.listen(PORT, () => {
   console.log('')
   console.log('╔════════════════════════════════════════════════════════╗')
-  console.log('║           REP RUMMBLE API SERVER                        ║')
+  console.log('║           REPRUMMBLE API SERVER                        ║')
   console.log('╠════════════════════════════════════════════════════════╣')
   console.log(`║  🚀 Server:    http://localhost:${PORT}`)
   console.log(`║  📝 Environment: ${process.env.NODE_ENV || 'development'}`)

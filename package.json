@@ -1,7 +1,7 @@
 {
-  "name": "@rep-rummble/monorepo",
+  "name": "@reprummble/monorepo",
   "version": "1.0.0",
-  "description": "Rep Rummble - Fitness + Nutrition App for Gen Z/Alpha (MERN Stack)",
+  "description": "Reprummble - Fitness + Nutrition App for Gen Z/Alpha (MERN Stack)",
   "private": true,
   "type": "module",
   "keywords": [

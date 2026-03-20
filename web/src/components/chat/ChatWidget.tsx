@@ -112,7 +112,7 @@ export default function ChatWidget() {
                 </svg>
               </div>
               <div>
-                <div className="chat-header-title">Rep Rummble Support</div>
+                <div className="chat-header-title">Reprummble Support</div>
                 <div className="chat-status">
                   <span
                     className="chat-status-dot"

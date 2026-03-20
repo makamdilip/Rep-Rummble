@@ -4,7 +4,7 @@ Effective date: January 31, 2026
 Owner: [TBD Security Owner]
 
 This policy defines how we create, store, use, and rotate secrets and how we protect production systems.
-It applies to all employees, contractors, and systems that handle Rep Rummble data.
+It applies to all employees, contractors, and systems that handle Reprummble data.
 
 ## 1) Scope
 

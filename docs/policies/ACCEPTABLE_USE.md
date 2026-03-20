@@ -2,7 +2,7 @@
 
 Effective date: January 31, 2026
 
-This policy describes prohibited and permitted use of Rep Rummble.
+This policy describes prohibited and permitted use of Reprummble.
 This is a template and must be reviewed by legal counsel.
 
 ## You may not:

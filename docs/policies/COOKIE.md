@@ -2,7 +2,7 @@
 
 Effective date: January 31, 2026
 
-This Cookie Policy explains how Rep Rummble uses cookies and similar technologies.
+This Cookie Policy explains how Reprummble uses cookies and similar technologies.
 This is a template and must be reviewed by legal counsel.
 
 ## 1) What are cookies?

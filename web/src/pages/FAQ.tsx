@@ -12,7 +12,7 @@ export default function FAQ() {
           <span className="sv-title-accent">questions</span>
         </h2>
         <p className="sv-subtitle">
-          Real problems, real solutions. Here's how Rep Rummble helps you
+          Real problems, real solutions. Here's how Reprummble helps you
           succeed.
         </p>
         <div className="sv-hero-line" aria-hidden="true" />
@@ -35,7 +35,7 @@ export default function FAQ() {
           <div className="fq-answer-block fq-block-solution">
             <span className="fq-block-label">Our Solution</span>
             <p>
-              Rep Rummble sends smart reminders based on your eating patterns.
+              Reprummble sends smart reminders based on your eating patterns.
               If you usually eat lunch at 1 PM, you'll get a gentle nudge at
               1:15 PM.
             </p>
@@ -80,7 +80,7 @@ export default function FAQ() {
               <div className="fq-answer-block fq-block-example">
                 <span className="fq-block-label">Example</span>
                 <p>
-                  Mike was stuck at 185 lbs for 3 weeks. Rep Rummble noticed his
+                  Mike was stuck at 185 lbs for 3 weeks. Reprummble noticed his
                   calories dropped too low, suggested increasing by 200 kcal,
                   and he broke through within 10 days.
                 </p>
@@ -108,7 +108,7 @@ export default function FAQ() {
               <div className="fq-answer-block fq-block-solution">
                 <span className="fq-block-label">Our Solution</span>
                 <p>
-                  Log your mood alongside meals. Rep Rummble identifies
+                  Log your mood alongside meals. Reprummble identifies
                   patterns — like stress on Mondays leading to overeating — and
                   suggests healthier coping strategies.
                 </p>
@@ -145,7 +145,7 @@ export default function FAQ() {
               <div className="fq-answer-block fq-block-solution">
                 <span className="fq-block-label">Our Solution</span>
                 <p>
-                  Sync your wearable to track sleep. Rep Rummble adjusts your
+                  Sync your wearable to track sleep. Reprummble adjusts your
                   daily targets based on sleep quality — lighter workouts on bad
                   sleep days, higher protein to prevent muscle loss.
                 </p>
@@ -291,7 +291,7 @@ export default function FAQ() {
               <div className="fq-answer-block fq-block-solution">
                 <span className="fq-block-label">Our Solution</span>
                 <p>
-                  Rep Rummble calculates your lean bulk surplus (usually
+                  Reprummble calculates your lean bulk surplus (usually
                   200-300 kcal above maintenance) and tracks your weight gain
                   rate. If you're gaining too fast, it alerts you to dial back.
                 </p>
@@ -328,7 +328,7 @@ export default function FAQ() {
               <div className="fq-answer-block fq-block-solution">
                 <span className="fq-block-label">Our Solution</span>
                 <p>
-                  Rep Rummble syncs with Apple Health, Google Fit, Fitbit,
+                  Reprummble syncs with Apple Health, Google Fit, Fitbit,
                   Garmin, and WHOOP. All your steps, heart rate, sleep, and
                   workouts flow into one dashboard.
                 </p>
@@ -373,7 +373,7 @@ export default function FAQ() {
               <div className="fq-answer-block fq-block-example">
                 <span className="fq-block-label">Example</span>
                 <p>
-                  Try it for 2 weeks free. If Rep Rummble isn't right for you,
+                  Try it for 2 weeks free. If Reprummble isn't right for you,
                   cancel anytime with one click — no questions asked, no hidden
                   fees.
                 </p>

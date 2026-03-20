@@ -15,7 +15,7 @@ export default function Home() {
         <div className="hero-copy">
           <h1>Turn sweat into momentum — train smarter, live stronger.</h1>
           <p>
-            Rep Rummble turns your workouts, meals, and recovery into a single
+            Reprummble turns your workouts, meals, and recovery into a single
             plan that adapts as you get better. Start small. See real results.
           </p>
           <div className="hero-links">
@@ -32,7 +32,7 @@ export default function Home() {
           </div>
         </div>
         <div className="hero-visual tilt-card">
-          <img src={heroImage} alt="Rep Rummble preview" />
+          <img src={heroImage} alt="Reprummble preview" />
           <div className="hero-visual-meta">
             <div className="status-pill">30-day challenge</div>
             <div className="preview-grid">
@@ -151,7 +151,7 @@ export default function Home() {
             <div className="phone-screen ios">
               <div className="phone-header">
                 <div className="phone-title-group">
-                  <span className="phone-title">Rep Rummble Mobile</span>
+                  <span className="phone-title">Reprummble Mobile</span>
                   <span className="phone-pill">Live sync</span>
                 </div>
                 <span className="phone-avatar">RR</span>
@@ -192,7 +192,7 @@ export default function Home() {
               <div className="ios-screen">
                 <div className="ios-app-header">
                   <div>
-                    <span className="ios-app-title">Rep Rummble Mobile</span>
+                    <span className="ios-app-title">Reprummble Mobile</span>
                     <span className="ios-app-pill">Live sync</span>
                   </div>
                   <span className="ios-avatar">RR</span>
@@ -214,7 +214,7 @@ export default function Home() {
 
       <section className="section cta" data-reveal>
         <div>
-          <h2>Ready to try Rep Rummble?</h2>
+          <h2>Ready to try Reprummble?</h2>
           <p>Start with a free trial and join the 30-day challenge.</p>
         </div>
         <div className="cta-actions">

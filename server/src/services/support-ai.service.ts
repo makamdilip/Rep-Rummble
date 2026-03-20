@@ -31,9 +31,9 @@ if (process.env.GEMINI_API_KEY) {
   genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 }
 
-const SUPPORT_SYSTEM_PROMPT = `You are a helpful customer support assistant for Rep Rummble, a fitness and nutrition tracking app.
+const SUPPORT_SYSTEM_PROMPT = `You are a helpful customer support assistant for Reprummble, a fitness and nutrition tracking app.
 
-About Rep Rummble:
+About Reprummble:
 - Mobile app for tracking meals, workouts, and recovery
 - Features: AI-powered meal logging with photo analysis, workout tracking, daily streaks, leaderboards
 - Subscription plans: Free trial (7 days), Monthly ($9.99), Annual ($79.99)
@@ -246,7 +246,7 @@ function getMockSupportResponse(query: string): SupportResponse {
   // Greeting
   if (lowerQuery.match(/^(hi|hello|hey|good morning|good evening)/)) {
     return {
-      response: "Hello! Welcome to Rep Rummble support. I'm here to help you with any questions about the app. What can I assist you with today?",
+      response: "Hello! Welcome to Reprummble support. I'm here to help you with any questions about the app. What can I assist you with today?",
       confidence: 0.9,
       suggestedQuickReplies: ['How do I log meals?', 'Subscription plans', 'Technical issue'],
       shouldEscalate: false,

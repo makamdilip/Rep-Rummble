@@ -28,7 +28,7 @@ export default function Analytics() {
       <div className="section-head">
         <h2>Actionable analytics</h2>
         <p>
-          From macros to recovery, Rep Rummble helps you understand what drives
+          From macros to recovery, Reprummble helps you understand what drives
           progress.
         </p>
       </div>

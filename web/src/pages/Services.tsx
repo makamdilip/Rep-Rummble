@@ -13,7 +13,7 @@ export default function Services() {
           <span className="sv-title-accent">real results</span>
         </h2>
         <p className="sv-subtitle">
-          Rep Rummble combines nutrition, training, recovery, and accountability
+          Reprummble combines nutrition, training, recovery, and accountability
           into one platform.
         </p>
         <div className="sv-hero-line" aria-hidden="true" />

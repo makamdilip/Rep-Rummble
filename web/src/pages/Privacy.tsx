@@ -17,7 +17,7 @@ const policySections: PolicySection[] = [
     details: (
       <>
         <p>
-          Rep Rummble ("we," "our," or "us") is committed to protecting your privacy.
+          Reprummble ("we," "our," or "us") is committed to protecting your privacy.
           This Privacy Policy explains how we collect, use, disclose, and safeguard your
           information when you use our mobile application and website.
         </p>
@@ -166,7 +166,7 @@ const policySections: PolicySection[] = [
     details: (
       <>
         <p>
-          You can connect Rep Rummble with third-party services like fitness wearables
+          You can connect Reprummble with third-party services like fitness wearables
           and health apps. These integrations are:
         </p>
         <ul>
@@ -188,7 +188,7 @@ const policySections: PolicySection[] = [
     details: (
       <>
         <p>
-          Rep Rummble is not intended for users under 16 years of age.
+          Reprummble is not intended for users under 16 years of age.
         </p>
         <p>
           We do not knowingly collect personal information from children. If you believe

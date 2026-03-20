@@ -45,8 +45,8 @@ export const startConversation = async (req: AuthRequest, res: Response) => {
     const welcomeMessage = await SupportMessage.create({
       conversationId: conversation._id,
       senderType: 'ai',
-      senderName: 'Rep Rummble Assistant',
-      content: `Hi${userName ? ` ${userName}` : ''}! Welcome to Rep Rummble support. I'm here to help you with any questions about the app. What can I assist you with today?`,
+      senderName: 'Reprummble Assistant',
+      content: `Hi${userName ? ` ${userName}` : ''}! Welcome to Reprummble support. I'm here to help you with any questions about the app. What can I assist you with today?`,
       contentType: 'text',
       aiConfidence: 1.0,
       quickReplies: [
@@ -244,7 +244,7 @@ export const sendMessage = async (req: AuthRequest, res: Response) => {
       aiMessage = await SupportMessage.create({
         conversationId,
         senderType: 'ai',
-        senderName: 'Rep Rummble Assistant',
+        senderName: 'Reprummble Assistant',
         content: aiResponse.response,
         contentType: 'text',
         aiConfidence: aiResponse.confidence,

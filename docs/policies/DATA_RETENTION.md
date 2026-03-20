@@ -2,7 +2,7 @@
 
 Effective date: January 31, 2026
 
-This policy describes how Rep Rummble retains and deletes data.
+This policy describes how Reprummble retains and deletes data.
 This is a template and must be reviewed by legal counsel.
 
 ## 1) Retention principles

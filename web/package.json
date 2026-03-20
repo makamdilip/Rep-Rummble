@@ -1,8 +1,8 @@
 {
-  "name": "rep-rummble-frontend",
+  "name": "reprummble-frontend",
   "private": true,
   "version": "1.0.0",
-  "description": "Rep Rummble - Fitness app frontend",
+  "description": "Reprummble - Fitness app frontend",
   "type": "module",
   "scripts": {
     "dev": "vite",
