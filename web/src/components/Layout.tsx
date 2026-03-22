@@ -4,6 +4,7 @@ import { FaApple, FaFacebookF } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { DEV_BYPASS_AUTH, DEV_USER } from '../config/devAuth';
 import api from '../config/api';
+import { supabase } from '../config/supabase';
 
 const API_URL = import.meta.env.VITE_API_URL || '';
 
@@ -33,7 +34,16 @@ export default function Layout() {
     if (DEV_BYPASS_AUTH) {
       setIsLoggedIn(true);
       setAuthOpen(false);
+      return;
     }
+    // Check existing Supabase session (e.g. after OAuth redirect)
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) setIsLoggedIn(true);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+    });
+    return () => subscription.unsubscribe();
   }, []);
 
   useEffect(() => {

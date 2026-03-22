@@ -17,6 +17,7 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
 import AgentDashboard from './pages/agent/AgentDashboard';
+import AuthCallback from './pages/AuthCallback';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="privacy" element={<Privacy />} />
           <Route path="terms" element={<Terms />} />
           <Route path="agent" element={<AgentDashboard />} />
+          <Route path="auth/callback" element={<AuthCallback />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
