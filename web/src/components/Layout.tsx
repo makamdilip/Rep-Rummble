@@ -223,12 +223,14 @@ export default function Layout() {
     setAuthStatus('idle');
   };
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
     if (DEV_BYPASS_AUTH) return;
+    await supabase.auth.signOut();
     setIsLoggedIn(false);
     setAuthMode('signin');
     setAuthMessage('');
     setAuthStatus('idle');
+    setProfileOpen(false);
   };
 
   const handleProfileClick = () => {
