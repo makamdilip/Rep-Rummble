@@ -4,17 +4,24 @@ import { supabase } from '../config/supabase';
 
 export default function AuthCallback() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<'loading' | 'recovery' | 'done'>('loading');
+  const [mode, setMode] = useState<'loading' | 'recovery' | 'expired' | 'done'>('loading');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Parse hash params — Supabase puts type=recovery in the hash
+    // Parse hash params — Supabase puts type=recovery (or error=*) in the hash
     const hash = window.location.hash.slice(1)
     const params = new URLSearchParams(hash)
+    const errorCode = params.get('error_code')
     const type = params.get('type')
+
+    // Handle Supabase error params (e.g. otp_expired, access_denied)
+    if (errorCode || params.get('error')) {
+      setMode('expired')
+      return
+    }
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
@@ -30,7 +37,7 @@ export default function AuthCallback() {
     })
   }, [navigate])
 
-  const handleReset = async (e: React.FormEvent) => {
+  const handleReset = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (password.length < 8) { setError('Password must be at least 8 characters.'); return }
     if (password !== confirm) { setError('Passwords do not match.'); return }
@@ -50,6 +57,58 @@ export default function AuthCallback() {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
         <p style={{ color: 'var(--ink-2)' }}>Signing you in…</p>
+      </div>
+    )
+  }
+
+  if (mode === 'expired') {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', padding: '24px' }}>
+        <div style={{
+          width: 'min(440px, 100%)',
+          background: 'var(--paper-3)',
+          border: '1px solid var(--stroke)',
+          borderRadius: '24px',
+          padding: '32px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          textAlign: 'center',
+        }}>
+          <div style={{ fontSize: '32px' }}>⏳</div>
+          <h2 style={{ margin: 0, color: 'var(--ink)', fontSize: '22px', fontWeight: 700 }}>Link expired</h2>
+          <p style={{ margin: 0, color: 'var(--muted)', fontSize: '14px' }}>
+            This password reset link has expired or already been used. Request a new one.
+          </p>
+          <button
+            onClick={() => navigate('/?auth=forgot', { replace: true })}
+            style={{
+              padding: '12px',
+              borderRadius: '999px',
+              background: 'linear-gradient(120deg, var(--accent-0), var(--accent-2))',
+              color: '#fff',
+              fontWeight: 700,
+              fontSize: '14px',
+              cursor: 'pointer',
+              border: 'none',
+            }}
+          >
+            Request new link
+          </button>
+          <button
+            onClick={() => navigate('/?auth=signin', { replace: true })}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--muted)',
+              fontSize: '13px',
+              cursor: 'pointer',
+              textDecoration: 'underline',
+            }}
+          >
+            Back to sign in
+          </button>
+        </div>
       </div>
     )
   }

@@ -13,7 +13,7 @@ export default function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
   const [profileOpen, setProfileOpen] = useState(false);
-  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
+  const [authMode, setAuthMode] = useState<'signin' | 'signup' | 'forgot'>('signin');
   const [authMessage, setAuthMessage] = useState('');
   const [authStatus, setAuthStatus] = useState<'idle' | 'loading' | 'error' | 'success'>('idle');
   const [isLoggedIn, setIsLoggedIn] = useState(DEV_BYPASS_AUTH);
@@ -67,7 +67,7 @@ export default function Layout() {
     if (DEV_BYPASS_AUTH || isLoggedIn) return;
     const params = new URLSearchParams(location.search);
     const authParam = params.get('auth');
-    if (authParam === 'signin' || authParam === 'signup') {
+    if (authParam === 'signin' || authParam === 'signup' || authParam === 'forgot') {
       setAuthMode(authParam);
       setAuthOpen(true);
     }
@@ -254,10 +254,31 @@ export default function Layout() {
     }
   };
 
-  const handleAuthModeChange = (mode: 'signin' | 'signup') => {
+  const handleAuthModeChange = (mode: 'signin' | 'signup' | 'forgot') => {
     setAuthMode(mode);
     setAuthMessage('');
     setAuthStatus('idle');
+  };
+
+  const handleForgotSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!formData.email.trim()) {
+      setAuthStatus('error');
+      setAuthMessage('Please enter your email address.');
+      return;
+    }
+    setAuthStatus('loading');
+    setAuthMessage('');
+    const { error } = await supabase.auth.resetPasswordForEmail(formData.email, {
+      redirectTo: `${window.location.origin}/auth/callback`,
+    });
+    if (error) {
+      setAuthStatus('error');
+      setAuthMessage(error.message);
+    } else {
+      setAuthStatus('success');
+      setAuthMessage('Check your email for a reset link.');
+    }
   };
 
   const handleSignOut = async () => {
@@ -364,6 +385,7 @@ export default function Layout() {
                 ×
               </button>
             </div>
+            {authMode !== 'forgot' && (
             <div className="popover-tabs">
               <button
                 className={`tab-chip${authMode === 'signin' ? ' active' : ''}`}
@@ -378,6 +400,38 @@ export default function Layout() {
                 Sign Up
               </button>
             </div>
+            )}
+            {authMode === 'forgot' && (
+              <form className="popover-form compact" onSubmit={handleForgotSubmit} noValidate>
+                <p style={{ margin: '0 0 4px', fontSize: '13px', color: 'var(--muted)' }}>
+                  Enter your email and we'll send a reset link.
+                </p>
+                <label className="field-label">
+                  Email
+                  <input
+                    className="field-input"
+                    type="email"
+                    value={formData.email}
+                    autoFocus
+                    onChange={(event) => setFormData((prev) => ({ ...prev, email: event.target.value }))}
+                  />
+                </label>
+                <button className="solid-btn" type="submit" disabled={authStatus === 'loading'}>
+                  {authStatus === 'loading' ? 'Sending…' : 'Send reset link'}
+                </button>
+                {authMessage && (
+                  <div className={authStatus === 'error' ? 'form-error' : 'form-success'}>{authMessage}</div>
+                )}
+                <button
+                  type="button"
+                  onClick={() => handleAuthModeChange('signin')}
+                  style={{ background: 'none', border: 'none', color: 'var(--muted)', fontSize: '13px', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}
+                >
+                  Back to sign in
+                </button>
+              </form>
+            )}
+            {authMode !== 'forgot' && (
             <form className="popover-form compact" onSubmit={handleAuthSubmit} noValidate>
               {authMode === 'signup' && (
                 <label className="field-label">
@@ -410,6 +464,15 @@ export default function Layout() {
               <button className="solid-btn" type="submit" disabled={authStatus === 'loading'}>
                 {authMode === 'signin' ? 'Sign In' : 'Create Account'}
               </button>
+              {authMode === 'signin' && (
+                <button
+                  type="button"
+                  onClick={() => handleAuthModeChange('forgot')}
+                  style={{ background: 'none', border: 'none', color: 'var(--muted)', fontSize: '13px', cursor: 'pointer', textDecoration: 'underline', padding: 0, textAlign: 'left' }}
+                >
+                  Forgot password?
+                </button>
+              )}
               {authMessage && (
                 <div className={authStatus === 'error' ? 'form-error' : 'form-success'}>{authMessage}</div>
               )}
@@ -454,6 +517,7 @@ export default function Layout() {
                 <span className="sr-only">Continue with Twitter</span>
               </a>
             </div>
+            )}
           </div>
         </div>
       )}
