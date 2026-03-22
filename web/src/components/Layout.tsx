@@ -270,7 +270,7 @@ export default function Layout() {
     setAuthStatus('loading');
     setAuthMessage('');
     const { error } = await supabase.auth.resetPasswordForEmail(formData.email, {
-      redirectTo: `${window.location.origin}/auth/callback`,
+      redirectTo: `${import.meta.env.VITE_SITE_URL || 'https://reprummble.com'}/auth/callback`,
     });
     if (error) {
       setAuthStatus('error');
