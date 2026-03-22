@@ -5,6 +5,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 import { DEV_BYPASS_AUTH, DEV_USER } from '../config/devAuth';
 import api from '../config/api';
 import { supabase } from '../config/supabase';
+import ChatWidget from './chat/ChatWidget';
 
 const API_URL = import.meta.env.VITE_API_URL || '';
 
@@ -446,6 +447,8 @@ export default function Layout() {
           +
         </Link>
       )}
+
+      <ChatWidget />
 
       <footer className={`marketing-footer${footerVisible ? '' : ' hidden'}`}>
         <span>© 2025 Reprummble</span>
