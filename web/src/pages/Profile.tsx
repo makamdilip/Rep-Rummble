@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../config/supabase';
 import api from '../config/api';
@@ -30,7 +30,6 @@ type Save = 'idle' | 'loading' | 'success' | 'error';
 export default function Profile() {
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('profile');
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   // Profile
   const [avatar, setAvatar] = useState<string | null>(null);
@@ -76,23 +75,6 @@ export default function Profile() {
     });
   }, []);
 
-  // Scroll spy
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
-      { rootMargin: '-40% 0px -55% 0px' }
-    );
-    Object.values(sectionRefs.current).forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollTo = (id: string) => {
-    sectionRefs.current[id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
 
   // Helpers
   const initials = profile.name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase() || 'RR';
@@ -184,7 +166,7 @@ export default function Profile() {
               <button
                 key={id}
                 className={`sp-nav-item${activeSection === id ? ' active' : ''}${id === 'danger' ? ' danger' : ''}`}
-                onClick={() => scrollTo(id)}
+                onClick={() => setActiveSection(id)}
               >
                 <span className="sp-nav-icon">{icon}</span>
                 <span>{label}</span>
@@ -198,7 +180,7 @@ export default function Profile() {
       <div className="sp-content">
 
         {/* Profile */}
-        <section className="sp-card" id="profile" ref={(el) => { sectionRefs.current['profile'] = el; }}>
+        {activeSection === 'profile' && <section className="sp-card" id="profile">
           <div className="sp-card-head">
             <div className="sp-card-icon">👤</div>
             <div>
@@ -238,10 +220,10 @@ export default function Profile() {
               {profileStatus === 'error' && <span className="sp-error">Save failed — try again.</span>}
             </div>
           </div>
-        </section>
+        </section>}
 
         {/* Security */}
-        <section className="sp-card" id="security" ref={(el) => { sectionRefs.current['security'] = el; }}>
+        {activeSection === 'security' && <section className="sp-card" id="security">
           <div className="sp-card-head">
             <div className="sp-card-icon">🔐</div>
             <div>
@@ -273,10 +255,10 @@ export default function Profile() {
               </div>
             </div>
           </div>
-        </section>
+        </section>}
 
         {/* Goals */}
-        <section className="sp-card" id="goals" ref={(el) => { sectionRefs.current['goals'] = el; }}>
+        {activeSection === 'goals' && <section className="sp-card" id="goals">
           <div className="sp-card-head">
             <div className="sp-card-icon">🎯</div>
             <div>
@@ -318,10 +300,10 @@ export default function Profile() {
               {goalsStatus === 'error' && <span className="sp-error">Save failed — try again.</span>}
             </div>
           </div>
-        </section>
+        </section>}
 
         {/* Notifications */}
-        <section className="sp-card" id="notifications" ref={(el) => { sectionRefs.current['notifications'] = el; }}>
+        {activeSection === 'notifications' && <section className="sp-card" id="notifications">
           <div className="sp-card-head">
             <div className="sp-card-icon">🔔</div>
             <div>
@@ -355,10 +337,10 @@ export default function Profile() {
               {notifStatus === 'error' && <span className="sp-error">Save failed — try again.</span>}
             </div>
           </div>
-        </section>
+        </section>}
 
         {/* Devices */}
-        <section className="sp-card" id="devices" ref={(el) => { sectionRefs.current['devices'] = el; }}>
+        {activeSection === 'devices' && <section className="sp-card" id="devices">
           <div className="sp-card-head">
             <div className="sp-card-icon">⌚</div>
             <div>
@@ -394,10 +376,10 @@ export default function Profile() {
               <p className="sp-hint">All available devices are connected.</p>
             )}
           </div>
-        </section>
+        </section>}
 
         {/* Privacy */}
-        <section className="sp-card" id="privacy" ref={(el) => { sectionRefs.current['privacy'] = el; }}>
+        {activeSection === 'privacy' && <section className="sp-card" id="privacy">
           <div className="sp-card-head">
             <div className="sp-card-icon">🔒</div>
             <div>
@@ -423,10 +405,10 @@ export default function Profile() {
               </React.Fragment>
             ))}
           </div>
-        </section>
+        </section>}
 
         {/* Danger zone */}
-        <section className="sp-card sp-danger-card" id="danger" ref={(el) => { sectionRefs.current['danger'] = el; }}>
+        {activeSection === 'danger' && <section className="sp-card sp-danger-card" id="danger">
           <div className="sp-card-head">
             <div className="sp-card-icon">⚠️</div>
             <div>
@@ -445,7 +427,7 @@ export default function Profile() {
               <button className="sp-delete-btn" onClick={() => setDeleteOpen(true)}>Delete account</button>
             </div>
           </div>
-        </section>
+        </section>}
       </div>
 
       {/* ── DELETE MODAL ────────────────────────────────── */}
