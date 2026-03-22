@@ -27,6 +27,7 @@ export default function Layout() {
     password: '',
   });
   const profileRef = useRef<HTMLDivElement>(null);
+  const dashboardDropdownRef = useRef<HTMLDetailsElement>(null);
   const lastScroll = useRef(0);
   const hasMounted = useRef(false);
   const privateRoutes = ['/analytics', '/reports', '/referral', '/payment', '/profile', '/wearables'];
@@ -280,12 +281,12 @@ export default function Layout() {
             </>
           ) : (
             <>
-              <details className="nav-dropdown">
+              <details className="nav-dropdown" ref={dashboardDropdownRef}>
                 <summary className="nav-link">Dashboard</summary>
                 <div className="nav-dropdown-menu">
-                  <NavLink to="/analytics" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Analytics</NavLink>
-                  <NavLink to="/reports" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Reports</NavLink>
-                  <NavLink to="/wearables" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Wearables</NavLink>
+                  <NavLink to="/analytics" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={() => { dashboardDropdownRef.current?.removeAttribute('open'); }}>Analytics</NavLink>
+                  <NavLink to="/reports" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={() => { dashboardDropdownRef.current?.removeAttribute('open'); }}>Reports</NavLink>
+                  <NavLink to="/wearables" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={() => { dashboardDropdownRef.current?.removeAttribute('open'); }}>Wearables</NavLink>
                 </div>
               </details>
               <NavLink to="/payment" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Subscription</NavLink>
@@ -318,12 +319,7 @@ export default function Layout() {
                         </div>
                       </div>
                       <div className="menu-list">
-                        <Link to="/analytics">Analytics</Link>
-                        <Link to="/reports">Reports</Link>
-                        <Link to="/referral">Referral</Link>
-                        <Link to="/payment">Subscription</Link>
-                        <Link to="/wearables">Wearables</Link>
-                        <Link to="/profile">Settings</Link>
+                        <Link to="/profile" onClick={() => setProfileOpen(false)}>View Profile</Link>
                         <button className="menu-signout" type="button" onClick={handleSignOut}>Sign Out</button>
                       </div>
                     </div>
@@ -445,9 +441,11 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      <Link className="fab" to="/?auth=signup" aria-label="Create account">
-        +
-      </Link>
+      {!isLoggedIn && (
+        <Link className="fab" to="/?auth=signup" aria-label="Create account">
+          +
+        </Link>
+      )}
 
       <footer className={`marketing-footer${footerVisible ? '' : ' hidden'}`}>
         <span>© 2025 Reprummble</span>
