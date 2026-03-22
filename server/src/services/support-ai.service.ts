@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk'
+import { GoogleGenerativeAI } from '@google/generative-ai'
 
 export interface ChatHistoryMessage {
   role: 'user' | 'assistant'
@@ -10,15 +10,15 @@ export interface AIChatResponse {
   quickReplies: string[]
 }
 
-// ── Anthropic client (optional — falls back to rule-based) ───
-const anthropic = process.env.ANTHROPIC_API_KEY
-  ? new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+// ── Gemini client (uses existing GEMINI_API_KEY from Render) ─
+const genAI = process.env.GEMINI_API_KEY
+  ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
   : null
 
 const SYSTEM_PROMPT = `You are Rumi, a friendly support assistant for Reprummble — an all-in-one fitness and wellness platform.
 
 About Reprummble:
-- Plans: Starter (Free), Pro ($9/mo - AI+wearables+analytics), Elite ($19/mo - everything+coach). All start with a free trial, no card needed.
+- Plans: Starter (Free forever), Pro ($9/mo - AI + wearables + analytics), Elite ($19/mo - everything + coach access). All start with a free trial, no card needed.
 - Features: AI meal logging (photo or text), workout tracking, recovery readiness score, wearable sync, 30-day challenges, leaderboards, weekly analytics
 - Wearables: Apple Watch, Oura Ring, Garmin, Whoop, Fitbit, Polar
 - Support email: support@reprummble.com (24hr response weekdays)
@@ -30,6 +30,7 @@ Guidelines:
 - For billing disputes, refunds, security issues: direct to support@reprummble.com
 - Never make up features that do not exist`
 
+// ── Pre-written answer bank (rule-based fallback) ────────────
 const ANSWER_BANK: Array<{ patterns: RegExp[]; reply: string; quickReplies: string[] }> = [
   {
     patterns: [/^(hi|hello|hey|good morning|good evening|sup)\b/i],
@@ -53,7 +54,7 @@ const ANSWER_BANK: Array<{ patterns: RegExp[]; reply: string; quickReplies: stri
   },
   {
     patterns: [/\b(workout|exercise|training|log workout|strength|gym|run|cardio)\b/i],
-    reply: "To track a workout:\n\n1. Tap **Start Session** on your dashboard\n2. Log sets/reps or duration for each exercise\n3. Tap **Complete Session** when done\n\nYour AI training plan adapts weekly based on performance and recovery. Customise goals in **Profile → Goals**.",
+    reply: "To track a workout:\n\n1. Tap **Start Session** on your dashboard\n2. Log sets/reps or duration for each exercise\n3. Tap **Complete Session** when done\n\nYour AI training plan adapts weekly based on performance and recovery. Customise in **Profile → Goals**.",
     quickReplies: ['My recovery score', 'Add a custom exercise', 'How does my plan adapt?'],
   },
   {
@@ -68,12 +69,12 @@ const ANSWER_BANK: Array<{ patterns: RegExp[]; reply: string; quickReplies: stri
   },
   {
     patterns: [/\b(challenge|leaderboard|streak|community|rank|points|badge)\b/i],
-    reply: "Community features:\n\n• **30-day challenges** — Join from the Explore tab\n• **Leaderboard** — Your weekly rank vs. all members\n• **Streaks** — Log daily to keep yours going 🔥\n\nChallenges reset monthly and you earn XP for the global leaderboard.",
+    reply: "Community features:\n\n• **30-day challenges** — Join from the Explore tab\n• **Leaderboard** — Your weekly rank vs. all members\n• **Streaks** — Log daily to keep yours going 🔥\n\nChallenges reset monthly and earn you XP for the global leaderboard.",
     quickReplies: ['Join a challenge', 'Leaderboard location', 'I lost my streak'],
   },
   {
     patterns: [/\b(login|sign in|forgot password|locked out|can.t access|password reset)\b/i],
-    reply: "Account access fix:\n\n**Forgot password?**\n1. Tap **Forgot Password** on the login page\n2. Check your email (and spam!) for the reset link\n\n**Still locked out?**\nEmail **support@reprummble.com** with your account email — we'll get you in within a few hours.",
+    reply: "Account access fix:\n\n**Forgot password?**\n1. Tap **Forgot Password** on the login page\n2. Check your email (and spam!) for the reset link\n\n**Still locked out?**\nEmail **support@reprummble.com** — we'll get you in within a few hours.",
     quickReplies: ['Reset my password', 'Change my email', 'Delete my account'],
   },
   {
@@ -83,17 +84,17 @@ const ANSWER_BANK: Array<{ patterns: RegExp[]; reply: string; quickReplies: stri
   },
   {
     patterns: [/\b(not working|bug|crash|error|broken|glitch|slow|blank|loading|issue|problem)\b/i],
-    reply: "Let's troubleshoot:\n\n1. **Force-close** the app and reopen it\n2. Check your internet connection\n3. Make sure the app is **up to date**\n4. Try **signing out and back in**\n\nStill broken? Email **support@reprummble.com** with details — we investigate within 24 hours.",
+    reply: "Let's troubleshoot:\n\n1. **Force-close** the app and reopen it\n2. Check your internet connection\n3. Make sure the app is **up to date**\n4. Try **signing out and back in**\n\nStill broken? Email **support@reprummble.com** — we investigate within 24 hours.",
     quickReplies: ['Clear app cache', 'Report a bug', "It's still not working"],
   },
   {
-    patterns: [/\b(notification|reminder|alert|push notification|email notification|turn off)\b/i],
+    patterns: [/\b(notification|reminder|alert|push notification|turn off|stop email)\b/i],
     reply: "Manage all notifications in **Settings → Notifications**:\n\n• Workout reminders\n• Weekly progress reports\n• Challenge alerts\n• Recovery alerts\n• Tips & news\n\nFor push notifications, also check your phone's notification settings for Reprummble.",
     quickReplies: ['Turn off all emails', 'Set reminder time', "I'm not getting notifications"],
   },
   {
     patterns: [/\b(contact|email support|human|agent|real person|speak to|talk to)\b/i],
-    reply: "Reach our team at:\n\n📧 **support@reprummble.com**\n\nWe respond within **24 hours** on weekdays. Add \"URGENT\" in the subject for billing or security issues.\n\nAnything else I can help with first?",
+    reply: "Reach our team at:\n\n📧 **support@reprummble.com**\n\nWe respond within **24 hours** on weekdays. Add \"URGENT\" for billing or security issues.\n\nAnything else I can help with first?",
     quickReplies: ['Billing issue', 'Technical problem', 'Account question'],
   },
 ]
@@ -125,27 +126,31 @@ export async function generateAIChatResponse(
   message: string,
   history: ChatHistoryMessage[]
 ): Promise<AIChatResponse> {
-  if (anthropic) {
+  if (genAI) {
     try {
-      const response = await anthropic.messages.create({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 400,
-        system: SYSTEM_PROMPT,
-        messages: [
-          ...history.map((m) => ({ role: m.role, content: m.content })),
-          { role: 'user', content: message },
-        ],
+      const model = genAI.getGenerativeModel({
+        model: 'gemini-1.5-flash',
+        systemInstruction: SYSTEM_PROMPT,
       })
-      const text = response.content[0].type === 'text' ? response.content[0].text : ''
+
+      // Build Gemini chat history (must alternate user/model)
+      const geminiHistory = history.map((m) => ({
+        role: m.role === 'user' ? 'user' : 'model',
+        parts: [{ text: m.content }],
+      }))
+
+      const chat = model.startChat({ history: geminiHistory })
+      const result = await chat.sendMessage(message)
+      const text = result.response.text()
       return { reply: text, quickReplies: getContextualQuickReplies(message, text) }
     } catch (err) {
-      console.error('Claude API error — using rule-based fallback:', err)
+      console.error('Gemini API error — using rule-based fallback:', err)
     }
   }
   return getRuleBasedResponse(message)
 }
 
-// ── Legacy compatibility kept for socket.ts ─────────────────
+// ── Legacy compatibility kept for socket.ts / agent controller ─
 export interface ChatMessage { role: string; content: string }
 export interface SupportResponse {
   response: string; confidence: number; suggestedQuickReplies: string[]
@@ -164,26 +169,17 @@ export async function generateSupportResponse(
   return { response: result.reply, confidence: 0.9, suggestedQuickReplies: result.quickReplies, shouldEscalate: false, sentiment: 'neutral' }
 }
 
-export default { generateAIChatResponse, generateSupportResponse }
-
-// generateHandoffSummary kept for agent.controller.ts compatibility
-export async function generateHandoffSummary(
-  conversationHistory: ChatMessage[]
-): Promise<string> {
+export async function generateHandoffSummary(conversationHistory: ChatMessage[]): Promise<string> {
   if (!conversationHistory.length) return 'User needs assistance. Please review the conversation.'
-  const summary = conversationHistory
-    .slice(-5)
-    .map(m => `${m.role}: ${m.content}`)
-    .join('\n')
-  if (anthropic) {
+  if (genAI) {
     try {
-      const r = await anthropic.messages.create({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 120,
-        messages: [{ role: 'user', content: `Summarize this support conversation in 2 sentences for a human agent: \n${summary}` }],
-      })
-      return r.content[0].type === 'text' ? r.content[0].text : 'User requires assistance.'
+      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+      const text = conversationHistory.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n')
+      const result = await model.generateContent(`Summarize this support conversation in 2 sentences for a human agent:\n${text}`)
+      return result.response.text().trim()
     } catch { /* fall through */ }
   }
   return 'User requires assistance. Please review the conversation history.'
 }
+
+export default { generateAIChatResponse, generateSupportResponse, generateHandoffSummary }
