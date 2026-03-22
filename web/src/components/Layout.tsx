@@ -164,6 +164,26 @@ export default function Layout() {
     };
   }, []);
 
+  // One global mousemove listener — powers gradient border on every card
+  useEffect(() => {
+    const SELECTOR = [
+      '.feature-card', '.testimonial-card', '.stat-card', '.info-card',
+      '.step-card', '.sp-card', '.legal-card', '.kpi-card', '.ppc-plan',
+      '.hdc-metric', '.hdc-workout', '.download-band', '.plans-preview-inner',
+      '.cta-final-inner', '.hero-dashboard-card', '.service-card',
+    ].join(', ');
+
+    const handler = (e: MouseEvent) => {
+      document.querySelectorAll<HTMLElement>(SELECTOR).forEach((card) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--gx', `${e.clientX - r.left}px`);
+        card.style.setProperty('--gy', `${e.clientY - r.top}px`);
+      });
+    };
+    window.addEventListener('mousemove', handler, { passive: true });
+    return () => window.removeEventListener('mousemove', handler);
+  }, []);
+
   useEffect(() => {
     const nodes = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal], [data-stagger]'));
     if (!nodes.length) return;
