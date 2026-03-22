@@ -1,6 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const DEMO_BANNER = (
+  <div style={{ background: 'var(--accent-subtle, #f0f4ff)', border: '1px solid var(--accent, #4f6ef7)', borderRadius: 8, padding: '10px 16px', marginBottom: 24, display: 'flex', alignItems: 'center', gap: 10 }}>
+    <span>📊</span>
+    <span>This is a <strong>demo preview</strong> — connect your wearables and log meals to see your real data here.</span>
+    <Link to="/wearables" className="ghost-btn" style={{ marginLeft: 'auto', whiteSpace: 'nowrap' }}>Connect devices</Link>
+  </div>
+);
+
 export default function Analytics() {
   const kpis = [
     { label: 'Consistency score', value: '86%', change: '+6% vs last week' },
@@ -25,6 +33,7 @@ export default function Analytics() {
 
   return (
     <section className="section page-section analytics-page" data-reveal>
+      {DEMO_BANNER}
       <div className="section-head">
         <h2>Actionable analytics</h2>
         <p>

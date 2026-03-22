@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { supabase } from '../config/supabase';
 
 export default function Referral() {
   const [copied, setCopied] = useState(false);
-  const link = 'https://reprummble.com/invite/you';
-  const stats = [
-    { label: 'Reward balance', value: '2 free months', sub: '1 invite away from next unlock' },
-    { label: 'Total invites', value: '8 friends', sub: '6 activated · 2 pending' },
-    { label: 'Conversion rate', value: '75%', sub: 'Benchmarks higher than avg' },
-  ];
+  const [inviteLink, setInviteLink] = useState('');
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        const code = user.id.slice(0, 8);
+        setInviteLink(`https://reprummble.com/invite/${code}`);
+      } else {
+        setInviteLink('https://reprummble.com/invite/you');
+      }
+    });
+  }, []);
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(link);
+      await navigator.clipboard.writeText(inviteLink);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -26,16 +33,6 @@ export default function Referral() {
         <p>Invite friends and unlock free months and exclusive perks.</p>
       </div>
 
-      <div className="referral-stats" data-stagger>
-        {stats.map((s) => (
-          <div className="stat-card" key={s.label}>
-            <span>{s.label}</span>
-            <strong>{s.value}</strong>
-            <small>{s.sub}</small>
-          </div>
-        ))}
-      </div>
-
       <div className="referral-grid" data-reveal>
         <div className="referral-card">
           <div>
@@ -43,7 +40,7 @@ export default function Referral() {
             <p>Each referral boosts your points and unlocks discounts.</p>
           </div>
           <div className="referral-action" data-stagger>
-            <input type="text" value={link} readOnly placeholder="Your referral link" />
+            <input type="text" value={inviteLink} readOnly placeholder="Loading your referral link..." />
             <button className="ghost-btn" onClick={handleCopy}>
               {copied ? 'Copied' : 'Copy'}
             </button>

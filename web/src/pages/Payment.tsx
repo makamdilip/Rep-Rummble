@@ -1,13 +1,44 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { supabase } from '../config/supabase';
+
+const PLANS = [
+  {
+    id: 'starter',
+    name: 'Starter',
+    price: '$0',
+    cycle: '/month',
+    features: ['Basic meal logging', 'Habit streaks', 'Weekly insights'],
+  },
+  {
+    id: 'pro',
+    name: 'Pro',
+    price: '$14',
+    cycle: '/month',
+    features: ['AI meal analysis', 'Custom meal plans', 'Workout programming', 'Community challenges'],
+    featured: true,
+  },
+  {
+    id: 'elite',
+    name: 'Elite',
+    price: '$29',
+    cycle: '/month',
+    features: ['Coach check-ins', 'Recovery insights', 'Priority support', 'Wearable sync'],
+  },
+];
 
 export default function Payment() {
-  const methods = ['Visa •••• 4242 (default)', 'Mastercard •••• 1021', 'Apple Pay', 'ACH debit'];
-  const invoices = [
-    { label: 'Jan 2026', amount: '$12', status: 'Paid' },
-    { label: 'Dec 2025', amount: '$14', status: 'Paid' },
-    { label: 'Nov 2025', amount: '$14', status: 'Paid' },
-  ];
+  const [searchParams] = useSearchParams();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(searchParams.get('plan') || 'pro');
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsLoggedIn(!!session);
+    });
+  }, []);
+
+  const plan = PLANS.find((p) => p.id === selectedPlan) || PLANS[1];
 
   return (
     <section className="section split page-section payment-page" data-reveal>
@@ -40,54 +71,53 @@ export default function Payment() {
           </div>
         </div>
         <div className="page-actions" data-stagger>
-          <Link className="solid-btn" to="/plans">
-            Choose a Plan
-          </Link>
-          <Link className="ghost-btn" to="/?auth=signup">
-            Create Account
-          </Link>
+          <Link className="solid-btn" to="/plans">View All Plans</Link>
+          {!isLoggedIn && <Link className="ghost-btn" to="/?auth=signup">Create Account</Link>}
         </div>
 
-        <div className="payment-methods" data-stagger>
-          <h4>Saved payment methods</h4>
-          <ul>
-            {methods.map((m) => (
-              <li key={m}>{m}</li>
+        <div className="plan-selector" data-stagger>
+          <h4>Select plan</h4>
+          <div className="plan-tabs" style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+            {PLANS.map((p) => (
+              <button
+                key={p.id}
+                className={`tab-chip${selectedPlan === p.id ? ' active' : ''}`}
+                onClick={() => setSelectedPlan(p.id)}
+              >
+                {p.name}
+              </button>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
+
       <div className="payment-card" data-reveal>
-        <h4>Checkout Preview</h4>
+        <h4>Order summary</h4>
         <div className="checkout-item">
-          <span>Pro Plan</span>
-          <span>$14/mo</span>
+          <span>{plan.name} Plan</span>
+          <span>{plan.price}{plan.cycle}</span>
         </div>
-        <div className="checkout-item muted">
-          <span>Discount</span>
-          <span>- $2</span>
-        </div>
+        <ul className="price-features" style={{ margin: '12px 0' }}>
+          {plan.features.map((f) => <li key={f}>{f}</li>)}
+        </ul>
         <div className="checkout-total">
           <span>Total today</span>
-          <span>$12</span>
+          <span>{plan.price === '$0' ? 'Free' : plan.price}</span>
         </div>
         <div className="checkout-item muted">
-          <span>Next renewal</span>
-          <span>Mar 1, 2026</span>
+          <span>Billed</span>
+          <span>Monthly · cancel anytime</span>
         </div>
-        <div className="invoice-list">
-          <h5>Recent invoices</h5>
-          {invoices.map((inv) => (
-            <div className="invoice-row" key={inv.label}>
-              <span>{inv.label}</span>
-              <span>{inv.amount}</span>
-              <span className="pill">{inv.status}</span>
-            </div>
-          ))}
-        </div>
-        <Link className="solid-btn full" to="/?auth=signup">
-          Continue to Signup
-        </Link>
+        {isLoggedIn ? (
+          <div style={{ marginTop: 16, padding: '12px', background: 'var(--surface)', borderRadius: 8, textAlign: 'center' }}>
+            <p style={{ margin: 0 }}>Payment processing coming soon.</p>
+            <small className="muted">We'll notify you when billing is live.</small>
+          </div>
+        ) : (
+          <Link className="solid-btn full" to="/?auth=signup" style={{ marginTop: 16, display: 'block', textAlign: 'center' }}>
+            Sign up to get started
+          </Link>
+        )}
       </div>
     </section>
   );

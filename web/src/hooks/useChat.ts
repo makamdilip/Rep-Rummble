@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import chatSocket, { ChatMessage, Conversation } from '../services/chatSocket';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 interface UseChatOptions {
   userName?: string;

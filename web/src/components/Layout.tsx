@@ -16,6 +16,7 @@ export default function Layout() {
   const [authMessage, setAuthMessage] = useState('');
   const [authStatus, setAuthStatus] = useState<'idle' | 'loading' | 'error' | 'success'>('idle');
   const [isLoggedIn, setIsLoggedIn] = useState(DEV_BYPASS_AUTH);
+  const [currentUser, setCurrentUser] = useState<{ name: string; email: string } | null>(null);
   const [headerVisible, setHeaderVisible] = useState(true);
   const [footerVisible, setFooterVisible] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
@@ -38,10 +39,24 @@ export default function Layout() {
     }
     // Check existing Supabase session (e.g. after OAuth redirect)
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) setIsLoggedIn(true);
+      if (session) {
+        setIsLoggedIn(true);
+        setCurrentUser({
+          name: session.user.user_metadata?.displayName || session.user.user_metadata?.full_name || 'Account',
+          email: session.user.email || '',
+        });
+      }
     });
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setIsLoggedIn(!!session);
+      if (session) {
+        setCurrentUser({
+          name: session.user.user_metadata?.displayName || session.user.user_metadata?.full_name || 'Account',
+          email: session.user.email || '',
+        });
+      } else {
+        setCurrentUser(null);
+      }
     });
     return () => subscription.unsubscribe();
   }, []);
@@ -303,8 +318,8 @@ export default function Layout() {
                   <div className="menu-header">
                     <span className="avatar large">RR</span>
                     <div>
-                      <div className="menu-title">{DEV_BYPASS_AUTH ? DEV_USER.name : 'Your account'}</div>
-                      <div className="menu-sub">{DEV_BYPASS_AUTH ? DEV_USER.email : 'rep@rumble.app'}</div>
+                      <div className="menu-title">{DEV_BYPASS_AUTH ? DEV_USER.name : (currentUser?.name || 'Your account')}</div>
+                      <div className="menu-sub">{DEV_BYPASS_AUTH ? DEV_USER.email : (currentUser?.email || '')}</div>
                     </div>
                   </div>
                   <div className="menu-list">
@@ -443,7 +458,7 @@ export default function Layout() {
         <div>
           <Link to="/privacy">Privacy</Link>
           <Link to="/terms">Terms</Link>
-          <Link to="/support">Support</Link>
+          <Link to="/contact">Support</Link>
         </div>
       </footer>
     </div>

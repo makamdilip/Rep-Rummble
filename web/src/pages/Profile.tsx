@@ -1,5 +1,7 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { supabase } from '../config/supabase';
+import api from '../config/api';
 
 export default function Profile() {
   const wearableTags = ['Apple Watch', 'Oura Ring', 'Garmin Scale'];
@@ -8,11 +10,12 @@ export default function Profile() {
   const deviceCatalog = ['Apple Watch', 'Oura Ring', 'Garmin', 'Whoop', 'Fitbit', 'Polar'];
 
   const [avatar, setAvatar] = useState<string | null>(null);
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [profile, setProfile] = useState({
-    name: 'Alex Rivera',
-    email: 'alex@reprummble.test',
-    goal: 'Lose 6 kg in 8 weeks',
-    recovery: 'Sleep-first + mobility',
+    name: '',
+    email: '',
+    goal: '',
+    recovery: '',
   });
   const [devices, setDevices] = useState([
     { name: 'Apple Watch', status: 'Live', lastSync: '2m ago' },
@@ -24,6 +27,19 @@ export default function Profile() {
     [deviceCatalog, devices]
   );
 
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        setProfile({
+          name: user.user_metadata?.displayName || user.user_metadata?.full_name || '',
+          email: user.email || '',
+          goal: user.user_metadata?.goal || '',
+          recovery: user.user_metadata?.recovery || '',
+        });
+      }
+    });
+  }, []);
+
   const handleAvatar = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -33,6 +49,19 @@ export default function Profile() {
 
   const handleProfileChange = (key: keyof typeof profile, value: string) => {
     setProfile((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSave = async () => {
+    setSaveStatus('loading');
+    const result = await api.auth.updateProfile({
+      displayName: profile.name,
+    });
+    if (result.error) {
+      setSaveStatus('error');
+    } else {
+      setSaveStatus('success');
+    }
+    setTimeout(() => setSaveStatus('idle'), 2500);
   };
 
   const handleAddDevice = () => {
@@ -55,7 +84,7 @@ export default function Profile() {
         <div className="checklist" data-stagger>
           <span>Weight loss or weight gain paths</span>
           <span>Meal preferences and allergies</span>
-          <span>Health issues & doctor notes</span>
+          <span>Health issues &amp; doctor notes</span>
           <span>Progress history and snapshots</span>
         </div>
         <div className="profile-insights" data-stagger>
@@ -123,28 +152,26 @@ export default function Profile() {
           <div className="profile-detail-grid">
             <div>
               <span className="detail-label">Name</span>
-              <strong className="detail-value">Alex Rivera</strong>
+              <strong className="detail-value">{profile.name || '—'}</strong>
             </div>
             <div>
               <span className="detail-label">Email</span>
-              <strong className="detail-value">alex@reprummble.test</strong>
+              <strong className="detail-value">{profile.email || '—'}</strong>
             </div>
             <div>
               <span className="detail-label">Goal focus</span>
-              <strong className="detail-value">Lose 6 kg in 8 weeks</strong>
+              <strong className="detail-value">{profile.goal || '—'}</strong>
             </div>
             <div>
               <span className="detail-label">Recovery plan</span>
-              <strong className="detail-value">Sleep-first + mobility</strong>
+              <strong className="detail-value">{profile.recovery || '—'}</strong>
             </div>
           </div>
           <div>
             <span className="detail-label">Preferences</span>
             <div className="detail-tags">
               {prefTags.map((t) => (
-                <span className="tag" key={t}>
-                  {t}
-                </span>
+                <span className="tag" key={t}>{t}</span>
               ))}
             </div>
           </div>
@@ -152,9 +179,7 @@ export default function Profile() {
             <span className="detail-label">Health notes</span>
             <div className="detail-tags">
               {healthTags.map((t) => (
-                <span className="tag" key={t}>
-                  {t}
-                </span>
+                <span className="tag" key={t}>{t}</span>
               ))}
             </div>
           </div>
@@ -162,9 +187,7 @@ export default function Profile() {
             <span className="detail-label">Connected wearables</span>
             <div className="detail-tags">
               {wearableTags.map((t) => (
-                <span className="tag" key={t}>
-                  {t}
-                </span>
+                <span className="tag" key={t}>{t}</span>
               ))}
             </div>
           </div>
@@ -173,7 +196,6 @@ export default function Profile() {
         <div className="settings-card" data-reveal>
           <div className="settings-header">
             <h4>Profile settings</h4>
-            <span className="pill">Local preview</span>
           </div>
           <div className="settings-grid">
             <div className="avatar-uploader">
@@ -198,7 +220,7 @@ export default function Profile() {
                   className="field-input"
                   type="email"
                   value={profile.email}
-                  onChange={(e) => handleProfileChange('email', e.target.value)}
+                  readOnly
                 />
               </label>
               <label className="field-label">
@@ -217,13 +239,22 @@ export default function Profile() {
                   onChange={(e) => handleProfileChange('recovery', e.target.value)}
                 />
               </label>
+              <button
+                className="solid-btn"
+                type="button"
+                onClick={handleSave}
+                disabled={saveStatus === 'loading'}
+              >
+                {saveStatus === 'loading' ? 'Saving...' : saveStatus === 'success' ? 'Saved!' : 'Save changes'}
+              </button>
+              {saveStatus === 'error' && <p className="form-error">Failed to save. Try again.</p>}
             </div>
           </div>
         </div>
 
         <div className="settings-card" data-reveal>
           <div className="settings-header">
-            <h4>Devices & wearables</h4>
+            <h4>Devices &amp; wearables</h4>
             <span className="pill">Live sync</span>
           </div>
           <div className="device-manage">
@@ -240,9 +271,7 @@ export default function Profile() {
                     <option>No more devices</option>
                   ) : (
                     deviceOptions.map((d) => (
-                      <option key={d} value={d}>
-                        {d}
-                      </option>
+                      <option key={d} value={d}>{d}</option>
                     ))
                   )}
                 </select>

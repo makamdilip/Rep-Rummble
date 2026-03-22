@@ -13,11 +13,14 @@ const sizeClassMap: Record<StoreButtonSize, string> = {
   lg: 'store-outline--lg',
 };
 
-export function AppStoreButton({ size = 'md', href = '#', className = '' }: StoreButtonProps) {
+export function AppStoreButton({ size = 'md', href, className = '' }: StoreButtonProps) {
   return (
     <a
       className={`store-outline store-outline--ios ${sizeClassMap[size]} ${className}`.trim()}
-      href={href}
+      href={href || undefined}
+      onClick={!href ? (e) => e.preventDefault() : undefined}
+      title={!href ? 'Coming soon' : undefined}
+      style={!href ? { opacity: 0.6, cursor: 'not-allowed' } : undefined}
       aria-label="Download on the App Store"
     >
       <svg className="store-outline__icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -31,11 +34,14 @@ export function AppStoreButton({ size = 'md', href = '#', className = '' }: Stor
   );
 }
 
-export function GooglePlayButton({ size = 'md', href = '#', className = '' }: StoreButtonProps) {
+export function GooglePlayButton({ size = 'md', href, className = '' }: StoreButtonProps) {
   return (
     <a
       className={`store-outline store-outline--android ${sizeClassMap[size]} ${className}`.trim()}
-      href={href}
+      href={href || undefined}
+      onClick={!href ? (e) => e.preventDefault() : undefined}
+      title={!href ? 'Coming soon' : undefined}
+      style={!href ? { opacity: 0.6, cursor: 'not-allowed' } : undefined}
       aria-label="Get it on Google Play"
     >
       <svg className="store-outline__icon" viewBox="0 0 24 24" aria-hidden="true">

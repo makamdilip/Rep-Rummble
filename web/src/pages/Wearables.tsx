@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Wearables() {
   const devices = [
@@ -19,6 +20,11 @@ export default function Wearables() {
 
   return (
     <section className="section page-section" data-reveal>
+      <div style={{ background: 'var(--accent-subtle, #f0f4ff)', border: '1px solid var(--accent, #4f6ef7)', borderRadius: 8, padding: '10px 16px', marginBottom: 24, display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span>⌚</span>
+        <span>Wearable integrations are coming soon. <strong>Sign up</strong> to get notified when your device is supported.</span>
+        <Link to="/?auth=signup" className="ghost-btn" style={{ marginLeft: 'auto', whiteSpace: 'nowrap' }}>Get notified</Link>
+      </div>
       <div className="section-head">
         <h2>Wearables ready</h2>
         <p>
