@@ -7,31 +7,45 @@ const FEATURES = [
     icon: '🏋️',
     title: 'Personalized Training Plans',
     desc: 'AI-built programs that adapt to your schedule, gear, and goals. Whether you train 3 days or 6 — your plan fits.',
+    accent: 'teal',
+    wide: true,
+    stat: '3× faster progress',
   },
   {
     icon: '🥗',
-    title: 'Smart Nutrition Tracking',
-    desc: 'Log meals in seconds, hit macro targets, and get smart swaps when you fall short. No calorie obsession — just clarity.',
+    title: 'Smart Nutrition',
+    desc: 'Log meals in seconds, hit macro targets, and get smart swaps when you fall short.',
+    accent: 'orange',
+    wide: false,
   },
   {
     icon: '💤',
     title: 'Recovery & Readiness',
-    desc: 'Sleep quality, HRV, and resting HR feed into a daily readiness score so you always know when to push and when to rest.',
+    desc: 'Sleep quality, HRV, and resting HR feed into a daily readiness score.',
+    accent: 'purple',
+    wide: false,
   },
   {
     icon: '⌚',
     title: 'Wearable Sync',
     desc: 'Apple Watch, Oura, Garmin, Whoop — data flows automatically into your dashboard without manual entry.',
+    accent: 'indigo',
+    wide: true,
+    stat: '6 devices supported',
   },
   {
     icon: '📊',
     title: 'Actionable Analytics',
-    desc: 'Weekly insights connect your habits to results. See exactly what drove progress — and what held it back.',
+    desc: 'Weekly insights connect your habits to results. See exactly what drove progress.',
+    accent: 'violet',
+    wide: false,
   },
   {
     icon: '🏆',
-    title: 'Challenges & Community',
+    title: 'Challenges',
     desc: '30-day challenges, leaderboards, and coach nudges to keep momentum when motivation fades.',
+    accent: 'amber',
+    wide: false,
   },
 ];
 
@@ -209,18 +223,19 @@ export default function Home() {
       <section className="section" data-reveal>
         <div className="section-head">
           <span className="pill">Everything you need</span>
-          <h2>One app. Every pillar of your health.</h2>
+          <h2 className="gradient-heading">One app. Every pillar of your health.</h2>
           <p>
             Most apps do one thing. Reprummble connects training, nutrition,
             recovery, and analytics so they work together — not in silos.
           </p>
         </div>
-        <div className="feature-grid" data-stagger>
+        <div className="home-bento-grid" data-stagger>
           {FEATURES.map((f) => (
-            <div className="feature-card" key={f.title}>
-              <span className="feature-icon">{f.icon}</span>
+            <div className={`feature-card hb-card${f.wide ? ' hb-wide' : ''} hb-${f.accent}`} key={f.title}>
+              <div className={`hb-icon-badge hb-badge-${f.accent}`}>{f.icon}</div>
               <h3>{f.title}</h3>
               <p>{f.desc}</p>
+              {f.stat && <div className="hb-stat-tag">{f.stat}</div>}
             </div>
           ))}
         </div>
@@ -230,7 +245,7 @@ export default function Home() {
       <section className="section how-it-works" data-reveal>
         <div className="section-head">
           <span className="pill">Simple by design</span>
-          <h2>Up and running in under 5 minutes</h2>
+          <h2 className="gradient-heading">Up and running in under 5 minutes</h2>
           <p>
             No complicated setup. Tell us your goals, get your plan, and start
             moving today.
@@ -249,16 +264,15 @@ export default function Home() {
 
       {/* ── STATS ── */}
       <section className="section" data-reveal>
-        <div className="section-head">
-          <span className="pill">Proof in numbers</span>
-          <h2>Real people. Real momentum.</h2>
-        </div>
-        <div className="stats-grid stats-grid-home" data-stagger>
-          {STATS.map((s) => (
-            <article className="stat-card animated-card" key={s.label}>
-              <h3 className="stat-value">{s.value}</h3>
-              <p className="stat-label">{s.label}</p>
-            </article>
+        <div className="home-stats-band">
+          {STATS.map((s, i) => (
+            <React.Fragment key={s.label}>
+              {i > 0 && <div className="home-stats-divider" />}
+              <div className="home-stat-item">
+                <span className="home-stat-value">{s.value}</span>
+                <span className="home-stat-label">{s.label}</span>
+              </div>
+            </React.Fragment>
           ))}
         </div>
       </section>
@@ -267,14 +281,15 @@ export default function Home() {
       <section className="section" data-reveal>
         <div className="section-head">
           <span className="pill">Members love it</span>
-          <h2>Small wins that compound</h2>
+          <h2 className="gradient-heading">Small wins that compound</h2>
           <p>See how real members built consistency with Reprummble.</p>
         </div>
         <div className="testimonial-grid" data-stagger>
           {TESTIMONIALS.map((t) => (
             <div className="testimonial-card" key={t.name}>
+              <div className="testi-quote-mark">"</div>
               <div className="testimonial-stars">★★★★★</div>
-              <p className="testimonial-quote">"{t.quote}"</p>
+              <p className="testimonial-quote">{t.quote}</p>
               <div className="testimonial-author">
                 <div className="testimonial-avatar">{t.initials}</div>
                 <div>
