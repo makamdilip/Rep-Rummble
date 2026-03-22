@@ -47,6 +47,8 @@ app.use(helmet()) // Security headers
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
+  'https://reprummble.com',
+  'https://www.reprummble.com',
   process.env.CLIENT_URL,
 ].filter(Boolean) as string[]
 
