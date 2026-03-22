@@ -269,72 +269,68 @@ export default function Layout() {
           <span className="brand-name">Reprummble</span>
         </Link>
         <nav className="marketing-nav">
-          <NavLink to="/services" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
-            Services
-          </NavLink>
-          <NavLink to="/plans" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
-            Plans
-          </NavLink>
-          <NavLink to="/faq" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
-            FAQ
-          </NavLink>
-          <NavLink to="/contact" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
-            Contact Us
-          </NavLink>
-          {isLoggedIn && (
-            <details className="nav-dropdown">
-              <summary>Dashboard</summary>
-              <div className="nav-dropdown-menu">
-                <NavLink to="/analytics" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
-                  Analytics
-                </NavLink>
-                <NavLink to="/reports" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
-                  Reports
-                </NavLink>
-                <NavLink to="/referral" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
-                  Referrals
-                </NavLink>
-                <NavLink to="/payment" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
-                  Payments
-                </NavLink>
-                <NavLink to="/profile" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
-                  Profile
-                </NavLink>
-                <NavLink to="/wearables" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
-                  Wearables
-                </NavLink>
-              </div>
-            </details>
+          {!isLoggedIn ? (
+            <>
+              <NavLink to="/services" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Services</NavLink>
+              <NavLink to="/plans" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Plans</NavLink>
+              <NavLink to="/faq" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>FAQ</NavLink>
+              <NavLink to="/contact" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Contact Us</NavLink>
+              <button className="ghost-btn nav-signin-btn" onClick={() => { setAuthMode('signin'); setAuthOpen(true); }}>Sign In</button>
+              <button className="solid-btn nav-signup-btn" onClick={() => { setAuthMode('signup'); setAuthOpen(true); }}>Sign Up</button>
+            </>
+          ) : (
+            <>
+              <details className="nav-dropdown">
+                <summary className="nav-link">Dashboard</summary>
+                <div className="nav-dropdown-menu">
+                  <NavLink to="/analytics" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Analytics</NavLink>
+                  <NavLink to="/reports" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Reports</NavLink>
+                  <NavLink to="/wearables" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Wearables</NavLink>
+                </div>
+              </details>
+              <NavLink to="/payment" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Subscription</NavLink>
+              <NavLink to="/referral" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Referral</NavLink>
+              <NavLink to="/profile" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Settings</NavLink>
+            </>
           )}
         </nav>
         <div className="profile-shell" ref={profileRef}>
-          <button className="profile-button icon-only" onClick={handleProfileClick} aria-label="Open profile">
-            <span className="avatar">RR</span>
-          </button>
-          {profileOpen && isLoggedIn && (
-            <div className="profile-popover menu-only">
-              <div className="popover-column">
-                <div className="menu-card">
-                  <div className="menu-header">
-                    <span className="avatar large">RR</span>
-                    <div>
-                      <div className="menu-title">{DEV_BYPASS_AUTH ? DEV_USER.name : (currentUser?.name || 'Your account')}</div>
-                      <div className="menu-sub">{DEV_BYPASS_AUTH ? DEV_USER.email : (currentUser?.email || '')}</div>
+          {isLoggedIn && (
+            <>
+              <button className="profile-button icon-only" onClick={handleProfileClick} aria-label="Open profile">
+                <span className="avatar">
+                  {(DEV_BYPASS_AUTH ? DEV_USER.name : currentUser?.name || '')
+                    .split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase() || 'RR'}
+                </span>
+              </button>
+              {profileOpen && (
+                <div className="profile-popover menu-only">
+                  <div className="popover-column">
+                    <div className="menu-card">
+                      <div className="menu-header">
+                        <span className="avatar large">
+                          {(DEV_BYPASS_AUTH ? DEV_USER.name : currentUser?.name || '')
+                            .split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase() || 'RR'}
+                        </span>
+                        <div>
+                          <div className="menu-title">{DEV_BYPASS_AUTH ? DEV_USER.name : (currentUser?.name || 'Your account')}</div>
+                          <div className="menu-sub">{DEV_BYPASS_AUTH ? DEV_USER.email : (currentUser?.email || '')}</div>
+                        </div>
+                      </div>
+                      <div className="menu-list">
+                        <Link to="/analytics">Analytics</Link>
+                        <Link to="/reports">Reports</Link>
+                        <Link to="/referral">Referral</Link>
+                        <Link to="/payment">Subscription</Link>
+                        <Link to="/wearables">Wearables</Link>
+                        <Link to="/profile">Settings</Link>
+                        <button className="menu-signout" type="button" onClick={handleSignOut}>Sign Out</button>
+                      </div>
                     </div>
                   </div>
-                  <div className="menu-list">
-                    <Link to="/analytics">Analytics</Link>
-                    <Link to="/reports">Reports</Link>
-                    <Link to="/referral">Refer</Link>
-                    <Link to="/payment">Payment</Link>
-                    <Link to="/profile">Settings</Link>
-                    <button className="menu-signout" type="button" onClick={handleSignOut}>
-                      Sign Out
-                    </button>
-                  </div>
                 </div>
-              </div>
-            </div>
+              )}
+            </>
           )}
         </div>
       </header>
