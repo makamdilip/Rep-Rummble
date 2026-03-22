@@ -477,6 +477,8 @@ export default function Layout() {
                 <div className={authStatus === 'error' ? 'form-error' : 'form-success'}>{authMessage}</div>
               )}
             </form>
+            )}
+            {authMode !== 'forgot' && (
             <div className="social-buttons">
               <a className="social-btn google" href={`${API_URL}/api/auth/oauth/google`}>
                 <svg
