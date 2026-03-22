@@ -237,7 +237,7 @@ export const sendMessage = async (req: AuthRequest, res: Response) => {
         conversation.escalatedFromAI = true
         conversation.escalationReason = aiResponse.escalationReason
         conversation.escalationTimestamp = new Date()
-        conversation.priority = aiResponse.priority || 'medium'
+        conversation.priority = (aiResponse.priority || 'medium') as 'low' | 'medium' | 'high' | 'urgent'
         await conversation.save()
       }
 

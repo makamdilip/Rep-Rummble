@@ -13,6 +13,7 @@
     "npm": ">=9.0.0"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
     "@google/generative-ai": "^0.24.1",
     "@supabase/supabase-js": "^2.93.3",
     "@types/bcryptjs": "^2.4.6",
