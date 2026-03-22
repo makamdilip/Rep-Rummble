@@ -5,6 +5,8 @@ import { FaXTwitter } from 'react-icons/fa6';
 import { DEV_BYPASS_AUTH, DEV_USER } from '../config/devAuth';
 import api from '../config/api';
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 export default function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -373,7 +375,7 @@ export default function Layout() {
               )}
             </form>
             <div className="social-buttons">
-              <a className="social-btn google" href="/api/auth/oauth/google">
+              <a className="social-btn google" href={`${API_URL}/api/auth/oauth/google`}>
                 <svg
                   className="social-icon google-multi"
                   viewBox="0 0 48 48"
@@ -399,15 +401,15 @@ export default function Layout() {
                 </svg>
                 <span className="sr-only">Continue with Google</span>
               </a>
-              <a className="social-btn apple" href="/api/auth/oauth/apple">
+              <a className="social-btn apple" href={`${API_URL}/api/auth/oauth/apple`}>
                 <FaApple className="social-icon" />
                 <span className="sr-only">Continue with Apple</span>
               </a>
-              <a className="social-btn facebook" href="/api/auth/oauth/facebook">
+              <a className="social-btn facebook" href={`${API_URL}/api/auth/oauth/facebook`}>
                 <FaFacebookF className="social-icon" />
                 <span className="sr-only">Continue with Facebook</span>
               </a>
-              <a className="social-btn twitter" href="/api/auth/oauth/twitter">
+              <a className="social-btn twitter" href={`${API_URL}/api/auth/oauth/twitter`}>
                 <FaXTwitter className="social-icon" />
                 <span className="sr-only">Continue with Twitter</span>
               </a>
