@@ -16,7 +16,7 @@ export default function Reports() {
     setStatus('loading');
     setMessage('');
     try {
-      const response = await fetch(`/api/reports/sample?period=${period}`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/reports/sample?period=${period}`);
       if (!response.ok) {
         throw new Error('Unable to download report');
       }

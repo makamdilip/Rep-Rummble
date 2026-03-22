@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export default function Referral() {
   const [copied, setCopied] = useState(false);
-  const link = 'https://reprumble.com/invite/you';
+  const link = 'https://reprummble.com/invite/you';
   const stats = [
     { label: 'Reward balance', value: '2 free months', sub: '1 invite away from next unlock' },
     { label: 'Total invites', value: '8 friends', sub: '6 activated · 2 pending' },
