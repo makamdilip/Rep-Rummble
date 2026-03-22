@@ -68,6 +68,8 @@ export const api = {
       }),
 
     logout: () => apiRequest('/api/auth/logout', { method: 'POST' }),
+
+    deleteAccount: () => apiRequest('/api/auth/account', { method: 'DELETE' }),
   },
 
   // Meals

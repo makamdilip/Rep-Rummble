@@ -4,6 +4,7 @@ import { AuthRequest } from "../middleware/auth.middleware"
 import { ApiError } from "../types"
 import * as supabaseService from "../services/supabase.service"
 import { User } from "../models/User.model"
+import nodemailer from "nodemailer"
 
 // Generate JWT Token
 const generateToken = (id: string): string => {
@@ -172,6 +173,59 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
     }
 
     return res.json({ success: true, message: "Profile updated successfully" })
+  } catch (error) {
+    const err = error as ApiError
+    return res.status(500).json({ success: false, message: err.message || "Server error" })
+  }
+}
+
+// @route DELETE /api/auth/account
+export const deleteAccount = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.user?.id
+    const userEmail = req.user?.email
+
+    if (!userId) {
+      return res.status(401).json({ success: false, message: "Not authenticated" })
+    }
+
+    // Delete from Supabase auth
+    const result = await supabaseService.deleteUser(userId)
+    if (!result.success) {
+      return res.status(500).json({ success: false, message: result.error || "Failed to delete account" })
+    }
+
+    // Delete from MongoDB
+    if (userEmail) {
+      await User.deleteOne({ email: userEmail })
+    }
+
+    // Send confirmation email if configured
+    if (userEmail && process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
+      try {
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD },
+        })
+        await transporter.sendMail({
+          from: `"Reprummble" <${process.env.GMAIL_USER}>`,
+          to: userEmail,
+          subject: 'Your Reprummble account has been deleted',
+          text: `Hi,\n\nYour Reprummble account (${userEmail}) has been permanently deleted as requested.\n\nAll your personal data, health logs, and workout records have been removed from our systems within the timeframes described in our Privacy Policy.\n\nIf you did not request this, please contact us immediately at support@reprummble.com.\n\nTake care,\nThe Reprummble Team`,
+        })
+        // Also notify admin
+        await transporter.sendMail({
+          from: `"Reprummble" <${process.env.GMAIL_USER}>`,
+          to: process.env.GMAIL_USER,
+          subject: `Account deletion: ${userEmail}`,
+          text: `User ${userEmail} (ID: ${userId}) has deleted their account.\n\nTimestamp: ${new Date().toISOString()}`,
+        })
+      } catch (_) {
+        // Email failure should not block account deletion
+      }
+    }
+
+    return res.json({ success: true, message: "Account deleted successfully" })
   } catch (error) {
     const err = error as ApiError
     return res.status(500).json({ success: false, message: err.message || "Server error" })

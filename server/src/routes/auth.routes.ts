@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { register, login, getMe, getOAuthUrl, logout, updateProfile } from '../controllers/auth.controller'
+import { register, login, getMe, getOAuthUrl, logout, updateProfile, deleteAccount } from '../controllers/auth.controller'
 import { protect } from '../middleware/auth.middleware'
 
 const router = Router()
@@ -15,5 +15,6 @@ router.get('/oauth/:provider', getOAuthUrl)
 router.get('/me', protect, getMe)
 router.post('/logout', protect, logout)
 router.put('/profile', protect, updateProfile)
+router.delete('/account', protect, deleteAccount)
 
 export default router
