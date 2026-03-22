@@ -34,7 +34,7 @@ export default function Plans() {
           <div className="price-card-head">
             <h3>Pro</h3>
             <div className="price-row">
-              <p className="price">$14</p>
+              <p className="price">$9</p>
               <span className="price-cycle">/month</span>
             </div>
             <p className="price-desc">Advanced nutrition + training.</p>
@@ -55,7 +55,7 @@ export default function Plans() {
           <div className="price-card-head">
             <h3>Elite</h3>
             <div className="price-row">
-              <p className="price">$29</p>
+              <p className="price">$19</p>
               <span className="price-cycle">/month</span>
             </div>
             <p className="price-desc">High-touch coaching + analytics.</p>
