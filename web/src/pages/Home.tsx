@@ -1,189 +1,353 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import heroImage from '../assets/hero-illustration.svg';
-import reportPreview from '../assets/report-preview.svg';
 import { AppStoreButton, GooglePlayButton } from '../components/base/buttons/app-store-buttons-outline';
+
+const FEATURES = [
+  {
+    icon: '🏋️',
+    title: 'Personalized Training Plans',
+    desc: 'AI-built programs that adapt to your schedule, gear, and goals. Whether you train 3 days or 6 — your plan fits.',
+  },
+  {
+    icon: '🥗',
+    title: 'Smart Nutrition Tracking',
+    desc: 'Log meals in seconds, hit macro targets, and get smart swaps when you fall short. No calorie obsession — just clarity.',
+  },
+  {
+    icon: '💤',
+    title: 'Recovery & Readiness',
+    desc: 'Sleep quality, HRV, and resting HR feed into a daily readiness score so you always know when to push and when to rest.',
+  },
+  {
+    icon: '⌚',
+    title: 'Wearable Sync',
+    desc: 'Apple Watch, Oura, Garmin, Whoop — data flows automatically into your dashboard without manual entry.',
+  },
+  {
+    icon: '📊',
+    title: 'Actionable Analytics',
+    desc: 'Weekly insights connect your habits to results. See exactly what drove progress — and what held it back.',
+  },
+  {
+    icon: '🏆',
+    title: 'Challenges & Community',
+    desc: '30-day challenges, leaderboards, and coach nudges to keep momentum when motivation fades.',
+  },
+];
+
+const STEPS = [
+  {
+    num: '01',
+    title: 'Tell us your goals',
+    desc: 'Quick onboarding covers your schedule, gear, fitness level, and what you actually want to achieve.',
+  },
+  {
+    num: '02',
+    title: 'Get your plan',
+    desc: 'Reprummble builds a personalised training + nutrition plan the same day. Connect wearables to enrich your data instantly.',
+  },
+  {
+    num: '03',
+    title: 'Track, adapt, progress',
+    desc: 'Log workouts, meals, and sleep. Your plan updates as you improve — no restarting from scratch.',
+  },
+];
+
+const TESTIMONIALS = [
+  {
+    quote: 'I hit a 10 kg PR in 12 weeks and still felt rested. The recovery scores kept me honest.',
+    name: 'Maya T.',
+    role: 'Powerlifter · 28',
+    initials: 'MT',
+  },
+  {
+    quote: 'Meal logging used to feel like homework. Now it takes 30 seconds and I finally understand my energy dips.',
+    name: 'Alex R.',
+    role: 'Remote worker · 34',
+    initials: 'AR',
+  },
+  {
+    quote: 'The 30-day challenge made me train on days I would have skipped. Accountability without the guilt.',
+    name: 'Jorge M.',
+    role: 'Amateur runner · 41',
+    initials: 'JM',
+  },
+];
+
+const STATS = [
+  { value: '75k+', label: 'Workouts completed' },
+  { value: '18k+', label: 'Active members' },
+  { value: '4.8★', label: 'Average rating' },
+  { value: '91%', label: 'of members stay consistent in month 2' },
+];
+
+const WEARABLES = [
+  { name: 'Apple Watch', icon: '⌚' },
+  { name: 'Oura Ring', icon: '💍' },
+  { name: 'Garmin', icon: '🗺️' },
+  { name: 'Whoop', icon: '📟' },
+  { name: 'Fitbit', icon: '⌚' },
+  { name: 'Polar', icon: '❤️' },
+];
 
 export default function Home() {
   return (
     <>
+      {/* ── HERO ── */}
       <section className="hero hero-stage" data-reveal>
         <div className="hero-decor">
           <span className="float-item item-weight" />
           <span className="float-item item-badge" />
         </div>
         <div className="hero-copy">
-          <h1>Turn sweat into momentum — train smarter, live stronger.</h1>
+          <div className="hero-eyebrow">
+            <span className="pill pill-green">All-in-one fitness platform</span>
+          </div>
+          <h1>Train smarter.<br />Recover faster.<br />Live stronger.</h1>
           <p>
-            Reprummble turns your workouts, meals, and recovery into a single
-            plan that adapts as you get better. Start small. See real results.
+            Reprummble connects your workouts, nutrition, sleep, and wearables
+            into one adaptive plan that gets better as you do. No guesswork —
+            just progress.
           </p>
           <div className="hero-links">
             <Link className="brutalist-btn" to="/?auth=signup">
-              Start Free Trial
+              Start Free — No Card Needed
             </Link>
             <Link className="ghost-btn" to="/plans">
-              Pick a Plan
+              See Plans
             </Link>
           </div>
-          <div className="hero-subtext">
-            Join thousands who built consistency — challenges, coaches, and data
-            to keep you moving.
+          <div className="hero-trust-row">
+            <div className="hero-trust-item">
+              <strong>18k+</strong>
+              <span>active members</span>
+            </div>
+            <div className="hero-trust-divider" />
+            <div className="hero-trust-item">
+              <strong>4.8★</strong>
+              <span>member rating</span>
+            </div>
+            <div className="hero-trust-divider" />
+            <div className="hero-trust-item">
+              <strong>Free trial</strong>
+              <span>cancel anytime</span>
+            </div>
           </div>
         </div>
+
         <div className="hero-visual tilt-card">
-          <img src={heroImage} alt="Reprummble preview" />
-          <div className="hero-visual-meta">
-            <div className="status-pill">30-day challenge</div>
-            <div className="preview-grid">
+          <div className="hero-dashboard-card">
+            <div className="hdc-header">
               <div>
-                <h4>Consistency</h4>
-                <p>+42% weekly activity</p>
+                <span className="pill pill-green">Today</span>
+                <p className="hdc-name">Good morning, Alex 👋</p>
               </div>
-              <div>
-                <h4>Strength</h4>
-                <p>Avg +6 kg squat progress</p>
+              <div className="hdc-score">
+                <span className="hdc-score-val">92</span>
+                <span className="hdc-score-label">Readiness</span>
               </div>
-              <div>
-                <h4>Recovery</h4>
-                <p>Better sleep & reduced soreness</p>
+            </div>
+            <div className="hdc-metrics">
+              <div className="hdc-metric">
+                <span className="hdc-metric-icon">💤</span>
+                <div>
+                  <strong>7h 34m</strong>
+                  <small>Sleep</small>
+                </div>
               </div>
-              <div>
-                <h4>Nutrition</h4>
-                <p>Smart targets, easy swaps</p>
+              <div className="hdc-metric">
+                <span className="hdc-metric-icon">❤️</span>
+                <div>
+                  <strong>54 bpm</strong>
+                  <small>Resting HR</small>
+                </div>
+              </div>
+              <div className="hdc-metric">
+                <span className="hdc-metric-icon">⚡</span>
+                <div>
+                  <strong>78 ms</strong>
+                  <small>HRV</small>
+                </div>
+              </div>
+            </div>
+            <div className="hdc-workout">
+              <div className="hdc-workout-info">
+                <strong>Today's session</strong>
+                <span className="muted">Upper body · 45 min</span>
+              </div>
+              <span className="solid-chip">Start</span>
+            </div>
+            <div className="hdc-macro-bar">
+              <div className="hdc-macro-label">
+                <span>Macros today</span>
+                <span className="muted">1,840 / 2,400 kcal</span>
+              </div>
+              <div className="hdc-bar-track">
+                <div className="hdc-bar-fill" style={{ width: '76%' }} />
               </div>
             </div>
           </div>
         </div>
+
         <div className="hero-wave" />
       </section>
 
+      {/* ── WEARABLES TRUST BAR ── */}
+      <section className="section wearable-bar" data-reveal>
+        <p className="wearable-bar-label">Works with your devices</p>
+        <div className="wearable-list">
+          {WEARABLES.map((w) => (
+            <div className="wearable-chip" key={w.name}>
+              <span>{w.icon}</span>
+              <span>{w.name}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── FEATURES ── */}
       <section className="section" data-reveal>
         <div className="section-head">
-          <h2>What we do — simple, focused, effective</h2>
+          <span className="pill">Everything you need</span>
+          <h2>One app. Every pillar of your health.</h2>
           <p>
-            Tools that create momentum: plans, reminders, recovery, and
-            community.
+            Most apps do one thing. Reprummble connects training, nutrition,
+            recovery, and analytics so they work together — not in silos.
           </p>
         </div>
-        <div className="card-grid" data-stagger>
-          <div className="info-card">
-            <h3>Personalized plans</h3>
-            <p>Goals-first programming that fits your schedule and gear.</p>
-          </div>
-          <div className="info-card">
-            <h3>Daily momentum</h3>
-            <p>Short, clear tasks every day so progress becomes automatic.</p>
-          </div>
-          <div className="info-card">
-            <h3>Recovery-first</h3>
-            <p>
-              Sleep, readiness, and load management so you progress without
-              pain.
-            </p>
-          </div>
-          <div className="info-card">
-            <h3>Community & challenges</h3>
-            <p>
-              Friendly leaderboards, small-group challenges, and coach nudges.
-            </p>
-          </div>
+        <div className="feature-grid" data-stagger>
+          {FEATURES.map((f) => (
+            <div className="feature-card" key={f.title}>
+              <span className="feature-icon">{f.icon}</span>
+              <h3>{f.title}</h3>
+              <p>{f.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
+      {/* ── HOW IT WORKS ── */}
+      <section className="section how-it-works" data-reveal>
+        <div className="section-head">
+          <span className="pill">Simple by design</span>
+          <h2>Up and running in under 5 minutes</h2>
+          <p>
+            No complicated setup. Tell us your goals, get your plan, and start
+            moving today.
+          </p>
+        </div>
+        <div className="steps-grid" data-stagger>
+          {STEPS.map((s) => (
+            <div className="step-card" key={s.num}>
+              <div className="step-num">{s.num}</div>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── STATS ── */}
       <section className="section" data-reveal>
         <div className="section-head">
-          <h2>Proof in the numbers</h2>
-          <p>Real people. Real momentum.</p>
+          <span className="pill">Proof in numbers</span>
+          <h2>Real people. Real momentum.</h2>
         </div>
-        <div className="stats-grid" data-stagger>
-          <article className="stat-card animated-card">
-            <div className="stat-icon">💪</div>
-            <h3 className="stat-value">75k+</h3>
-            <p className="stat-label">Workouts completed</p>
-          </article>
-          <article className="stat-card animated-card">
-            <div className="stat-icon">👥</div>
-            <h3 className="stat-value">18k+</h3>
-            <p className="stat-label">Active members</p>
-          </article>
-          <article className="stat-card animated-card">
-            <div className="stat-icon">📈</div>
-            <h3 className="stat-value">Avg +5%</h3>
-            <p className="stat-label">Weekly consistency increase</p>
-          </article>
-          <article className="stat-card featured animated-card">
-            <div className="stat-icon">📋</div>
-            <div>
-              <h3>Doctor-ready reports</h3>
-              <p>Share progress simply with professionals and coaches.</p>
-            </div>
-          </article>
+        <div className="stats-grid stats-grid-home" data-stagger>
+          {STATS.map((s) => (
+            <article className="stat-card animated-card" key={s.label}>
+              <h3 className="stat-value">{s.value}</h3>
+              <p className="stat-label">{s.label}</p>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="section split" data-reveal>
-        <div>
-          <h2>Real stories, small wins</h2>
-          <p>
-            Quick wins keep you curious. See how small habits stacked into big
-            changes for members just like you.
-          </p>
-          <div className="testimonials">
-            <blockquote className="testimonial">
-              “I hit a 10kg PR in 12 weeks — and still feel rested.”
-              <cite>— Maya, 28</cite>
-            </blockquote>
-            <blockquote className="testimonial">
-              “Logging meals became simple; my energy stayed steady all day.”
-              <cite>— Alex, 34</cite>
-            </blockquote>
-            <blockquote className="testimonial">
-              “Challenges made training fun again. I stayed consistent.”
-              <cite>— Jorge, 41</cite>
-            </blockquote>
-          </div>
+      {/* ── TESTIMONIALS ── */}
+      <section className="section" data-reveal>
+        <div className="section-head">
+          <span className="pill">Members love it</span>
+          <h2>Small wins that compound</h2>
+          <p>See how real members built consistency with Reprummble.</p>
         </div>
-        <div className="device-stage">
-          <div className="device-glow" />
-          <div className="phone-shell">
-            <div className="phone-notch" />
-            <div className="phone-screen ios">
-              <div className="phone-header">
-                <div className="phone-title-group">
-                  <span className="phone-title">Reprummble Mobile</span>
-                  <span className="phone-pill">Live sync</span>
-                </div>
-                <span className="phone-avatar">RR</span>
-              </div>
-              <div className="phone-home">
-                <div className="phone-hero-card">
-                  <h4>Start with one small win</h4>
-                  <p>Log a meal, finish today’s workout, and celebrate.</p>
-                  <span className="phone-cta">Start Free Trial</span>
+        <div className="testimonial-grid" data-stagger>
+          {TESTIMONIALS.map((t) => (
+            <div className="testimonial-card" key={t.name}>
+              <div className="testimonial-stars">★★★★★</div>
+              <p className="testimonial-quote">"{t.quote}"</p>
+              <div className="testimonial-author">
+                <div className="testimonial-avatar">{t.initials}</div>
+                <div>
+                  <div className="testimonial-name">{t.name}</div>
+                  <div className="testimonial-role">{t.role}</div>
                 </div>
               </div>
-              <div className="phone-footer">Stay curious. Start today.</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PLANS PREVIEW ── */}
+      <section className="section plans-preview" data-reveal>
+        <div className="plans-preview-inner">
+          <div className="plans-preview-copy">
+            <span className="pill">Pricing</span>
+            <h2>Start free. Upgrade when you're ready.</h2>
+            <p>
+              Every plan includes a free trial. No credit card required to start.
+              Cancel or change anytime.
+            </p>
+            <div className="plans-bullets">
+              <div className="plans-bullet">✓ Full training plan access</div>
+              <div className="plans-bullet">✓ Nutrition tracking + smart swaps</div>
+              <div className="plans-bullet">✓ Recovery readiness score daily</div>
+              <div className="plans-bullet">✓ Wearable sync (all devices)</div>
+              <div className="plans-bullet">✓ 30-day challenges + community</div>
+            </div>
+            <div className="plans-preview-actions">
+              <Link className="solid-btn" to="/?auth=signup">Start Free Trial</Link>
+              <Link className="ghost-btn" to="/plans">Compare Plans</Link>
+            </div>
+          </div>
+          <div className="plans-preview-card">
+            <div className="ppc-row">
+              <div className="ppc-plan">
+                <span className="ppc-name">Starter</span>
+                <span className="ppc-price">Free</span>
+                <span className="muted">Forever free</span>
+              </div>
+              <div className="ppc-plan featured">
+                <span className="pill pill-green">Most popular</span>
+                <span className="ppc-name">Pro</span>
+                <span className="ppc-price">$9<small>/mo</small></span>
+                <span className="muted">Billed monthly</span>
+              </div>
+              <div className="ppc-plan">
+                <span className="ppc-name">Elite</span>
+                <span className="ppc-price">$19<small>/mo</small></span>
+                <span className="muted">+ Coach access</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* ── APP DOWNLOAD ── */}
       <section className="section app-download" data-reveal>
         <div className="download-band">
           <div className="download-copy">
-            <span className="download-chip">iOS & Android</span>
+            <span className="download-chip">iOS & Android — Coming Soon</span>
             <h2>Take your momentum everywhere</h2>
             <p>
-              Log fast, follow daily guidance, and track progress that matters.
+              Log a meal between meetings. Check your recovery score before
+              training. Get nudged when challenges are live. All from your pocket.
             </p>
             <div className="store-buttons">
               <AppStoreButton size="lg" />
               <GooglePlayButton size="lg" />
             </div>
             <div className="download-meta">
-              <span>Start free — cancel anytime.</span>
-              <span>Challenges, coaching, and reports included.</span>
+              <span>Sign up on web now — mobile app notifies you at launch.</span>
             </div>
           </div>
           <div className="download-visual">
@@ -192,17 +356,15 @@ export default function Home() {
               <div className="ios-screen">
                 <div className="ios-app-header">
                   <div>
-                    <span className="ios-app-title">Reprummble Mobile</span>
+                    <span className="ios-app-title">Reprummble</span>
                     <span className="ios-app-pill">Live sync</span>
                   </div>
                   <span className="ios-avatar">RR</span>
                 </div>
                 <div className="ios-hero-card">
-                  <h4>Build a healthier life</h4>
-                  <p>
-                    Meals, workouts, recovery, and insights in one membership.
-                  </p>
-                  <span className="ios-cta">Start Free Trial</span>
+                  <h4>Readiness: 92 — Go train.</h4>
+                  <p>Sleep restored. HRV stable. Green-light for strength today.</p>
+                  <span className="ios-cta">Start Session</span>
                 </div>
               </div>
             </div>
@@ -212,21 +374,26 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section cta" data-reveal>
-        <div>
-          <h2>Ready to try Reprummble?</h2>
-          <p>Start with a free trial and join the 30-day challenge.</p>
-        </div>
-        <div className="cta-actions">
-          <Link className="solid-btn" to="/?auth=signup">
-            Start Free Trial
-          </Link>
-          <Link className="ghost-btn" to="/plans">
-            See Plans
-          </Link>
+      {/* ── FINAL CTA ── */}
+      <section className="section cta-final" data-reveal>
+        <div className="cta-final-inner">
+          <span className="pill">Join 18,000+ members</span>
+          <h2>Your next PR starts today.</h2>
+          <p>
+            Free trial. No credit card. Cancel anytime. Everything you need to
+            train, eat, and recover like a pro — in one place.
+          </p>
+          <div className="cta-actions">
+            <Link className="solid-btn cta-big" to="/?auth=signup">
+              Start Free Trial
+            </Link>
+            <Link className="ghost-btn" to="/services">
+              Explore Features
+            </Link>
+          </div>
+          <p className="cta-fine">Already have an account? <Link to="/?auth=signin" className="cta-link">Sign in →</Link></p>
         </div>
       </section>
     </>
   );
 }
-
