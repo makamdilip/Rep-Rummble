@@ -6104,3 +6104,265 @@
     padding: 8px 16px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   COMPREHENSIVE MOBILE RESPONSIVENESS FIX
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── TABLET (≤ 768px) ───────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Page container — cut the huge fixed top/bottom padding */
+  .marketing-page {
+    padding: 88px 16px 72px !important;
+    gap: 40px !important;
+  }
+
+  /* Hero — stack columns vertically */
+  .hero {
+    grid-template-columns: 1fr !important;
+  }
+  .hero-stage {
+    padding: 28px 20px !important;
+  }
+  .hero-copy h1 {
+    font-size: clamp(28px, 7vw, 42px) !important;
+  }
+  /* Hide the dashboard visual mock on tablet — keeps hero clean */
+  .hero-visual {
+    display: none !important;
+  }
+
+  /* Dashboard card metrics */
+  .hdc-metrics {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  /* Feature bento */
+  .home-bento-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .hb-wide {
+    grid-column: span 2 !important;
+  }
+
+  /* How-it-works steps */
+  .steps-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Testimonials */
+  .testimonial-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Plans ppc-row — stack the 3 plan cards */
+  .ppc-row {
+    grid-template-columns: 1fr !important;
+  }
+  .plans-preview-inner {
+    padding: 24px !important;
+    gap: 24px !important;
+  }
+
+  /* CTA final */
+  .cta-final-inner {
+    padding: 36px 20px !important;
+  }
+
+  /* Stats band */
+  .home-stats-band {
+    flex-direction: column !important;
+    gap: 24px !important;
+    padding: 28px 20px !important;
+  }
+  .home-stats-divider {
+    width: 64px !important;
+    height: 1px !important;
+  }
+  .home-stat-item {
+    padding: 0 !important;
+  }
+
+  /* Wearable bar */
+  .wearable-list {
+    justify-content: center !important;
+  }
+
+  /* Download section */
+  .download-band {
+    grid-template-columns: 1fr !important;
+    padding: 28px 20px !important;
+  }
+  .download-visual {
+    display: none !important;
+  }
+
+  /* Services page pillars */
+  .sv-pillars {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Section-head text sizing */
+  .section-head h2,
+  .gradient-heading {
+    font-size: clamp(22px, 5.5vw, 30px) !important;
+  }
+
+  /* Legal quick links */
+  .legal-quick-links {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  /* Legal grid */
+  .legal-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reports / analytics */
+  .analytics-grid,
+  .report-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Plan cards on Plans page */
+  .plans-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Hero eyebrow */
+  .hero-eyebrow {
+    font-size: 10px !important;
+  }
+}
+
+/* ── MOBILE (≤ 480px) ───────────────────────────────────── */
+@media (max-width: 480px) {
+
+  /* Even tighter padding */
+  .marketing-page {
+    padding: 80px 12px 60px !important;
+    gap: 32px !important;
+  }
+
+  /* Bento: single column on small phones */
+  .home-bento-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .hb-wide {
+    grid-column: span 1 !important;
+  }
+
+  /* Hero copy */
+  .hero-copy h1 {
+    font-size: clamp(26px, 8vw, 34px) !important;
+  }
+  .hero-trust-row {
+    gap: 10px !important;
+  }
+
+  /* Buttons — full width on tiny screens */
+  .hero-links {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .hero-links a,
+  .hero-links button {
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  /* Plans CTA actions */
+  .plans-preview-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .plans-preview-actions a {
+    text-align: center !important;
+  }
+
+  /* CTA actions */
+  .cta-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+  }
+  .cta-actions a {
+    text-align: center !important;
+  }
+
+  /* Settings sidebar nav — pill row on small screens */
+  .sp-root {
+    grid-template-columns: 1fr !important;
+  }
+  .sp-nav {
+    gap: 6px !important;
+    padding-bottom: 12px !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .sp-nav-item {
+    white-space: nowrap !important;
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+  }
+
+  /* Stats band */
+  .home-stat-value {
+    font-size: clamp(28px, 8vw, 40px) !important;
+  }
+
+  /* Step cards */
+  .step-card {
+    padding: 20px 16px !important;
+  }
+
+  /* Hero trust row — wrap tightly */
+  .hero-trust-divider {
+    display: none !important;
+  }
+  .hero-trust-row {
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+  }
+
+  /* wearable chips */
+  .wearable-chip {
+    font-size: 12px !important;
+    padding: 6px 10px !important;
+  }
+
+  /* Services page */
+  .sv-pillars {
+    grid-template-columns: 1fr !important;
+  }
+  .sv-stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Legal page header */
+  .legal-page-header {
+    padding: 28px 16px !important;
+  }
+
+  /* Marketing nav */
+  .marketing-nav {
+    display: none !important;
+  }
+
+  /* Section head */
+  .section-head {
+    gap: 10px !important;
+  }
+
+  /* Chat widget — stay in bounds */
+  .chat-window {
+    width: calc(100vw - 24px) !important;
+    right: 12px !important;
+    left: 12px !important;
+    bottom: 72px !important;
+  }
+}
