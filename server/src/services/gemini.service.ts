@@ -54,7 +54,7 @@ export async function analyzeFoodImageWithGemini(
       return getMockFoodAnalysis()
     }
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
 
     const prompt = `You are an expert nutritionist. Analyze this food image and provide detailed nutrition information.
 
@@ -142,7 +142,7 @@ export async function quickLogMealWithGemini(description: string): Promise<FoodA
       return getMockFoodAnalysis()
     }
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
 
     const prompt = `You are a nutritionist. Parse this meal description and estimate nutrition.
 
@@ -212,7 +212,7 @@ export async function generateWorkoutPlanWithGemini(
       return getMockWorkoutPlan()
     }
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
 
     const prompt = `Create a workout plan with these parameters:
 - Goal: ${goal}
@@ -267,7 +267,7 @@ export async function getNutritionInfoWithGemini(foodName: string): Promise<Nutr
       return { calories: 0, protein: 0, carbs: 0, fat: 0 }
     }
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
 
     const prompt = `Provide nutrition info for: "${foodName}" (1 serving)
 

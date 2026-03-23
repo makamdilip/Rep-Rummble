@@ -4,7 +4,15 @@ let isMongoConnected = false
 
 export const connectDB = async (): Promise<void> => {
   try {
-    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/rep-rummble'
+    let mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/reprummble'
+
+    // Ensure the URI includes the database name — prevents defaulting to 'test'
+    if (mongoURI.includes('mongodb+srv://') || mongoURI.includes('mongodb://')) {
+      const hasDbName = /\/[^/?]+(\?|$)/.test(mongoURI.replace(/mongodb(\+srv)?:\/\/[^/]+/, ''))
+      if (!hasDbName) {
+        mongoURI = mongoURI.replace(/\/?(\?|$)/, '/reprummble$1')
+      }
+    }
 
     await mongoose.connect(mongoURI)
 

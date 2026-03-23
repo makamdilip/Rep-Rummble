@@ -56,6 +56,8 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (mobile apps, Postman, etc.)
     if (!origin) return callback(null, true)
+    // Allow Vercel preview deployments
+    if (origin.endsWith('.vercel.app')) return callback(null, true)
     if (allowedOrigins.some(allowed => origin.startsWith(allowed.replace(/\/$/, '')))) {
       return callback(null, true)
     }

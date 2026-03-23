@@ -129,7 +129,7 @@ export async function generateAIChatResponse(
   if (genAI) {
     try {
       const model = genAI.getGenerativeModel({
-        model: 'gemini-1.5-flash',
+        model: 'gemini-2.0-flash',
         systemInstruction: SYSTEM_PROMPT,
       })
 
@@ -173,7 +173,7 @@ export async function generateHandoffSummary(conversationHistory: ChatMessage[])
   if (!conversationHistory.length) return 'User needs assistance. Please review the conversation.'
   if (genAI) {
     try {
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
       const text = conversationHistory.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n')
       const result = await model.generateContent(`Summarize this support conversation in 2 sentences for a human agent:\n${text}`)
       return result.response.text().trim()
