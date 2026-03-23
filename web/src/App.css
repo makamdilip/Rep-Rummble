@@ -6251,6 +6251,17 @@
   font-weight: 700;
   letter-spacing: 0.05em;
 }
+.hb-cta-arrow {
+  margin-top: auto;
+  font-size: 16px;
+  color: var(--muted);
+  align-self: flex-end;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.hb-card:hover .hb-cta-arrow {
+  transform: translateX(4px);
+  color: var(--ink);
+}
 
 /* ── HOME STATS BAND (Draftly large-number style) ─────────── */
 .home-stats-band {

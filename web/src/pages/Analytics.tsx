@@ -1,170 +1,183 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../config/api';
 
-const DEMO_BANNER = (
-  <div style={{ background: 'var(--accent-subtle, #f0f4ff)', border: '1px solid var(--accent, #4f6ef7)', borderRadius: 8, padding: '10px 16px', marginBottom: 24, display: 'flex', alignItems: 'center', gap: 10 }}>
-    <span>📊</span>
-    <span>This is a <strong>demo preview</strong> — connect your wearables and log meals to see your real data here.</span>
-    <Link to="/wearables" className="ghost-btn" style={{ marginLeft: 'auto', whiteSpace: 'nowrap' }}>Connect devices</Link>
-  </div>
-);
+interface WorkoutStats {
+  total: number;
+  thisWeek: number;
+  totalCalories: number;
+  avgDuration: number;
+  weeklyLoad: number[];
+  consistency: number;
+}
+
+interface MealStats {
+  todayCalories: number;
+  todayProtein: number;
+  todayCarbs: number;
+  todayFat: number;
+  todayMealCount: number;
+  avgDailyCalories: number;
+  totalMeals: number;
+  macroSplit: { protein: number; carbs: number; fat: number };
+}
+
+const DEMO_WORKOUT: WorkoutStats = { total: 0, thisWeek: 0, totalCalories: 0, avgDuration: 0, weeklyLoad: [62, 74, 54, 72, 90, 66, 80], consistency: 0 };
+const DEMO_MEAL: MealStats = { todayCalories: 0, todayProtein: 0, todayCarbs: 0, todayFat: 0, todayMealCount: 0, avgDailyCalories: 0, totalMeals: 0, macroSplit: { protein: 35, carbs: 40, fat: 25 } };
 
 export default function Analytics() {
+  const [workoutStats, setWorkoutStats] = useState<WorkoutStats | null>(null);
+  const [mealStats, setMealStats] = useState<MealStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isDemo, setIsDemo] = useState(false);
+
+  useEffect(() => {
+    const load = async () => {
+      const [wRes, mRes] = await Promise.all([
+        api.workouts.getStats(),
+        api.meals.getStats(),
+      ]);
+      if (wRes.data) {
+        setWorkoutStats(wRes.data as WorkoutStats);
+      } else {
+        setWorkoutStats(DEMO_WORKOUT);
+        setIsDemo(true);
+      }
+      if (mRes.data) {
+        setMealStats(mRes.data as MealStats);
+      } else {
+        setMealStats(DEMO_MEAL);
+        setIsDemo(true);
+      }
+      setLoading(false);
+    };
+    load();
+  }, []);
+
+  const ws = workoutStats || DEMO_WORKOUT;
+  const ms = mealStats || DEMO_MEAL;
+  const hasData = ws.total > 0 || ms.totalMeals > 0;
+
   const kpis = [
-    { label: 'Consistency score', value: '86%', change: '+6% vs last week' },
-    { label: 'Avg recovery', value: '82', change: 'HRV steady · 7h 22m sleep' },
-    { label: 'Training load', value: '6,240', change: '+12% volume · 4 sessions' },
-    { label: 'Macro split', value: '35 / 40 / 25', change: 'Protein / Carbs / Fat' },
+    { label: 'Consistency score', value: ws.consistency ? `${ws.consistency}%` : '—', change: `${ws.thisWeek} sessions this week` },
+    { label: 'Workouts total', value: ws.total > 0 ? String(ws.total) : '—', change: `${ws.avgDuration > 0 ? `Avg ${ws.avgDuration} min` : 'No data yet'}` },
+    { label: "Today's calories", value: ms.todayCalories > 0 ? `${ms.todayCalories} kcal` : '—', change: `${ms.todayMealCount} meals logged today` },
+    { label: 'Macro split', value: `${ms.macroSplit.protein} / ${ms.macroSplit.carbs} / ${ms.macroSplit.fat}`, change: 'Protein / Carbs / Fat %' },
   ];
 
   const readiness = [
-    { label: 'Sleep', value: '7h 22m', delta: '+18m' },
-    { label: 'HRV', value: '78 ms', delta: 'Stable' },
-    { label: 'Resting HR', value: '54 bpm', delta: '-2' },
-    { label: 'Stress', value: 'Low', delta: 'Green' },
+    { label: 'Sleep', value: '7h 22m', delta: 'Wearable needed' },
+    { label: 'HRV', value: '—', delta: 'Connect device' },
+    { label: 'Resting HR', value: '—', delta: 'Connect device' },
+    { label: 'Stress', value: '—', delta: 'Connect device' },
   ];
 
-  const weeklyLoad = [62, 74, 54, 72, 90, 66];
-  const macroSplit = [
-    { label: 'Protein', value: 35 },
-    { label: 'Carbs', value: 40 },
-    { label: 'Fat', value: 25 },
-  ];
+  const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const maxLoad = Math.max(...ws.weeklyLoad, 1);
 
   return (
     <section className="section page-section analytics-page" data-reveal>
-      {DEMO_BANNER}
+      {(!hasData || isDemo) && (
+        <div style={{ background: 'var(--accent-subtle, #f0f4ff)', border: '1px solid var(--accent, #4f6ef7)', borderRadius: 8, padding: '10px 16px', marginBottom: 24, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <span>📊</span>
+          <span><strong>No data yet</strong> — log your first workout or meal to see your real stats here.</span>
+          <Link to="/wearables" className="ghost-btn" style={{ marginLeft: 'auto', whiteSpace: 'nowrap' }}>Connect devices</Link>
+        </div>
+      )}
+
       <div className="section-head">
-        <h2>Actionable analytics</h2>
-        <p>
-          From macros to recovery, Reprummble helps you understand what drives
-          progress.
-        </p>
+        <h2>Your dashboard</h2>
+        <p>Real-time view of your workouts, nutrition, and recovery.</p>
       </div>
 
-      <div className="analytics-hero" data-reveal>
-        <div className="analytics-hero-copy">
-          <span className="pill">Performance view</span>
-          <h3>Connect habits to results in one glance.</h3>
-          <p>
-            See how meals, workouts, and recovery move together. Weekly
-            highlights show what changed, why it changed, and what to do next.
-          </p>
-          <div className="analytics-highlights">
-            <div>
-              <strong>Weekly training load</strong>
-              <span>Auto-updated</span>
-            </div>
-            <div>
-              <strong>Macro balance</strong>
-              <span>Goal aligned</span>
-            </div>
-            <div>
-              <strong>Recovery readiness</strong>
-              <span>Sleep + stress</span>
-            </div>
-          </div>
-          <div className="page-actions">
-            <Link className="solid-btn" to="/reports">
-              Export Reports
-            </Link>
-            <Link className="ghost-btn" to="/plans">
-              Compare Plans
-            </Link>
-          </div>
-        </div>
-        <div className="analytics-hero-card" data-reveal>
-          <div className="analytics-kpi">
-            <span>Consistency score</span>
-            <strong>86%</strong>
-            <small>Up 6% vs last week</small>
-          </div>
-          <div className="analytics-kpi">
-            <span>Recovery readiness</span>
-            <strong>High</strong>
-            <small>Sleep 7h 25m · HRV stable</small>
-          </div>
-          <div className="analytics-kpi">
-            <span>Macro split</span>
-            <strong>35 / 40 / 25</strong>
-            <small>Protein · Carbs · Fat</small>
-          </div>
-        </div>
-      </div>
-
-      <div className="dashboard-grid" data-stagger>
-        {kpis.map((item) => (
-          <div className="kpi-card" key={item.label}>
-            <span className="muted">{item.label}</span>
-            <strong>{item.value}</strong>
-            <small>{item.change}</small>
-          </div>
-        ))}
-      </div>
-
-      <div className="chart-grid" data-stagger>
-        <div className="chart-card animated-card">
-          <div className="chart-header">
-            <h4>Weekly training load</h4>
-            <span>Auto-updated</span>
-          </div>
-          <div className="chart-bars">
-            {weeklyLoad.map((h, idx) => (
-              <span key={idx} className="chart-bar" data-height={h} />
+      {loading ? (
+        <div style={{ textAlign: 'center', padding: '48px', color: 'var(--muted)' }}>Loading your stats…</div>
+      ) : (
+        <>
+          <div className="dashboard-grid" data-stagger>
+            {kpis.map((item) => (
+              <div className="kpi-card" key={item.label}>
+                <span className="muted">{item.label}</span>
+                <strong>{item.value}</strong>
+                <small>{item.change}</small>
+              </div>
             ))}
           </div>
-        </div>
-        <div className="chart-card glass animated-card">
-          <div className="chart-header">
-            <h4>Macro balance</h4>
-            <span>Goal aligned</span>
-          </div>
-          <div className="chart-ring">
-            <div className="ring">
-              <span>Protein 35%</span>
-            </div>
-            <div className="ring-labels">
-              {macroSplit.map((m) => (
-                <span key={m.label}>
-                  {m.label} {m.value}%
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="dashboard-grid" data-stagger>
-        {readiness.map((item) => (
-          <div className="kpi-card light" key={item.label}>
-            <div className="kpi-row">
-              <span className="muted">{item.label}</span>
-              <span className="pill">Today</span>
+          <div className="chart-grid" data-stagger>
+            <div className="chart-card animated-card">
+              <div className="chart-header">
+                <h4>Weekly training load</h4>
+                <span>{ws.thisWeek} sessions this week</span>
+              </div>
+              <div className="chart-bars">
+                {ws.weeklyLoad.map((h, idx) => (
+                  <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, flex: 1 }}>
+                    <span className="chart-bar" data-height={Math.round((h / maxLoad) * 100)} style={{ height: `${Math.round((h / maxLoad) * 80) + 4}px` }} />
+                    <span style={{ fontSize: 10, color: 'var(--muted)' }}>{weekDays[idx]}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <strong>{item.value}</strong>
-            <small>{item.delta}</small>
+            <div className="chart-card glass animated-card">
+              <div className="chart-header">
+                <h4>Macros today</h4>
+                <span>{ms.todayCalories > 0 ? `${ms.todayCalories} kcal` : 'No meals logged'}</span>
+              </div>
+              <div className="chart-ring">
+                <div className="ring">
+                  <span>Protein {ms.macroSplit.protein}%</span>
+                </div>
+                <div className="ring-labels">
+                  {[
+                    { label: 'Protein', value: ms.macroSplit.protein, g: ms.todayProtein },
+                    { label: 'Carbs', value: ms.macroSplit.carbs, g: ms.todayCarbs },
+                    { label: 'Fat', value: ms.macroSplit.fat, g: ms.todayFat },
+                  ].map((m) => (
+                    <span key={m.label}>{m.label} {m.value}%{m.g > 0 ? ` · ${m.g}g` : ''}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-        ))}
-      </div>
 
-      <div className="insight-grid" data-stagger>
-        <div className="insight-card">
-          <h4>Weekly training load</h4>
-          <p>Volume +12% with steady recovery. Keep intensity stable.</p>
-          <span className="pill">Auto-updated</span>
-        </div>
-        <div className="insight-card">
-          <h4>Macro balance</h4>
-          <p>Protein on target. Nudge carbs higher on training days.</p>
-          <span className="pill">Goal aligned</span>
-        </div>
-        <div className="insight-card">
-          <h4>Recovery readiness</h4>
-          <p>Sleep debt cleared. Green-light strength sessions tomorrow.</p>
-          <span className="pill">Recovery</span>
-        </div>
-      </div>
+          <div className="dashboard-grid" data-stagger>
+            {readiness.map((item) => (
+              <div className="kpi-card light" key={item.label}>
+                <div className="kpi-row">
+                  <span className="muted">{item.label}</span>
+                  <span className="pill">Today</span>
+                </div>
+                <strong>{item.value}</strong>
+                <small>{item.delta}</small>
+              </div>
+            ))}
+          </div>
+
+          <div className="insight-grid" data-stagger>
+            <div className="insight-card">
+              <h4>Training volume</h4>
+              <p>{ws.total > 0 ? `${ws.total} total workouts logged. ${ws.thisWeek} this week.` : 'No workouts yet — log your first session to see trends.'}</p>
+              <Link to="/reports" className="pill" style={{ textDecoration: 'none' }}>View reports</Link>
+            </div>
+            <div className="insight-card">
+              <h4>Nutrition today</h4>
+              <p>{ms.todayCalories > 0 ? `${ms.todayCalories} kcal logged across ${ms.todayMealCount} meals. Avg daily: ${ms.avgDailyCalories} kcal.` : 'No meals logged today. Start tracking to see your macro balance.'}</p>
+              <span className="pill">{ms.todayMealCount > 0 ? 'On track' : 'Start logging'}</span>
+            </div>
+            <div className="insight-card">
+              <h4>Recovery readiness</h4>
+              <p>Connect a wearable device to unlock sleep, HRV, and recovery scores.</p>
+              <Link to="/wearables" className="pill" style={{ textDecoration: 'none' }}>Connect device</Link>
+            </div>
+          </div>
+
+          <div className="page-actions" style={{ marginTop: 24 }}>
+            <Link className="solid-btn" to="/reports">Export Reports</Link>
+            <Link className="ghost-btn" to="/plans">Compare Plans</Link>
+          </div>
+        </>
+      )}
     </section>
   );
 }
-

@@ -9,6 +9,7 @@ const FEATURES = [
     accent: 'teal',
     wide: true,
     stat: '3× faster progress',
+    link: '/services',
   },
   {
     icon: '🥗',
@@ -16,6 +17,7 @@ const FEATURES = [
     desc: 'Log meals in seconds, hit macro targets, and get smart swaps when you fall short.',
     accent: 'orange',
     wide: false,
+    link: '/analytics',
   },
   {
     icon: '💤',
@@ -23,6 +25,7 @@ const FEATURES = [
     desc: 'Sleep quality, HRV, and resting HR feed into a daily readiness score.',
     accent: 'purple',
     wide: false,
+    link: '/analytics',
   },
   {
     icon: '⌚',
@@ -31,6 +34,7 @@ const FEATURES = [
     accent: 'indigo',
     wide: true,
     stat: '6 devices supported',
+    link: '/wearables',
   },
   {
     icon: '📊',
@@ -38,6 +42,7 @@ const FEATURES = [
     desc: 'Weekly insights connect your habits to results. See exactly what drove progress.',
     accent: 'violet',
     wide: false,
+    link: '/analytics',
   },
   {
     icon: '🏆',
@@ -45,6 +50,7 @@ const FEATURES = [
     desc: '30-day challenges, leaderboards, and coach nudges to keep momentum when motivation fades.',
     accent: 'amber',
     wide: false,
+    link: '/services',
   },
 ];
 
@@ -230,12 +236,13 @@ export default function Home() {
         </div>
         <div className="home-bento-grid" data-stagger>
           {FEATURES.map((f) => (
-            <div className={`feature-card hb-card${f.wide ? ' hb-wide' : ''} hb-${f.accent}`} key={f.title}>
+            <Link to={f.link} className={`feature-card hb-card${f.wide ? ' hb-wide' : ''} hb-${f.accent}`} key={f.title} style={{ textDecoration: 'none' }}>
               <div className={`hb-icon-badge hb-badge-${f.accent}`}>{f.icon}</div>
               <h3>{f.title}</h3>
               <p>{f.desc}</p>
               {f.stat && <div className="hb-stat-tag">{f.stat}</div>}
-            </div>
+              <span className="hb-cta-arrow">→</span>
+            </Link>
           ))}
         </div>
       </section>

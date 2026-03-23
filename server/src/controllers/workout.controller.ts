@@ -110,3 +110,49 @@ export const deleteWorkout = async (req: AuthRequest, res: Response) => {
     })
   }
 }
+
+// @desc    Get workout stats for user
+// @route   GET /api/workouts/stats
+// @access  Private
+export const getWorkoutStats = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.user!.id
+    const now = new Date()
+    const weekStart = new Date(now)
+    weekStart.setDate(now.getDate() - 6)
+    weekStart.setHours(0, 0, 0, 0)
+
+    const [total, thisWeek, recentWorkouts] = await Promise.all([
+      Workout.countDocuments({ userId }),
+      Workout.countDocuments({ userId, timestamp: { $gte: weekStart } }),
+      Workout.find({ userId }).sort({ timestamp: -1 }).limit(7),
+    ])
+
+    const totalCalories = recentWorkouts.reduce((sum, w) => sum + (w.calories || 0), 0)
+    const avgDuration = recentWorkouts.length
+      ? Math.round(recentWorkouts.reduce((sum, w) => sum + (w.duration || 0), 0) / recentWorkouts.length)
+      : 0
+
+    // Build weekly load array (last 7 days)
+    const weeklyLoad: number[] = Array(7).fill(0)
+    recentWorkouts.forEach((w) => {
+      const daysAgo = Math.floor((now.getTime() - new Date(w.timestamp).getTime()) / 86400000)
+      if (daysAgo < 7) weeklyLoad[6 - daysAgo] += w.duration || 0
+    })
+
+    return res.json({
+      success: true,
+      data: {
+        total,
+        thisWeek,
+        totalCalories,
+        avgDuration,
+        weeklyLoad,
+        consistency: Math.min(100, Math.round((thisWeek / 5) * 100)),
+      },
+    })
+  } catch (error) {
+    const err = error as ApiError
+    return res.status(500).json({ success: false, message: err.message || 'Server error' })
+  }
+}
