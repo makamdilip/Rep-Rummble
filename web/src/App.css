@@ -3925,6 +3925,41 @@
    End Services Page
    ═══════════════════════════════════════════ */
 
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+  position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.hamburger::before { top: -7px; }
+.hamburger::after  { top: 7px; }
+
+.hamburger.open { background: transparent; }
+.hamburger.open::before { transform: rotate(45deg); top: 0; }
+.hamburger.open::after  { transform: rotate(-45deg); top: 0; }
+
 @media (max-width: 900px) {
   .marketing-header {
     flex-wrap: wrap;
@@ -3942,13 +3977,55 @@
 }
 
 @media (max-width: 600px) {
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 2;
+  }
+
   .marketing-header {
     padding: 14px 16px;
+    flex-wrap: nowrap;
+    position: relative;
   }
 
   .marketing-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--paper);
+    border-bottom: 1px solid var(--stroke);
+    padding: 12px 20px 20px;
+    gap: 4px;
+    z-index: 1000;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .marketing-nav.mobile-open {
+    display: flex;
+  }
+
+  .marketing-nav .nav-link,
+  .marketing-nav .ghost-btn,
+  .marketing-nav .solid-btn {
     width: 100%;
-    justify-content: center;
+    text-align: left;
+    padding: 12px 4px;
+  }
+
+  .marketing-nav .solid-btn,
+  .marketing-nav .ghost-btn {
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .profile-shell {
+    order: 3;
   }
 
   .marketing-footer {

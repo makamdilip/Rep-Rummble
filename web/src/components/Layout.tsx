@@ -13,6 +13,7 @@ export default function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
   const [profileOpen, setProfileOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'signin' | 'signup' | 'forgot'>('signin');
   const [authMessage, setAuthMessage] = useState('');
   const [authStatus, setAuthStatus] = useState<'idle' | 'loading' | 'error' | 'success'>('idle');
@@ -100,6 +101,7 @@ export default function Layout() {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     lastScroll.current = 0;
     setHeaderVisible(true);
+    setMobileMenuOpen(false);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -245,8 +247,8 @@ export default function Layout() {
       if (postAuthPath) {
         sessionStorage.removeItem('postAuthPath');
         navigate(postAuthPath, { replace: true });
-      } else if (location.search) {
-        navigate(location.pathname, { replace: true });
+      } else {
+        navigate('/analytics', { replace: true });
       }
     } catch (error: any) {
       setAuthStatus('error');
@@ -289,6 +291,7 @@ export default function Layout() {
     setAuthMessage('');
     setAuthStatus('idle');
     setProfileOpen(false);
+    navigate('/', { replace: true });
   };
 
   const handleProfileClick = () => {
@@ -311,15 +314,22 @@ export default function Layout() {
           <span className="brand-mark">RR</span>
           <span className="brand-name">Reprummble</span>
         </Link>
-        <nav className="marketing-nav">
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setMobileMenuOpen(p => !p)}
+          aria-label="Toggle menu"
+        >
+          <span className={`hamburger${mobileMenuOpen ? ' open' : ''}`} />
+        </button>
+        <nav className={`marketing-nav${mobileMenuOpen ? ' mobile-open' : ''}`}>
           {!isLoggedIn ? (
             <>
               <NavLink to="/services" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Services</NavLink>
               <NavLink to="/plans" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Plans</NavLink>
               <NavLink to="/faq" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>FAQ</NavLink>
               <NavLink to="/contact" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Contact Us</NavLink>
-              <button className="ghost-btn nav-signin-btn" onClick={() => { setAuthMode('signin'); setAuthOpen(true); }}>Sign In</button>
-              <button className="solid-btn nav-signup-btn" onClick={() => { setAuthMode('signup'); setAuthOpen(true); }}>Sign Up</button>
+              <button className="ghost-btn nav-signin-btn" onClick={() => { setAuthMode('signin'); setAuthOpen(true); setMobileMenuOpen(false); }}>Sign In</button>
+              <button className="solid-btn nav-signup-btn" onClick={() => { setAuthMode('signup'); setAuthOpen(true); setMobileMenuOpen(false); }}>Sign Up</button>
             </>
           ) : (
             <>
@@ -528,11 +538,6 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {!isLoggedIn && (
-        <Link className="fab" to="/?auth=signup" aria-label="Create account">
-          +
-        </Link>
-      )}
 
       <ChatWidget />
 
