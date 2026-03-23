@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppStoreButton, GooglePlayButton } from '../components/base/buttons/app-store-buttons-outline';
 
 const FEATURES = [
   {
@@ -349,43 +348,35 @@ export default function Home() {
 
       {/* ── APP DOWNLOAD ── */}
       <section className="section app-download" data-reveal>
-        <div className="download-band">
-          <div className="download-copy">
-            <span className="download-chip">iOS & Android — Coming Soon</span>
-            <h2>Take your momentum everywhere</h2>
-            <p>
-              Log a meal between meetings. Check your recovery score before
-              training. Get nudged when challenges are live. All from your pocket.
-            </p>
-            <div className="store-buttons">
-              <AppStoreButton size="lg" />
-              <GooglePlayButton size="lg" />
+        <div className="app-launch-band">
+          <div className="app-launch-badge">iOS & Android — Coming Soon</div>
+          <h2 className="app-launch-heading">Your fitness,<br />in your pocket.</h2>
+          <p className="app-launch-sub">
+            Log meals on the go. Check your recovery score before training.<br />
+            Get challenge alerts the moment they drop. All from your pocket.
+          </p>
+          <div className="app-launch-features">
+            <div className="alf-item">
+              <span className="alf-icon">🍽️</span>
+              <span className="alf-label">Meal logging</span>
             </div>
-            <div className="download-meta">
-              <span>Sign up on web now — mobile app notifies you at launch.</span>
+            <div className="alf-divider" />
+            <div className="alf-item">
+              <span className="alf-icon">💚</span>
+              <span className="alf-label">Readiness score</span>
+            </div>
+            <div className="alf-divider" />
+            <div className="alf-item">
+              <span className="alf-icon">🏆</span>
+              <span className="alf-label">Challenge alerts</span>
+            </div>
+            <div className="alf-divider" />
+            <div className="alf-item">
+              <span className="alf-icon">⌚</span>
+              <span className="alf-label">Wearable sync</span>
             </div>
           </div>
-          <div className="download-visual">
-            <div className="ios-phone primary">
-              <div className="ios-notch" />
-              <div className="ios-screen">
-                <div className="ios-app-header">
-                  <div>
-                    <span className="ios-app-title">Reprummble</span>
-                    <span className="ios-app-pill">Live sync</span>
-                  </div>
-                  <span className="ios-avatar">RR</span>
-                </div>
-                <div className="ios-hero-card">
-                  <h4>Readiness: 92 — Go train.</h4>
-                  <p>Sleep restored. HRV stable. Green-light for strength today.</p>
-                  <span className="ios-cta">Start Session</span>
-                </div>
-              </div>
-            </div>
-            <div className="download-glow one" />
-            <div className="download-glow two" />
-          </div>
+          <AppLaunchForm />
         </div>
       </section>
 
@@ -410,5 +401,55 @@ export default function Home() {
         </div>
       </section>
     </>
+  );
+}
+
+function AppLaunchForm() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setStatus('loading');
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/waitlist`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        setStatus('done');
+        setEmail('');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  return (
+    <form className="app-launch-form" onSubmit={handleSubmit} noValidate>
+      {status === 'done' ? (
+        <p className="app-launch-success">You're on the list. We'll notify you at launch.</p>
+      ) : (
+        <div style={{ display: 'flex', width: '100%' }}>
+          <input
+            className="app-launch-input"
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            disabled={status === 'loading'}
+          />
+          <button className="app-launch-btn" type="submit" disabled={status === 'loading'}>
+            {status === 'loading' ? 'Saving…' : 'Notify me at launch'}
+          </button>
+        </div>
+      )}
+      {status === 'error' && <p className="app-launch-error">Something went wrong. Try again.</p>}
+      <span className="app-launch-count">Join 2,400+ on the waitlist</span>
+    </form>
   );
 }

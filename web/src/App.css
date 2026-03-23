@@ -2371,6 +2371,174 @@
   padding-top: 24px;
 }
 
+/* ── APP LAUNCH BAND ─────────────────────────────────────── */
+.app-launch-band {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+  padding: clamp(52px, 7vw, 88px) clamp(24px, 5vw, 64px);
+  border-radius: 32px;
+  overflow: hidden;
+  background: var(--ink);
+  color: #fff;
+}
+
+.app-launch-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(47, 91, 255, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(29, 180, 140, 0.28) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.app-launch-band > * { position: relative; z-index: 1; }
+
+.app-launch-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+}
+
+.app-launch-heading {
+  font-family: 'Syne', 'Segoe UI', sans-serif;
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0;
+}
+
+.app-launch-sub {
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: rgba(255,255,255,0.6);
+  max-width: 520px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.app-launch-features {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+  padding: 16px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+}
+
+.alf-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+}
+
+.alf-icon {
+  font-size: 18px;
+}
+
+.alf-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+}
+
+.alf-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.15);
+}
+
+.app-launch-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 460px;
+}
+
+.app-launch-form > div,
+.app-launch-form > :not(span):not(p) {
+  display: flex;
+  width: 100%;
+  gap: 0;
+}
+
+.app-launch-input {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 14px 0 0 14px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-right: none;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  min-width: 0;
+}
+
+.app-launch-input::placeholder {
+  color: rgba(255,255,255,0.35);
+}
+
+.app-launch-input:focus {
+  border-color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.12);
+}
+
+.app-launch-btn {
+  padding: 14px 22px;
+  border-radius: 0 14px 14px 0;
+  border: none;
+  background: linear-gradient(120deg, var(--accent-0), var(--accent-2));
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.app-launch-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.app-launch-count {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+}
+
+.app-launch-success {
+  font-size: 15px;
+  color: rgba(255,255,255,0.85);
+  margin: 0;
+}
+
+.app-launch-error {
+  font-size: 13px;
+  color: #f87171;
+  margin: 0;
+}
+
 .download-band {
   position: relative;
   display: grid;
