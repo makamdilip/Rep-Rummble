@@ -413,10 +413,10 @@ function AppLaunchForm() {
     if (!email.trim()) return;
     setStatus('loading');
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/waitlist`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/leads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, source: 'waitlist' }),
       });
       if (res.ok) {
         setStatus('done');
