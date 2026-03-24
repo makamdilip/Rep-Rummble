@@ -122,7 +122,13 @@ export default function Home() {
           <div className="hero-eyebrow">
             <span className="pill pill-green">All-in-one fitness platform</span>
           </div>
-          <h1>Train smarter.<br />Recover faster.<br />Live stronger.</h1>
+          <h1>
+            Train smarter.
+            <br />
+            Recover faster.
+            <br />
+            Live stronger.
+          </h1>
           <p>
             Reprummble connects your workouts, nutrition, sleep, and wearables
             into one adaptive plan that gets better as you do. No guesswork —
@@ -202,7 +208,7 @@ export default function Home() {
                 <span className="muted">1,840 / 2,400 kcal</span>
               </div>
               <div className="hdc-bar-track">
-                <div className="hdc-bar-fill" style={{ width: '76%' }} />
+                <div className="hdc-bar-fill" style={{ width: "76%" }} />
               </div>
             </div>
           </div>
@@ -228,7 +234,9 @@ export default function Home() {
       <section className="section" data-reveal>
         <div className="section-head">
           <span className="pill">Everything you need</span>
-          <h2 className="gradient-heading">One app. Every pillar of your health.</h2>
+          <h2 className="gradient-heading">
+            One app. Every pillar of your health.
+          </h2>
           <p>
             Most apps do one thing. Reprummble connects training, nutrition,
             recovery, and analytics so they work together — not in silos.
@@ -236,8 +244,15 @@ export default function Home() {
         </div>
         <div className="home-bento-grid" data-stagger>
           {FEATURES.map((f) => (
-            <Link to={f.link} className={`feature-card hb-card${f.wide ? ' hb-wide' : ''} hb-${f.accent}`} key={f.title} style={{ textDecoration: 'none' }}>
-              <div className={`hb-icon-badge hb-badge-${f.accent}`}>{f.icon}</div>
+            <Link
+              to={f.link}
+              className={`feature-card hb-card${f.wide ? " hb-wide" : ""} hb-${f.accent}`}
+              key={f.title}
+              style={{ textDecoration: "none" }}
+            >
+              <div className={`hb-icon-badge hb-badge-${f.accent}`}>
+                {f.icon}
+              </div>
               <h3>{f.title}</h3>
               <p>{f.desc}</p>
               {f.stat && <div className="hb-stat-tag">{f.stat}</div>}
@@ -251,7 +266,9 @@ export default function Home() {
       <section className="section how-it-works" data-reveal>
         <div className="section-head">
           <span className="pill">Simple by design</span>
-          <h2 className="gradient-heading">Up and running in under 5 minutes</h2>
+          <h2 className="gradient-heading">
+            Up and running in under 5 minutes
+          </h2>
           <p>
             No complicated setup. Tell us your goals, get your plan, and start
             moving today.
@@ -315,19 +332,29 @@ export default function Home() {
             <span className="pill">Pricing</span>
             <h2>Start free. Upgrade when you're ready.</h2>
             <p>
-              Every plan includes a free trial. No credit card required to start.
-              Cancel or change anytime.
+              Every plan includes a free trial. No credit card required to
+              start. Cancel or change anytime.
             </p>
             <div className="plans-bullets">
               <div className="plans-bullet">✓ Full training plan access</div>
-              <div className="plans-bullet">✓ Nutrition tracking + smart swaps</div>
-              <div className="plans-bullet">✓ Recovery readiness score daily</div>
+              <div className="plans-bullet">
+                ✓ Nutrition tracking + smart swaps
+              </div>
+              <div className="plans-bullet">
+                ✓ Recovery readiness score daily
+              </div>
               <div className="plans-bullet">✓ Wearable sync (all devices)</div>
-              <div className="plans-bullet">✓ 30-day challenges + community</div>
+              <div className="plans-bullet">
+                ✓ 30-day challenges + community
+              </div>
             </div>
             <div className="plans-preview-actions">
-              <Link className="solid-btn" to="/?auth=signup">Start Free Trial</Link>
-              <Link className="ghost-btn" to="/plans">Compare Plans</Link>
+              <Link className="solid-btn" to="/?auth=signup">
+                Start Free Trial
+              </Link>
+              <Link className="ghost-btn" to="/plans">
+                Compare Plans
+              </Link>
             </div>
           </div>
           <div className="plans-preview-card">
@@ -340,12 +367,16 @@ export default function Home() {
               <div className="ppc-plan featured">
                 <span className="pill pill-green">Most popular</span>
                 <span className="ppc-name">Pro</span>
-                <span className="ppc-price">$9<small>/mo</small></span>
+                <span className="ppc-price">
+                  $9<small>/mo</small>
+                </span>
                 <span className="muted">Billed monthly</span>
               </div>
               <div className="ppc-plan">
                 <span className="ppc-name">Elite</span>
-                <span className="ppc-price">$19<small>/mo</small></span>
+                <span className="ppc-price">
+                  $19<small>/mo</small>
+                </span>
                 <span className="muted">+ Coach access</span>
               </div>
             </div>
@@ -354,12 +385,17 @@ export default function Home() {
       </section>
 
       {/* ── APP DOWNLOAD ── */}
-      <section className="section app-download" data-reveal>
+      <section className="section app-download">
         <div className="app-launch-band">
           <div className="app-launch-badge">iOS & Android — Coming Soon</div>
-          <h2 className="app-launch-heading">Your fitness,<br />in your pocket.</h2>
+          <h2 className="app-launch-heading">
+            Your fitness,
+            <br />
+            in your pocket.
+          </h2>
           <p className="app-launch-sub">
-            Log meals on the go. Check your recovery score before training.<br />
+            Log meals on the go. Check your recovery score before training.
+            <br />
             Get challenge alerts the moment they drop. All from your pocket.
           </p>
           <div className="app-launch-features">
@@ -404,7 +440,12 @@ export default function Home() {
               Explore Features
             </Link>
           </div>
-          <p className="cta-fine">Already have an account? <Link to="/?auth=signin" className="cta-link">Sign in →</Link></p>
+          <p className="cta-fine">
+            Already have an account?{" "}
+            <Link to="/?auth=signin" className="cta-link">
+              Sign in →
+            </Link>
+          </p>
         </div>
       </section>
     </>
