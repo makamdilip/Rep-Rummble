@@ -2,6 +2,7 @@ import { Response } from 'express'
 import { Meal } from '../models/Meal.model'
 import { AuthRequest } from '../middleware/auth.middleware'
 import { ApiError } from '../types'
+import { isDBConnected } from '../config/database'
 
 // @desc    Get all meals for user
 // @route   GET /api/meals
@@ -115,6 +116,16 @@ export const deleteMeal = async (req: AuthRequest, res: Response) => {
 // @route   GET /api/meals/stats
 // @access  Private
 export const getMealStats = async (req: AuthRequest, res: Response) => {
+  if (!isDBConnected()) {
+    return res.json({
+      success: true,
+      data: {
+        todayCalories: 0, todayProtein: 0, todayCarbs: 0, todayFat: 0,
+        todayMealCount: 0, avgDailyCalories: 0, totalMeals: 0,
+        macroSplit: { protein: 35, carbs: 40, fat: 25 },
+      },
+    })
+  }
   try {
     const userId = req.user!.id
     const today = new Date()

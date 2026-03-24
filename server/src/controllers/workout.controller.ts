@@ -2,6 +2,7 @@ import { Response } from 'express'
 import { Workout } from '../models/Workout.model'
 import { AuthRequest } from '../middleware/auth.middleware'
 import { ApiError } from '../types'
+import { isDBConnected } from '../config/database'
 
 // @desc    Get all workouts for user
 // @route   GET /api/workouts
@@ -115,6 +116,15 @@ export const deleteWorkout = async (req: AuthRequest, res: Response) => {
 // @route   GET /api/workouts/stats
 // @access  Private
 export const getWorkoutStats = async (req: AuthRequest, res: Response) => {
+  if (!isDBConnected()) {
+    return res.json({
+      success: true,
+      data: {
+        total: 0, thisWeek: 0, totalCalories: 0,
+        avgDuration: 0, weeklyLoad: Array(7).fill(0), consistency: 0,
+      },
+    })
+  }
   try {
     const userId = req.user!.id
     const now = new Date()
