@@ -23,6 +23,30 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
   }
 }
 
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+export const updateProfile = async (req: AuthRequest, res: Response) => {
+  try {
+    const allowed = ['displayName', 'streak', 'xp', 'level']
+    const updates: Record<string, any> = {}
+    for (const key of allowed) {
+      if (req.body[key] !== undefined) updates[key] = req.body[key]
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.user?.id,
+      { $set: updates },
+      { new: true, runValidators: true }
+    )
+
+    return res.json({ success: true, data: user })
+  } catch (error) {
+    const err = error as ApiError
+    return res.status(500).json({ success: false, message: err.message || 'Server error' })
+  }
+}
+
 // @desc    Search users
 // @route   GET /api/users/search
 // @access  Private
