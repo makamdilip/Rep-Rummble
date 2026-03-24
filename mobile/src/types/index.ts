@@ -199,5 +199,12 @@ export type MainTabParamList = {
   Streak: undefined;
   Leaderboard: undefined;
   Wearables: undefined;
+  Social: undefined;
   Profile: undefined;
+};
+
+export type SocialStackParamList = {
+  SocialFeed: undefined;
+  Friends: undefined;
+  Challenges: undefined;
 };

@@ -8,6 +8,7 @@ export interface IUser extends Document {
   streak: number;
   xp: number;
   level: number;
+  friends: mongoose.Types.ObjectId[];
   healthMetrics?: {
     steps: number;
     calories: number;
@@ -59,6 +60,13 @@ const UserSchema = new Schema<IUser>(
       default: 1,
       min: 1,
     },
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        default: [],
+      },
+    ],
     healthMetrics: {
       steps: { type: Number, default: 0 },
       calories: { type: Number, default: 0 },

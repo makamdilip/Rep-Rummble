@@ -29,6 +29,8 @@ import contactRoutes from './routes/contact.routes'
 import chatRoutes from './routes/chat.routes'
 import agentRoutes from './routes/agent.routes'
 import wearableRoutes from "./routes/wearable.routes";
+import challengeRoutes from "./routes/challenge.routes";
+import socialRoutes from "./routes/social.routes";
 
 // Create Express app and HTTP server
 const app: Express = express()
@@ -107,6 +109,8 @@ app.use('/api/contact', contactRoutes)
 app.use('/api/chat', chatRoutes)
 app.use('/api/agent', agentRoutes)
 app.use("/api/wearables", wearableRoutes);
+app.use("/api/challenges", challengeRoutes);
+app.use("/api/social", socialRoutes);
 
 if (hasClientBuild) {
   app.get('*', (req: Request, res: Response, next: NextFunction) => {

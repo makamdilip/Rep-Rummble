@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { authMiddleware } from '../middleware/auth.middleware';
+import { protect } from "../middleware/auth.middleware";
 import {
   syncWearableData,
   getWearableData,
@@ -9,7 +9,7 @@ import {
 const router = Router();
 
 // All wearable routes require authentication
-router.use(authMiddleware);
+router.use(protect);
 
 // Sync wearable data from mobile app
 router.post('/sync', syncWearableData);

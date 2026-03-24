@@ -23,28 +23,41 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
   }
 }
 
-// @desc    Update user profile
-// @route   PUT /api/users/profile
+// @desc    Search users
+// @route   GET /api/users/search
 // @access  Private
-export const updateProfile = async (req: AuthRequest, res: Response) => {
+export const searchUsers = async (req: AuthRequest, res: Response) => {
   try {
-    const { displayName, streak, xp } = req.body
+    const { q } = req.query;
+    const currentUserId = req.user?.id;
 
-    const user = await User.findByIdAndUpdate(
-      req.user?.id,
-      { displayName, streak, xp },
-      { new: true, runValidators: true }
-    )
+    if (!q || typeof q !== "string" || q.length < 2) {
+      return res.json({
+        success: true,
+        users: [],
+      });
+    }
+
+    // Search users by display name or email, excluding current user
+    const users = await User.find({
+      _id: { $ne: currentUserId },
+      $or: [
+        { displayName: { $regex: q, $options: "i" } },
+        { email: { $regex: q, $options: "i" } },
+      ],
+    })
+      .select("displayName email")
+      .limit(20);
 
     return res.json({
       success: true,
-      data: user
-    })
+      users,
+    });
   } catch (error) {
-    const err = error as ApiError
+    const err = error as ApiError;
     return res.status(500).json({
       success: false,
-      message: err.message || 'Server error'
-    })
+      message: err.message || "Server error",
+    });
   }
-}
+};
