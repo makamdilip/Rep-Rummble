@@ -148,6 +148,36 @@ export interface LeaderboardEntry {
   level: number;
 }
 
+// Wearable types
+export interface HealthData {
+  steps: number;
+  calories: number;
+  heartRate: number;
+  sleepHours: number;
+  hrv?: number;
+  restingHR?: number;
+  weight?: number;
+  bodyFat?: number;
+  date?: string;
+}
+
+export interface WearablePermissions {
+  steps: boolean;
+  calories: boolean;
+  heartRate: boolean;
+  sleep: boolean;
+  weight: boolean;
+}
+
+export interface WearableDevice {
+  id: string;
+  name: string;
+  type: 'apple_watch' | 'oura_ring' | 'garmin' | 'whoop' | 'fitbit';
+  connected: boolean;
+  lastSync?: string;
+  status: 'connected' | 'disconnected' | 'syncing' | 'error';
+}
+
 // Navigation types
 export type RootStackParamList = {
   Auth: undefined;
@@ -168,5 +198,6 @@ export type MainTabParamList = {
   Snap: undefined;
   Streak: undefined;
   Leaderboard: undefined;
+  Wearables: undefined;
   Profile: undefined;
 };

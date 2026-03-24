@@ -9,6 +9,7 @@ import SnapScreen from '../screens/tabs/SnapScreen';
 import StreakScreen from '../screens/tabs/StreakScreen';
 import LeaderboardScreen from '../screens/tabs/LeaderboardScreen';
 import ProfileScreen from '../screens/tabs/ProfileScreen';
+import WearablesScreen from '../screens/WearablesScreen';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -47,6 +48,9 @@ export default function MainTabNavigator() {
             case 'Leaderboard':
               iconName = focused ? 'trophy' : 'trophy-outline';
               break;
+            case 'Wearables':
+              iconName = focused ? 'watch' : 'watch-outline';
+              break;
             case 'Profile':
               iconName = focused ? 'person' : 'person-outline';
               break;
@@ -62,6 +66,7 @@ export default function MainTabNavigator() {
       <Tab.Screen name="Snap" component={SnapScreen} options={{ tabBarLabel: 'Snap Meal' }} />
       <Tab.Screen name="Streak" component={StreakScreen} options={{ tabBarLabel: 'Workout' }} />
       <Tab.Screen name="Leaderboard" component={LeaderboardScreen} options={{ tabBarLabel: 'Ranks' }} />
+      <Tab.Screen name="Wearables" component={WearablesScreen} options={{ tabBarLabel: 'Health' }} />
       <Tab.Screen name="Profile" component={ProfileScreen} options={{ tabBarLabel: 'Profile' }} />
     </Tab.Navigator>
   );
