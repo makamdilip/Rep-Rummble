@@ -114,10 +114,6 @@ export default function Home() {
     <>
       {/* ── HERO ── */}
       <section className="hero hero-stage" data-reveal>
-        <div className="hero-decor">
-          <span className="float-item item-weight" />
-          <span className="float-item item-badge" />
-        </div>
         <div className="hero-copy">
           <div className="hero-eyebrow">
             <span className="pill pill-green">All-in-one fitness platform</span>
