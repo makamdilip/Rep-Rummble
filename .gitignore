@@ -1,72 +1,49 @@
 # Dependencies
 node_modules/
-*.lock
-pnpm-lock.yaml
-yarn.lock
+node_modules 2/
 
-# Build outputs
+# Build output
 dist/
 build/
 .next/
-*.tsbuildinfo
+out/
 
-# Environment variables
+# Environment variables (NEVER commit these)
 .env
 .env.local
 .env.*.local
 .env.production
 
-# IDE & Editor
-.vscode/
-.idea/
-.claude/
-*.swp
-*.swo
-*.swn
-.DS_Store
-*.sublime-workspace
-*.iml
-.project
-.classpath
+# Firebase / Google service account keys
+*-firebase-adminsdk-*.json
+*-service-account*.json
+serviceAccountKey.json
 
-# Runtime
-logs/
-*.log
-npm-debug.log*
-lerna-debug.log*
-
-# Testing
-coverage/
-.nyc_output/
-
-# Mobile specific
+# Expo
 .expo/
-.expo-shared/
-dist/
-npm-debug.*
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
-*.orig.*
-web-build/
 
-# Temporary files
-tmp/
-temp/
-.turbo/
+# macOS
+.DS_Store
+*.DS_Store
 
-# OS specific
-Thumbs.db
-.cache/
-.parcel-cache
+# Editor
+.vscode/
+*.swp
+*.swo
 
-# Secrets (never commit these!)
-secrets.json
-.env.production.local
-*.pem
-*firebase-adminsdk*.json
-*.service-account.json
-Wallet_*.zip
-**/wallet/**
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Vercel
+.vercel/
