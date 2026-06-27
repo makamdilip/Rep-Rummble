@@ -1,37 +1,65 @@
 # Quick start
 
-This guide gets the project running locally in a few steps.
+Get the project running locally in under 5 minutes.
 
-## 1. Install dependencies
+## Prerequisites
+
+- Node.js 18 or newer
+- npm
+- Expo CLI (for mobile only): `npm install -g expo-cli`
+
+---
+
+## Web app
+
 ```bash
+cd web
 npm install
-```
-
-## 2. Start the web app
-```bash
+cp .env.example .env.local   # fill in your env vars (see SETUP.md)
 npm run dev
 ```
-The app should open on the local Vite port.
 
-## 3. Start the backend starter
-Open a second terminal and run:
+Opens on `http://localhost:5173`.
+
+---
+
+## Backend server
+
 ```bash
-npm run backend:dev
+cd server
+npm install
+cp .env.example .env         # fill in your env vars (see SETUP.md)
+npm run dev
 ```
 
-## 4. Preview the mobile starter
-Optional:
+Starts on `http://localhost:4000` (or the port in your `.env`).
+
+---
+
+## Mobile app
+
 ```bash
-npm run mobile:web
+cd mobile
+npm install
+npx expo start
 ```
 
-## 5. Useful checks
-- Confirm the frontend loads in the browser
-- Confirm the backend starter starts without errors
-- If you plan to use Firebase-backed features, add your environment variables before launching the backend
+Scan the QR code with Expo Go on your phone, or press `w` for the web preview.
+
+---
+
+## Running everything together
+
+Open three terminals and run each of the above in parallel. The web app calls the backend via `VITE_API_URL`, so start the server first.
+
+---
 
 ## Common issues
-- If a package is missing, run `npm install` again.
-- If the backend port is busy, stop the old process and retry.
-- If the frontend does not open, confirm that Vite started successfully in the terminal.
 
+| Problem | Fix |
+|---------|-----|
+| Port already in use | `lsof -ti:<port> \| xargs kill -9` |
+| Missing packages | `npm install` inside the relevant sub-folder |
+| Env vars not loading | Check the `.env.local` / `.env` file is in the right sub-folder, not the root |
+| Expo won't start | `npx expo doctor` to diagnose, then re-run |
+| TypeScript errors | `cd web && node_modules/.bin/tsc -b --noEmit` to see all errors |

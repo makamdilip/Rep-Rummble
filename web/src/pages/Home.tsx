@@ -119,7 +119,7 @@ export default function Home() {
             <span className="pill pill-green">All-in-one fitness platform</span>
           </div>
           <h1>
-            Train smarter.
+            Train <span className="gradient-word">smarter.</span>
             <br />
             Recover faster.
             <br />

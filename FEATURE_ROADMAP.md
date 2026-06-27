@@ -1,54 +1,85 @@
-# Rep-Rummble Feature Enhancement Roadmap
+# Feature roadmap
 
-## Phase 1: Core Infrastructure (Week 1-2)
-- [ ] Complete Wearable Integration (HealthKit/Google Fit)
-- [ ] Database Schema Consolidation
-- [ ] Enhanced Progress Analytics Dashboard
+## Shipped
 
-## Phase 2: Social Features (Week 3-4)
-- [ ] Friend System & Buddy Challenges
-- [ ] Social Leaderboards & Achievements
-- [ ] Group Workouts & Challenges
+### Web app
+- Marketing site with dark-glass UI (hero, features bento, testimonials, stats)
+- Auth modal — email/password + Google, Apple, Facebook, Twitter OAuth via Supabase
+- Pricing page — monthly/annual toggle, feature comparison table, FAQ
+- Analytics dashboard — workout and meal stats with live API data
+- Reports page
+- Wearables page (UI layer — sync logic in progress)
+- Referral and payment flows
+- Profile and settings page
+- Agent / AI support dashboard
+- Chat widget with Socket.io
 
-## Phase 3: Recovery & Health (Week 5-6)
-- [ ] HRV & Sleep Quality Tracking
-- [ ] Recovery Score Algorithm
-- [ ] Injury Prevention & Rest Recommendations
+### Backend
+- Auth routes (JWT + Supabase)
+- Workout endpoints (create, log, stats)
+- Meal endpoints (log, stats, USDA food search)
+- Leaderboard
+- Challenges and participants
+- Social posts and feed
+- Friend system
+- Wearable data ingestion
+- AI endpoints (Google Gemini — meal analysis, workout programming)
+- Pose detection service
+- Support AI agent (multi-turn conversation)
+- Lead capture (waitlist)
+- Contact form
+- Oracle DB integration for analytics
 
-## Phase 4: Advanced AI (Week 7-8)
-- [ ] Predictive Progress Analytics
-- [ ] Personalized Recommendations
-- [ ] Adaptive Training Algorithms
-
-## Phase 5: Polish & Scale (Week 9-10)
-- [ ] Offline Capabilities
-- [ ] Performance Optimization
-- [ ] Comprehensive Testing
-
----
-
-## Current Status Assessment:
-✅ **Implemented:**
-- AI-powered workout planning
-- Pose detection & form analysis
-- Basic progress tracking
-- Leaderboard system
-- Nutrition tracking with AI
-
-⚠️ **Partially Implemented:**
-- Wearable integrations (planned but not coded)
-- Social features (basic leaderboard only)
-
-❌ **Missing:**
-- Friend challenges & social workouts
-- Recovery monitoring (HRV, sleep)
-- Advanced analytics & predictions
-- Comprehensive wearable data sync
+### Mobile
+- Authentication (login / register)
+- Home, Leaderboard, Profile tabs
+- Snap tab (food scanner)
+- Streak screen
+- Challenges screen
+- Social feed and friends
+- Food search and results
+- Wearables screen
+- Chat FAB with Socket.io
 
 ---
 
-## Implementation Priority:
-1. **Wearable Integration** - Foundation for recovery/health features
-2. **Progress Analytics** - Immediate user value
-3. **Social Challenges** - User engagement & retention
-4. **Recovery Monitoring** - Complete health ecosystem
+## In progress
+
+- Wearable OAuth flows (Apple Health, Garmin Connect, Whoop)
+- Recovery readiness score algorithm (HRV + sleep + resting HR)
+- Body-composition scanning (Elite plan)
+- Push notifications for challenge milestones
+
+---
+
+## Planned
+
+### Phase 1 — Core completeness
+- [ ] Wearable data sync (HealthKit / Google Fit live pull)
+- [ ] Recovery score live calculation and display
+- [ ] Mobile app store submission (iOS + Android)
+
+### Phase 2 — Social and engagement
+- [ ] Buddy challenges (1-on-1 direct challenge)
+- [ ] Group workouts
+- [ ] Achievement badges and XP system
+
+### Phase 3 — AI and analytics
+- [ ] Predictive progress analytics (ML model)
+- [ ] Adaptive training plan — auto-adjusts based on recovery score
+- [ ] AI-powered meal swap suggestions in real time
+
+### Phase 4 — Scale and polish
+- [ ] Offline mode (service worker caching for mobile)
+- [ ] Performance optimisation (code splitting, lazy routes)
+- [ ] End-to-end test suite (Playwright for web, Detox for mobile)
+- [ ] Multi-language support (ES, PT, FR)
+
+---
+
+## Implementation priorities
+
+1. Wearable sync — unlocks recovery score and health ecosystem features
+2. Mobile app store release — biggest growth channel
+3. Buddy challenges — core differentiator for Gen Z retention
+4. Adaptive training AI — deepens daily engagement

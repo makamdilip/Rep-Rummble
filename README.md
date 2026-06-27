@@ -1,130 +1,63 @@
-# Rep Rumble
+# Reprummble
 
-Rep Rumble is a fitness and nutrition app concept that combines meal logging, workout tracking, and social challenges in one experience.
+Reprummble is an all-in-one fitness platform that connects your workouts, nutrition, sleep, and wearables into one adaptive plan. Built for Gen Z — fast, social, and data-driven.
 
-## What this project includes
-- A Vite + React web app
-- A Node.js starter backend
-- A mobile app starter structure for Expo-style development
-- Firebase-ready configuration for auth, storage, and database features
+## Monorepo structure
+
+```
+reprummble/
+├── web/        React 19 + Vite — marketing site and web dashboard
+├── mobile/     React Native + Expo — iOS and Android app
+├── server/     Node.js + Express — REST API and Socket.io backend
+└── docs/       Deployment guides and policy documents
+```
 
 ## Quick start
-1. Install dependencies
-   ```bash
-   npm install
-   ```
-2. Start the web app
-   ```bash
-   npm run dev
-   ```
-3. Start the backend starter
-   ```bash
-   npm run backend:dev
-   ```
-4. Optional: preview the mobile starter
-   ```bash
-   npm run mobile:web
-   ```
+
+Each sub-project runs independently. Start with the one you need:
+
+```bash
+# Web app (port 5173)
+cd web && npm install && npm run dev
+
+# Backend API (port 4000)
+cd server && npm install && npm run dev
+
+# Mobile app (Expo)
+cd mobile && npm install && npx expo start
+```
+
+Or use the root shortcuts (requires sub-projects already installed):
+
+```bash
+npm run web      # starts the web app
+npm run server   # starts the backend
+npm run mobile   # starts Expo
+```
+
+## Tech stack
+
+| Layer    | Stack |
+|----------|-------|
+| Web      | React 19, Vite, TypeScript, React Router v6 |
+| Mobile   | React Native, Expo, TypeScript |
+| Backend  | Node.js, Express, Socket.io, TypeScript |
+| Auth     | Supabase Auth + Firebase (client) |
+| Database | Supabase (Postgres) + Oracle |
+| AI       | Google Gemini |
 
 ## Documentation
-- [QUICKSTART.md](./QUICKSTART.md) — fastest way to run the project locally
-- [SETUP.md](./SETUP.md) — environment setup and troubleshooting
 
-## Project structure
-- [src](./src) — frontend screens and components
-- [public](./public) — static assets
-- [backend-starter.js](./backend-starter.js) — starter backend server
-- [mobile-app-starter.js](./mobile-app-starter.js) — mobile starter entry
+- [QUICKSTART.md](./QUICKSTART.md) — fastest way to run everything locally
+- [SETUP.md](./SETUP.md) — environment variables and configuration
+- [SECURITY.md](./SECURITY.md) — vulnerability reporting policy
+- [FEATURE_ROADMAP.md](./FEATURE_ROADMAP.md) — planned and completed features
+- [docs/](./docs/) — deployment guides, policies
 
-## Next steps
-- Review the quick start guide
-- Configure Firebase environment variables if you want full backend features
-- Extend the app with your own features and screens
+## Contributing
 
-### 2. Set Up Environment
-```bash
-cp .env.example .env
-# Fill in Firebase credentials
-```
+Open an issue or email the team at team@reprummble.com.
 
-### 3. Start Development
-```bash
-# Terminal 1: Backend
-node backend-starter.js
+## License
 
-# Terminal 2: Frontend
-npm run dev
-
-# Terminal 3: Mobile (optional)
-npm run mobile:web
-```
-
-### 4. Build a Feature
-- Pick an endpoint from `API_DOCUMENTATION.md`
-- Implement in `backend-starter.js`
-- Test with `curl` or Postman
-- Add UI component in screen files
-
----
-
-## 🐛 Troubleshooting
-
-**Backend won't start?**
-```bash
-lsof -ti:5000 | xargs kill -9  # Kill existing process
-node backend-starter.js
-```
-
-**Firebase auth failing?**
-1. Check `.env` has all credentials
-2. Verify auth methods enabled in Firebase Console
-3. Check Firestore rules
-
-**React Native issues?**
-```bash
-npm cache clean --force
-rm -rf node_modules
-npm install
-npm run mobile:web
-```
-
-See [SETUP.md](./SETUP.md#troubleshooting) for more.
-
----
-
-## 📊 Success Metrics
-
-| Metric | Target |
-|--------|--------|
-| DAU | > 50% of registered users |
-| Meal logs | > 2 per day (average) |
-| Challenge participation | > 60% |
-| 7-day retention | > 40% |
-| AI accuracy | > 85% |
-| NPS | > 50 |
-
----
-
-## 🤝 Contributing
-
-**Interested in helping build Rep Rumble?** Contact us:
-- GitHub Issues (coming soon)
-- Email: team@reprumble.com
-
----
-
-## 📝 License
-
-Rep Rumble © 2025 - All Rights Reserved
-
----
-
-## 🎯 Next Steps
-
-1. ✅ Read [QUICKSTART.md](./QUICKSTART.md)
-2. ⏳ Set up Firebase project
-3. ⏳ Start backend + frontend
-4. ⏳ Implement first feature
-5. ⏳ Deploy MVP
-
-**Ready to build? Let's go! 🚀**
+© 2025 Reprummble — All rights reserved.
