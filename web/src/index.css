@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap');
+
+:root {
+  font-family: 'Figtree', 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* ── DARK PREMIUM PALETTE ── */
+  --paper:   #0d0f14;
+  --paper-2: #12151c;
+  --paper-3: #181b24;
+  --ink:     #f0f2f8;
+  --ink-2:   #c8cce0;
+  --muted:   #6b7280;
+  --stroke:  rgba(255, 255, 255, 0.08);
+
+  --glass:        rgba(255, 255, 255, 0.04);
+  --glass-weak:   rgba(255, 255, 255, 0.05);
+  --glass-strong: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.10);
+
+  --accent-0: #22d3bb;
+  --accent-1: #ff6b4a;
+  --accent-2: #6366f1;
+  --accent-3: #f2b84b;
+
+  --accent-gradient: linear-gradient(120deg, var(--accent-0), var(--accent-2));
+
+  --glow-teal:   rgba(34, 211, 187, 0.45);
+  --glow-purple: rgba(99, 102, 241, 0.45);
+  --glow-orange: rgba(255, 107, 74, 0.35);
+
+  --shadow-soft:   0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.55);
+
+  color: var(--ink);
+  background-color: var(--paper);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body, #root { width: 100%; height: 100%; }
+html { overflow-x: hidden; }
+
+body {
+  background: var(--paper);
+  background-attachment: fixed;
+  color: var(--ink);
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* ── ANIMATED ORB BACKGROUND (shadergradient.co) ── */
+@keyframes orb-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
+  25%       { transform: translate(3%, -2%) scale(1.04); opacity: 0.8; }
+  50%       { transform: translate(5%, 3%) scale(1.07); opacity: 0.9; }
+  75%       { transform: translate(-2%, 4%) scale(0.97); opacity: 0.95; }
+}
+
+@keyframes orb-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.75; }
+  25%       { transform: translate(-4%, 2.5%) scale(1.06); opacity: 0.95; }
+  50%       { transform: translate(-3%, -3%) scale(0.95); opacity: 0.7; }
+  75%       { transform: translate(3%, -4%) scale(1.03); opacity: 0.88; }
+}
+
+/* Teal/purple orbs — top-left & bottom-right */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -6%;
+  background-image:
+    radial-gradient(ellipse 75% 55% at 18% -5%, rgba(34,211,187,0.10) 0%, transparent 58%),
+    radial-gradient(ellipse 55% 45% at 82% 108%, rgba(99,102,241,0.10) 0%, transparent 58%);
+  pointer-events: none;
+  z-index: 0;
+  animation: orb-drift-a 20s ease-in-out infinite;
+}
+
+/* Orange/purple orbs — mid & bottom-left */
+body::after {
+  content: '';
+  position: fixed;
+  inset: -6%;
+  background-image:
+    radial-gradient(ellipse 50% 40% at 68% 38%, rgba(255,107,74,0.06) 0%, transparent 58%),
+    radial-gradient(ellipse 65% 35% at 12% 72%, rgba(99,102,241,0.07) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+  animation: orb-drift-b 26s ease-in-out infinite;
+  animation-delay: -11s;
+}
+
+#root { position: relative; z-index: 1; }
+
+button, input, textarea, select { font-family: inherit; }
+button { border: none; background: transparent; color: inherit; }

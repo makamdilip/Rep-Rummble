@@ -1,0 +1,70 @@
+{
+  "name": "@rep-rummble/monorepo",
+  "version": "1.0.0",
+  "description": "Reprummble - Fitness + Nutrition App for Gen Z/Alpha (MERN Stack)",
+  "private": true,
+  "type": "module",
+  "keywords": [
+    "fitness",
+    "nutrition",
+    "meal-tracking",
+    "workout",
+    "gamification",
+    "mern",
+    "react",
+    "react-native",
+    "mobile",
+    "web"
+  ],
+  "author": "Dilip Makam",
+  "license": "UNLICENSED",
+  "workspaces": [
+    "server",
+    "web",
+    "mobile"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w server & npm run dev -w web & npm run dev -w mobile",
+    "dev:backend": "npm run dev -w server",
+    "dev:web": "npm run dev -w web",
+    "dev:mobile": "npm run dev -w mobile",
+    "build": "npm run build -w server && npm run build -w web && npm run build -w mobile",
+    "build:server": "npm run build -w server",
+    "build:web": "npm run build -w web",
+    "build:mobile": "npm run build -w mobile",
+    "preview": "npm run preview -w web",
+    "lint": "eslint . --ext .ts,.tsx,.js",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,json,css,md}\"",
+    "type-check": "tsc --noEmit",
+    "setup": "npm install && npm install -w server && npm install -w web && npm install -w mobile",
+    "test": "npm run test -w server && npm run test -w web",
+    "clean": "npm run clean -w server && npm run clean -w web && npm run clean -w mobile && rm -rf node_modules",
+    "backend:start": "npm start -w server",
+    "mobile:android": "npm run android -w mobile",
+    "mobile:ios": "npm run ios -w mobile"
+  },
+  "devDependencies": {
+    "@eslint/js": "^8.56.0",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/makamdilip/Rep-Rummble.git"
+  },
+  "bugs": {
+    "url": "https://github.com/makamdilip/Rep-Rummble/issues"
+  },
+  "homepage": "https://github.com/makamdilip/Rep-Rummble#readme"
+}
+
