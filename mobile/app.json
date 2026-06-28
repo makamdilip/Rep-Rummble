@@ -47,7 +47,8 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Allow Reprummble to access your photos for meal analysis."
+          "photosPermission": "Allow Reprummble to access your photos for meal analysis.",
+          "cameraPermission": "Allow Reprummble to access your camera to take photos for your status and posts."
         }
       ],
       "expo-font"

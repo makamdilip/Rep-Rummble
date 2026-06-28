@@ -276,7 +276,11 @@ export default function WearablesScreen() {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.tabRow} contentContainerStyle={{ paddingHorizontal: 16, gap: 8 }}>
           {TABS.map((t, i) => (
             <TouchableOpacity key={i} onPress={() => setTab(i)} activeOpacity={0.8} style={[s.tabPill, tab === i && s.tabPillActive]}>
-              {tab === i && <LinearGradient colors={['#7c3aed', '#4f1d9a']} style={[StyleSheet.absoluteFill, { borderRadius: 20 }]} />}
+              {tab === i && (
+                <View style={[StyleSheet.absoluteFill, { borderRadius: 20, overflow: 'hidden' }]}>
+                  <LinearGradient colors={['#7c3aed', '#4f1d9a']} style={{ flex: 1 }} />
+                </View>
+              )}
               <Text style={[s.tabText, tab === i && s.tabTextActive]}>{t}</Text>
             </TouchableOpacity>
           ))}
@@ -808,7 +812,7 @@ const s = StyleSheet.create({
   syncBtnText: { color: '#a78bfa', fontWeight: '700', fontSize: 13 },
 
   tabRow: { marginBottom: 12 },
-  tabPill: { paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20, borderWidth: 1, borderColor: '#2d356150', overflow: 'hidden' },
+  tabPill: { paddingHorizontal: 16, paddingVertical: 9, borderRadius: 20, borderWidth: 1, borderColor: '#2d356150' },
   tabPillActive: { borderColor: '#7c3aed' },
   tabText: { fontSize: 13, color: '#6b7280', fontWeight: '600' },
   tabTextActive: { color: '#fff', fontWeight: '700' },
@@ -856,8 +860,8 @@ const s = StyleSheet.create({
   circTime: { fontSize: 14, fontWeight: '700' },
 
   devicesGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
-  deviceCard: { width: (SW - 42) / 3, borderRadius: 16, overflow: 'hidden', borderWidth: 1, borderColor: '#2d356150' },
-  deviceCardInner: { padding: 14, alignItems: 'center', gap: 8 },
+  deviceCard: { width: (SW - 52) / 3, height: 108, borderRadius: 16, overflow: 'hidden', borderWidth: 1, borderColor: '#2d356150' },
+  deviceCardInner: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 7 },
   deviceName: { fontSize: 11, fontWeight: '600', textAlign: 'center' },
   deviceDot: { width: 6, height: 6, borderRadius: 3 },
 
