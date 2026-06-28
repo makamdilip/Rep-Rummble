@@ -1,20 +1,16 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { DEV_BYPASS_AUTH, devAdapter } from './devConfig';
 
-// Update this to your server URL
-// For local development with Android emulator, use 10.0.2.2 instead of localhost
-// For iOS simulator, localhost works fine
-// For physical devices, use your computer's IP address
 const API_BASE_URL = __DEV__
-  ? "http://localhost:5001/api" // Local server
-  : "https://your-production-api.com/api";
+  ? 'http://localhost:5001/api'
+  : 'https://your-production-api.com/api';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 30000, // 30 seconds for image uploads
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  timeout: 30000,
+  headers: { 'Content-Type': 'application/json' },
+  ...(DEV_BYPASS_AUTH && { adapter: devAdapter }),
 });
 
 // Request interceptor to add auth token

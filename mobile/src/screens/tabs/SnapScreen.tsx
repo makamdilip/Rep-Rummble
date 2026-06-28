@@ -50,7 +50,7 @@ export default function SnapScreen() {
             style={styles.searchButton}
             onPress={() => navigation.navigate('FoodSearch')}
           >
-            <Ionicons name="search" size={22} color="#0a0f14" />
+            <Ionicons name="search" size={22} color="#080b14" />
             <View style={styles.searchText}>
               <Text style={styles.searchTitle}>Search Food Database</Text>
               <Text style={styles.searchSubtitle}>
@@ -64,7 +64,7 @@ export default function SnapScreen() {
         <View style={styles.features}>
           <View style={styles.featureItem}>
             <View style={styles.featureIcon}>
-              <Ionicons name="sparkles" size={24} color="#8b5cf6" />
+              <Ionicons name="sparkles" size={24} color="#7c3aed" />
             </View>
             <View style={styles.featureText}>
               <Text style={styles.featureTitle}>AI-Powered</Text>
@@ -118,7 +118,7 @@ export default function SnapScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: '#0d0f1a',
   },
   content: {
     flex: 1,
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: '#9ca3af',
+    color: '#94a3b8',
     textAlign: 'center',
   },
   mainAction: {
@@ -163,11 +163,11 @@ const styles = StyleSheet.create({
   searchTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#0a0f14',
+    color: '#080b14',
   },
   searchSubtitle: {
     fontSize: 12,
-    color: '#0a0f14',
+    color: '#080b14',
     marginTop: 4,
   },
   scanButton: {
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   featureItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   featureIcon: {
     width: 48,
     height: 48,
-    backgroundColor: '#3d3d3d',
+    backgroundColor: '#2d3561',
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   },
   featureDesc: {
     fontSize: 13,
-    color: '#9ca3af',
+    color: '#94a3b8',
     marginTop: 2,
   },
 });

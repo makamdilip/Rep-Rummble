@@ -69,6 +69,7 @@ export const challengeService = {
   getChallenges: async (params?: {
     type?: "workout" | "calories" | "steps" | "all";
     status?: "active" | "completed" | "all";
+    joined?: boolean;
     page?: number;
     limit?: number;
   }): Promise<{
@@ -86,6 +87,8 @@ export const challengeService = {
       queryParams.append("type", params.type);
     if (params?.status && params.status !== "all")
       queryParams.append("status", params.status);
+    if (params?.joined !== undefined)
+      queryParams.append("joined", params.joined.toString());
     if (params?.page) queryParams.append("page", params.page.toString());
     if (params?.limit) queryParams.append("limit", params.limit.toString());
 
@@ -139,7 +142,7 @@ export const challengeService = {
     success: boolean;
     challenges: Challenge[];
   }> => {
-    const response = await api.get("/challenges?status=active");
+    const response = await api.get("/challenges?status=active&joined=true");
     return response.data;
   },
 };

@@ -31,6 +31,7 @@ import agentRoutes from './routes/agent.routes'
 import wearableRoutes from "./routes/wearable.routes";
 import challengeRoutes from "./routes/challenge.routes";
 import socialRoutes from "./routes/social.routes";
+import friendRoutes from "./routes/friend.routes";
 
 // Create Express app and HTTP server
 const app: Express = express()
@@ -111,6 +112,7 @@ app.use('/api/agent', agentRoutes)
 app.use("/api/wearables", wearableRoutes);
 app.use("/api/challenges", challengeRoutes);
 app.use("/api/social", socialRoutes);
+app.use("/api/friends", friendRoutes);
 
 if (hasClientBuild) {
   app.get('*', (req: Request, res: Response, next: NextFunction) => {

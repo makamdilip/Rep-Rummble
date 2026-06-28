@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getWorkoutStats = exports.deleteWorkout = exports.getWorkout = exports.createWorkout = exports.getWorkouts = void 0;
 const Workout_model_1 = require("../models/Workout.model");
+const database_1 = require("../config/database");
 // @desc    Get all workouts for user
 // @route   GET /api/workouts
 // @access  Private
@@ -111,6 +112,15 @@ exports.deleteWorkout = deleteWorkout;
 // @route   GET /api/workouts/stats
 // @access  Private
 const getWorkoutStats = async (req, res) => {
+    if (!(0, database_1.isDBConnected)()) {
+        return res.json({
+            success: true,
+            data: {
+                total: 0, thisWeek: 0, totalCalories: 0,
+                avgDuration: 0, weeklyLoad: Array(7).fill(0), consistency: 0,
+            },
+        });
+    }
     try {
         const userId = req.user.id;
         const now = new Date();

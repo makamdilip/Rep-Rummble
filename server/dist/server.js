@@ -34,6 +34,7 @@ const agent_routes_1 = __importDefault(require("./routes/agent.routes"));
 const wearable_routes_1 = __importDefault(require("./routes/wearable.routes"));
 const challenge_routes_1 = __importDefault(require("./routes/challenge.routes"));
 const social_routes_1 = __importDefault(require("./routes/social.routes"));
+const friend_routes_1 = __importDefault(require("./routes/friend.routes"));
 // Create Express app and HTTP server
 const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
@@ -107,6 +108,7 @@ app.use('/api/agent', agent_routes_1.default);
 app.use("/api/wearables", wearable_routes_1.default);
 app.use("/api/challenges", challenge_routes_1.default);
 app.use("/api/social", social_routes_1.default);
+app.use("/api/friends", friend_routes_1.default);
 if (hasClientBuild) {
     app.get('*', (req, res, next) => {
         if (req.path.startsWith('/api')) {

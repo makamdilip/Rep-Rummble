@@ -56,13 +56,5 @@ const FriendshipSchema = new mongoose_1.Schema({
 });
 // Prevent duplicate friendship requests
 FriendshipSchema.index({ requester: 1, recipient: 1 }, { unique: true });
-// Also prevent reverse duplicates (A->B and B->A)
-FriendshipSchema.pre('save', function (next) {
-    // Ensure requester < recipient to prevent duplicates
-    if (this.requester > this.recipient) {
-        [this.requester, this.recipient] = [this.recipient, this.requester];
-    }
-    next();
-});
 exports.Friendship = mongoose_1.default.model("Friendship", FriendshipSchema);
 //# sourceMappingURL=Friendship.model.js.map

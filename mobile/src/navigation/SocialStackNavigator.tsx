@@ -1,5 +1,5 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SocialStackParamList } from "../types";
 
 // Social Screens
@@ -7,18 +7,17 @@ import SocialFeedScreen from "../screens/SocialFeedScreen";
 import FriendsScreen from "../screens/FriendsScreen";
 import ChallengesScreen from "../screens/ChallengesScreen";
 
-const Stack = createStackNavigator<SocialStackParamList>();
+const Stack = createNativeStackNavigator<SocialStackParamList>();
 
 export default function SocialStackNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#fff",
-          elevation: 0,
-          shadowOpacity: 0,
+          backgroundColor: "#0d0f1a",
         },
-        headerTintColor: "#333",
+        headerShadowVisible: false,
+        headerTintColor: "#fff",
         headerTitleStyle: {
           fontWeight: "bold",
         },

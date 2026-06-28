@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState, ReactNode } from
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../config/api';
 import { User, AuthState, LoginCredentials, RegisterCredentials } from '../types';
+import { DEV_BYPASS_AUTH, DEV_DUMMY_USER } from '../config/devConfig';
 
 interface AuthContextType extends AuthState {
   login: (credentials: LoginCredentials) => Promise<void>;
@@ -26,6 +27,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const loadStoredAuth = async () => {
+    if (DEV_BYPASS_AUTH) {
+      setState({ user: DEV_DUMMY_USER, token: 'dev-token', isLoading: false, isAuthenticated: true });
+      return;
+    }
+
     try {
       const [token, userStr] = await AsyncStorage.multiGet([
         'rep_rumble_token',

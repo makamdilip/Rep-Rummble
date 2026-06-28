@@ -34,15 +34,6 @@ const FriendshipSchema = new Schema<IFriendship>(
 // Prevent duplicate friendship requests
 FriendshipSchema.index({ requester: 1, recipient: 1 }, { unique: true });
 
-// Also prevent reverse duplicates (A->B and B->A)
-FriendshipSchema.pre("save", function (this: IFriendship, next: any) {
-  // Ensure requester < recipient to prevent duplicates
-  if (this.requester > this.recipient) {
-    [this.requester, this.recipient] = [this.recipient, this.requester];
-  }
-  next();
-});
-
 export const Friendship = mongoose.model<IFriendship>(
   "Friendship",
   FriendshipSchema,

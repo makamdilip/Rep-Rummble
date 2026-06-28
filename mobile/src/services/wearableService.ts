@@ -1,4 +1,3 @@
-import * as Health from "expo-health";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
@@ -21,73 +20,35 @@ export interface WearablePermissions {
   weight: boolean;
 }
 
+/**
+ * NOTE: expo-health (v0.0.0) is a non-functional placeholder package.
+ * Health data is mocked here. To enable real HealthKit/Google Fit integration,
+ * replace with a proper SDK (e.g. react-native-health or Health Connect).
+ */
 class WearableService {
   private readonly STORAGE_KEY = "wearable_permissions";
-  private readonly API_BASE_URL = "http://localhost:5001/api"; // Update for production
+  private readonly API_BASE_URL = "http://localhost:5001/api";
 
   async requestPermissions(): Promise<WearablePermissions> {
+    // On a real device with a real health SDK, request native permissions here.
+    const permissionStatus: WearablePermissions = {
+      steps: false,
+      calories: false,
+      heartRate: false,
+      sleep: false,
+      weight: false,
+    };
+
     try {
-      const permissions = await Health.requestPermissionsAsync([
-        {
-          kind: Health.PermissionKind.Steps,
-          access: Health.PermissionAccess.Read,
-        },
-        {
-          kind: Health.PermissionKind.Calories,
-          access: Health.PermissionAccess.Read,
-        },
-        {
-          kind: Health.PermissionKind.HeartRate,
-          access: Health.PermissionAccess.Read,
-        },
-        {
-          kind: Health.PermissionKind.SleepAnalysis,
-          access: Health.PermissionAccess.Read,
-        },
-        {
-          kind: Health.PermissionKind.Weight,
-          access: Health.PermissionAccess.Read,
-        },
-        {
-          kind: Health.PermissionKind.BodyFatPercentage,
-          access: Health.PermissionAccess.Read,
-        },
-      ]);
-
-      const permissionStatus: WearablePermissions = {
-        steps:
-          permissions.find((p) => p.kind === Health.PermissionKind.Steps)
-            ?.granted || false,
-        calories:
-          permissions.find((p) => p.kind === Health.PermissionKind.Calories)
-            ?.granted || false,
-        heartRate:
-          permissions.find((p) => p.kind === Health.PermissionKind.HeartRate)
-            ?.granted || false,
-        sleep:
-          permissions.find(
-            (p) => p.kind === Health.PermissionKind.SleepAnalysis,
-          )?.granted || false,
-        weight:
-          permissions.find((p) => p.kind === Health.PermissionKind.Weight)
-            ?.granted || false,
-      };
-
       await AsyncStorage.setItem(
         this.STORAGE_KEY,
         JSON.stringify(permissionStatus),
       );
-      return permissionStatus;
     } catch (error) {
-      console.error("Error requesting health permissions:", error);
-      return {
-        steps: false,
-        calories: false,
-        heartRate: false,
-        sleep: false,
-        weight: false,
-      };
+      console.error("Error saving permissions:", error);
     }
+
+    return permissionStatus;
   }
 
   async getPermissions(): Promise<WearablePermissions> {
@@ -108,87 +69,13 @@ class WearableService {
 
   async getTodayHealthData(): Promise<HealthData | null> {
     try {
-      const permissions = await this.getPermissions();
-      const today = new Date();
-      const startOfDay = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate(),
-      );
-      const endOfDay = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate(),
-        23,
-        59,
-        59,
-      );
-
+      // Mock data — replace with real SDK calls when available
       const healthData: HealthData = {
         steps: 0,
         calories: 0,
         heartRate: 0,
         sleepHours: 0,
       };
-
-      // Get steps
-      if (permissions.steps) {
-        const steps = await Health.getStatisticTotalForToday(
-          Health.Statistic.Steps,
-        );
-        healthData.steps = steps || 0;
-      }
-
-      // Get calories
-      if (permissions.calories) {
-        const calories = await Health.getStatisticTotalForToday(
-          Health.Statistic.Calories,
-        );
-        healthData.calories = calories || 0;
-      }
-
-      // Get heart rate (most recent)
-      if (permissions.heartRate) {
-        const heartRateData = await Health.getHeartRateSamples({
-          startDate: startOfDay,
-          endDate: endOfDay,
-          limit: 1,
-        });
-        if (heartRateData.length > 0) {
-          healthData.heartRate = heartRateData[0].value;
-        }
-      }
-
-      // Get sleep data
-      if (permissions.sleep) {
-        const sleepData = await Health.getSleepSamples({
-          startDate: startOfDay,
-          endDate: endOfDay,
-        });
-        const totalSleepMinutes = sleepData.reduce((total, sample) => {
-          if (sample.stage === Health.SleepStage.Asleep) {
-            return (
-              total +
-              (sample.endDate.getTime() - sample.startDate.getTime()) /
-                (1000 * 60)
-            );
-          }
-          return total;
-        }, 0);
-        healthData.sleepHours = totalSleepMinutes / 60;
-      }
-
-      // Get weight (most recent)
-      if (permissions.weight) {
-        const weightData = await Health.getWeightSamples({
-          startDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // Last 7 days
-          endDate: endOfDay,
-          limit: 1,
-        });
-        if (weightData.length > 0) {
-          healthData.weight = weightData[0].value;
-        }
-      }
 
       return healthData;
     } catch (error) {
@@ -217,19 +104,8 @@ class WearableService {
   }
 
   async getHealthHistory(days: number = 7): Promise<HealthData[]> {
-    // Implementation for historical data
-    const history: HealthData[] = [];
-    const today = new Date();
-
-    for (let i = 0; i < days; i++) {
-      const date = new Date(today);
-      date.setDate(date.getDate() - i);
-
-      // This would need more complex implementation to get historical data
-      // For now, return empty array
-    }
-
-    return history;
+    // Returns empty history — replace with real SDK calls when available
+    return [];
   }
 }
 

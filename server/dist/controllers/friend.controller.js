@@ -196,16 +196,27 @@ const removeFriend = async (req, res) => {
         if (!userId) {
             return res.status(401).json({ error: "Unauthorized" });
         }
-        const friendship = await Friendship_model_1.Friendship.findById(friendshipId);
+        // Try finding by friendshipId first
+        let friendship = await Friendship_model_1.Friendship.findById(friendshipId);
+        // If not found, try searching by friendId (friendshipId param could be the friend's user ID)
+        if (!friendship) {
+            friendship = await Friendship_model_1.Friendship.findOne({
+                $or: [
+                    { requester: userId, recipient: friendshipId, status: "accepted" },
+                    { requester: friendshipId, recipient: userId, status: "accepted" },
+                ],
+            });
+        }
         if (!friendship) {
             return res.status(404).json({ error: "Friendship not found" });
         }
-        if (friendship.requester !== userId && friendship.recipient !== userId) {
+        if (friendship.requester.toString() !== userId.toString() &&
+            friendship.recipient.toString() !== userId.toString()) {
             return res
                 .status(403)
                 .json({ error: "Not authorized to remove this friendship" });
         }
-        await Friendship_model_1.Friendship.findByIdAndDelete(friendshipId);
+        await Friendship_model_1.Friendship.findByIdAndDelete(friendship._id);
         res.json({
             success: true,
             message: "Friend removed successfully",

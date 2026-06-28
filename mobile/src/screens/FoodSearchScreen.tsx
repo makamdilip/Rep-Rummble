@@ -135,7 +135,7 @@ export default function FoodSearchScreen() {
           returnKeyType="search"
         />
         <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-          <Ionicons name="search" size={20} color="#0a0f14" />
+          <Ionicons name="search" size={20} color="#080b14" />
         </TouchableOpacity>
       </View>
 
@@ -223,7 +223,7 @@ export default function FoodSearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: '#0d0f1a',
   },
   header: {
     flexDirection: 'row',
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#2d2d2d',
+    borderBottomColor: '#161b2e',
   },
   backButton: {
     padding: 8,
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
     borderRadius: 12,
     paddingHorizontal: 14,
     paddingVertical: 10,
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   loadingText: {
-    color: '#9ca3af',
+    color: '#94a3b8',
   },
   list: {
     paddingHorizontal: 16,
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
   resultCard: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
     borderRadius: 14,
     padding: 14,
     marginBottom: 12,
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   resultBrand: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     fontSize: 12,
     marginTop: 4,
   },
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   macroSub: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     fontSize: 11,
     marginTop: 2,
   },
@@ -323,12 +323,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: '#151515',
+    backgroundColor: '#080b14',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
     borderTopWidth: 1,
-    borderTopColor: '#2d2d2d',
+    borderTopColor: '#161b2e',
   },
   detailHeader: {
     marginBottom: 12,
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   detailSub: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     marginTop: 4,
   },
   quantityRow: {
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   label: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     fontSize: 13,
   },
   quantityInput: {
@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 10,
     borderRadius: 10,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
     color: '#fff',
     textAlign: 'center',
   },
@@ -371,18 +371,18 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     paddingHorizontal: 12,
     paddingVertical: 6,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
   },
   mealTypeActive: {
     backgroundColor: '#22c55e',
   },
   mealTypeText: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     fontSize: 12,
     textTransform: 'capitalize',
   },
   mealTypeTextActive: {
-    color: '#0a0f14',
+    color: '#080b14',
     fontWeight: '600',
   },
   nutritionGrid: {
@@ -393,7 +393,7 @@ const styles = StyleSheet.create({
   },
   nutritionItem: {
     width: '47%',
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
     borderRadius: 12,
     padding: 12,
     alignItems: 'center',
@@ -404,7 +404,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   nutritionLabel: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     fontSize: 12,
     marginTop: 4,
   },

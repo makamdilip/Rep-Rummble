@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMealStats = exports.deleteMeal = exports.getMeal = exports.createMeal = exports.getMeals = void 0;
 const Meal_model_1 = require("../models/Meal.model");
+const database_1 = require("../config/database");
 // @desc    Get all meals for user
 // @route   GET /api/meals
 // @access  Private
@@ -111,6 +112,16 @@ exports.deleteMeal = deleteMeal;
 // @route   GET /api/meals/stats
 // @access  Private
 const getMealStats = async (req, res) => {
+    if (!(0, database_1.isDBConnected)()) {
+        return res.json({
+            success: true,
+            data: {
+                todayCalories: 0, todayProtein: 0, todayCarbs: 0, todayFat: 0,
+                todayMealCount: 0, avgDailyCalories: 0, totalMeals: 0,
+                macroSplit: { protein: 35, carbs: 40, fat: 25 },
+            },
+        });
+    }
     try {
         const userId = req.user.id;
         const today = new Date();

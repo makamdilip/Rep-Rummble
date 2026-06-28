@@ -213,7 +213,7 @@ export default function ChatScreen() {
       case 'waiting_agent':
         return '#eab308';
       case 'with_agent':
-        return '#3b82f6';
+        return '#6366f1';
       case 'resolved':
         return '#6b7280';
       default:
@@ -336,16 +336,16 @@ export default function ChatScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: '#0d0f1a',
   },
   loadingContainer: {
     flex: 1,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: '#0d0f1a',
     justifyContent: 'center',
     alignItems: 'center',
   },
   loadingText: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     marginTop: 12,
     fontSize: 16,
   },
@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#2d2d2d',
+    borderBottomColor: '#161b2e',
   },
   backButton: {
     width: 40,
@@ -385,7 +385,7 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: '#94a3b8',
   },
   content: {
     flex: 1,
@@ -416,10 +416,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   aiAvatar: {
-    backgroundColor: '#8b5cf6',
+    backgroundColor: '#7c3aed',
   },
   agentAvatar: {
-    backgroundColor: '#3b82f6',
+    backgroundColor: '#6366f1',
   },
   messageBubble: {
     padding: 12,
@@ -431,12 +431,12 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 4,
   },
   otherBubble: {
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
     borderBottomLeftRadius: 4,
   },
   senderName: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: '#94a3b8',
     marginBottom: 4,
   },
   messageText: {
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
   systemMessage: {
     fontSize: 13,
     color: '#6b7280',
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 16,
@@ -476,7 +476,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   quickReplyButton: {
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 20,
@@ -493,12 +493,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderTopWidth: 1,
-    borderTopColor: '#2d2d2d',
-    backgroundColor: '#1e1e1e',
+    borderTopColor: '#161b2e',
+    backgroundColor: '#0d0f1a',
   },
   input: {
     flex: 1,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
     borderRadius: 24,
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -517,18 +517,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sendButtonDisabled: {
-    backgroundColor: '#3d3d3d',
+    backgroundColor: '#2d3561',
   },
   closedBanner: {
     padding: 16,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
     marginHorizontal: 16,
     marginBottom: 16,
     borderRadius: 12,
   },
   closedText: {
     fontSize: 14,
-    color: '#9ca3af',
+    color: '#94a3b8',
     textAlign: 'center',
   },
 });

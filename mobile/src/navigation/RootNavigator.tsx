@@ -22,7 +22,7 @@ export default function RootNavigator() {
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#1e1e1e' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0d0f1a' }}>
         <ActivityIndicator size="large" color="#22c55e" />
       </View>
     );
@@ -32,7 +32,7 @@ export default function RootNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: '#1e1e1e' },
+        contentStyle: { backgroundColor: '#0d0f1a' },
       }}
     >
       {isAuthenticated ? (

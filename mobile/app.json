@@ -49,8 +49,8 @@
         {
           "photosPermission": "Allow Reprummble to access your photos for meal analysis."
         }
-      ]
+      ],
+      "expo-font"
     ]
   }
 }
-

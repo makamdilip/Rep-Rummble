@@ -256,11 +256,11 @@ export default function FoodScannerScreen() {
         {/* Tips */}
         <View style={styles.tips}>
           <View style={styles.tip}>
-            <Ionicons name="sunny-outline" size={16} color="#9ca3af" />
+            <Ionicons name="sunny-outline" size={16} color="#94a3b8" />
             <Text style={styles.tipText}>Good lighting helps</Text>
           </View>
           <View style={styles.tip}>
-            <Ionicons name="resize-outline" size={16} color="#9ca3af" />
+            <Ionicons name="resize-outline" size={16} color="#94a3b8" />
             <Text style={styles.tipText}>Show all items clearly</Text>
           </View>
         </View>
@@ -378,7 +378,7 @@ const styles = StyleSheet.create({
   },
   captureButtonInner: {
     flex: 1,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: '#0d0f1a',
     borderRadius: 36,
     justifyContent: 'center',
     alignItems: 'center',
@@ -395,7 +395,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   tipText: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     fontSize: 12,
   },
   // Permission styles
@@ -404,7 +404,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 32,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: '#0d0f1a',
   },
   permissionTitle: {
     fontSize: 22,
@@ -415,7 +415,7 @@ const styles = StyleSheet.create({
   },
   permissionText: {
     fontSize: 16,
-    color: '#9ca3af',
+    color: '#94a3b8',
     textAlign: 'center',
     marginBottom: 32,
   },
@@ -435,7 +435,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   backButtonAltText: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     fontSize: 16,
   },
   // Analyzing styles
@@ -466,13 +466,13 @@ const styles = StyleSheet.create({
   },
   analyzingText: {
     fontSize: 16,
-    color: '#9ca3af',
+    color: '#94a3b8',
     textAlign: 'center',
   },
   scanningIndicator: {
     width: 200,
     height: 4,
-    backgroundColor: '#3d3d3d',
+    backgroundColor: '#2d3561',
     borderRadius: 2,
     marginTop: 32,
     overflow: 'hidden',

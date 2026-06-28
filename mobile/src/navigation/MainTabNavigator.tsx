@@ -20,8 +20,8 @@ export default function MainTabNavigator() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: "#2d2d2d",
-          borderTopColor: "#3d3d3d",
+          backgroundColor: "#161b2e",
+          borderTopColor: "#2d3561",
           borderTopWidth: 1,
           height: 85,
           paddingBottom: 20,

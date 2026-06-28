@@ -59,7 +59,7 @@ exports.createChallenge = createChallenge;
 const getChallenges = async (req, res) => {
     try {
         const userId = req.user?.id;
-        const { type, status = "active", page = 1, limit = 20 } = req.query;
+        const { type, status = "active", page = 1, limit = 20, joined } = req.query;
         if (!userId) {
             return res.status(401).json({ error: "Unauthorized" });
         }
@@ -67,26 +67,36 @@ const getChallenges = async (req, res) => {
         if (type && type !== "all") {
             query.challengeType = type;
         }
-        // Get challenges where user is participant or public challenges
-        const challenges = await Challenge_model_1.Challenge.find({
-            $or: [
-                { participants: userId },
-                { isPublic: true, creator: { $ne: userId } }, // Public challenges not created by user
-            ],
-            ...query,
-        })
+        let filterQuery = {};
+        if (joined === "true") {
+            // Only challenges where the user is a participant
+            filterQuery = { participants: userId, ...query };
+        }
+        else if (joined === "false") {
+            // Only public challenges where the user is NOT a participant
+            filterQuery = {
+                participants: { $ne: userId },
+                isPublic: true,
+                ...query,
+            };
+        }
+        else {
+            // Default: either joined, or public challenges not created by user
+            filterQuery = {
+                $or: [
+                    { participants: userId },
+                    { isPublic: true, creator: { $ne: userId } },
+                ],
+                ...query,
+            };
+        }
+        const challenges = await Challenge_model_1.Challenge.find(filterQuery)
             .populate("creator", "displayName email")
             .populate("participants", "displayName email")
             .sort({ createdAt: -1 })
             .limit(parseInt(limit))
             .skip((parseInt(page) - 1) * parseInt(limit));
-        const total = await Challenge_model_1.Challenge.countDocuments({
-            $or: [
-                { participants: userId },
-                { isPublic: true, creator: { $ne: userId } },
-            ],
-            ...query,
-        });
+        const total = await Challenge_model_1.Challenge.countDocuments(filterQuery);
         res.json({
             success: true,
             challenges,

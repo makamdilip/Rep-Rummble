@@ -52,8 +52,8 @@ export const friendService = {
   },
 
   // Remove a friend
-  removeFriend: async (friendId: string) => {
-    const response = await api.delete(`/friends/${friendId}`);
+  removeFriend: async (friendshipId: string) => {
+    const response = await api.delete(`/friends/${friendshipId}`);
     return response.data;
   },
 

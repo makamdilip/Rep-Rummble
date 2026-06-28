@@ -89,11 +89,11 @@ export default function RegisterScreen() {
             {/* Register Form */}
             <View style={styles.form}>
               <View style={styles.inputContainer}>
-                <Ionicons name="person-outline" size={20} color="#9ca3af" style={styles.inputIcon} />
+                <Ionicons name="person-outline" size={20} color="#94a3b8" style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Display Name (optional)"
-                  placeholderTextColor="#9ca3af"
+                  placeholderTextColor="#94a3b8"
                   value={displayName}
                   onChangeText={setDisplayName}
                   autoCapitalize="words"
@@ -101,11 +101,11 @@ export default function RegisterScreen() {
               </View>
 
               <View style={styles.inputContainer}>
-                <Ionicons name="mail-outline" size={20} color="#9ca3af" style={styles.inputIcon} />
+                <Ionicons name="mail-outline" size={20} color="#94a3b8" style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Email"
-                  placeholderTextColor="#9ca3af"
+                  placeholderTextColor="#94a3b8"
                   value={email}
                   onChangeText={setEmail}
                   keyboardType="email-address"
@@ -115,11 +115,11 @@ export default function RegisterScreen() {
               </View>
 
               <View style={styles.inputContainer}>
-                <Ionicons name="lock-closed-outline" size={20} color="#9ca3af" style={styles.inputIcon} />
+                <Ionicons name="lock-closed-outline" size={20} color="#94a3b8" style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Password"
-                  placeholderTextColor="#9ca3af"
+                  placeholderTextColor="#94a3b8"
                   value={password}
                   onChangeText={setPassword}
                   secureTextEntry={!showPassword}
@@ -131,17 +131,17 @@ export default function RegisterScreen() {
                   <Ionicons
                     name={showPassword ? 'eye-outline' : 'eye-off-outline'}
                     size={20}
-                    color="#9ca3af"
+                    color="#94a3b8"
                   />
                 </TouchableOpacity>
               </View>
 
               <View style={styles.inputContainer}>
-                <Ionicons name="lock-closed-outline" size={20} color="#9ca3af" style={styles.inputIcon} />
+                <Ionicons name="lock-closed-outline" size={20} color="#94a3b8" style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Confirm Password"
-                  placeholderTextColor="#9ca3af"
+                  placeholderTextColor="#94a3b8"
                   value={confirmPassword}
                   onChangeText={setConfirmPassword}
                   secureTextEntry={!showPassword}
@@ -178,7 +178,7 @@ export default function RegisterScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: '#0d0f1a',
   },
   keyboardView: {
     flex: 1,
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: '#9ca3af',
+    color: '#94a3b8',
   },
   form: {
     gap: 16,
@@ -219,12 +219,12 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#161b2e',
     borderRadius: 12,
     paddingHorizontal: 16,
     height: 56,
     borderWidth: 1,
-    borderColor: '#3d3d3d',
+    borderColor: '#2d3561',
   },
   inputIcon: {
     marginRight: 12,
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   loginText: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     fontSize: 16,
   },
   loginLink: {

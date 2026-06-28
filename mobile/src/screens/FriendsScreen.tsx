@@ -10,453 +10,336 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  friendService,
-  Friend,
-  FriendRequest,
-} from "../services/friendService";
+import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
+import { friendService, Friend, FriendRequest } from "../services/friendService";
 
-const FriendsScreen = () => {
+const AVATAR_COLORS: readonly [string, string][] = [
+  ["#7c3aed", "#4f1d9a"],
+  ["#22c55e", "#15803d"],
+  ["#f97316", "#c2410c"],
+  ["#eab308", "#92400e"],
+  ["#ef4444", "#b91c1c"],
+  ["#3b82f6", "#1d4ed8"],
+];
+
+function getColor(name: string): readonly [string, string] {
+  const idx = name.charCodeAt(0) % AVATAR_COLORS.length;
+  return AVATAR_COLORS[idx];
+}
+
+function Avatar({ name, size = 44 }: { name: string; size?: number }) {
+  const colors = getColor(name);
+  return (
+    <LinearGradient colors={colors} style={{ width: size, height: size, borderRadius: size / 2, justifyContent: "center", alignItems: "center" }}>
+      <Text style={{ color: "#fff", fontWeight: "800", fontSize: size * 0.38 }}>{name[0].toUpperCase()}</Text>
+    </LinearGradient>
+  );
+}
+
+type TabKey = "friends" | "requests" | "search";
+
+export default function FriendsScreen() {
   const [friends, setFriends] = useState<Friend[]>([]);
-  const [friendRequests, setFriendRequests] = useState<FriendRequest[]>([]);
+  const [requests, setRequests] = useState<FriendRequest[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"friends" | "requests" | "search">(
-    "friends",
-  );
+  const [activeTab, setActiveTab] = useState<TabKey>("friends");
 
   useEffect(() => {
-    loadFriends();
-    loadFriendRequests();
+    Promise.all([loadFriends(), loadRequests()]).finally(() => setLoading(false));
   }, []);
 
   const loadFriends = async () => {
     try {
-      const response = await friendService.getFriends();
-      if (response.success) {
-        setFriends(response.friends);
-      }
-    } catch (error) {
-      console.error("Error loading friends:", error);
-      Alert.alert("Error", "Failed to load friends");
-    }
+      const res = await friendService.getFriends();
+      if (res.success) setFriends(res.friends);
+    } catch {}
   };
 
-  const loadFriendRequests = async () => {
+  const loadRequests = async () => {
     try {
-      const response = await friendService.getFriendRequests();
-      if (response.success) {
-        setFriendRequests(response.requests);
-      }
-    } catch (error) {
-      console.error("Error loading friend requests:", error);
-      Alert.alert("Error", "Failed to load friend requests");
-    } finally {
-      setLoading(false);
-    }
+      const res = await friendService.getFriendRequests();
+      if (res.success) setRequests(res.requests);
+    } catch {}
   };
 
-  const handleSendFriendRequest = async (userId: string) => {
+  const handleSearch = async (q: string) => {
+    setSearchQuery(q);
+    if (q.length < 2) { setSearchResults([]); return; }
+    try {
+      const res = await friendService.searchUsers(q);
+      if (res.success) setSearchResults(res.users);
+    } catch {}
+  };
+
+  const handleSendRequest = async (userId: string) => {
     try {
       await friendService.sendFriendRequest(userId);
-      Alert.alert("Success", "Friend request sent!");
+      Alert.alert("Sent!", "Friend request sent 🎉");
       setSearchResults([]);
       setSearchQuery("");
-    } catch (error) {
-      console.error("Error sending friend request:", error);
-      Alert.alert("Error", "Failed to send friend request");
+    } catch {
+      Alert.alert("Error", "Failed to send request");
     }
   };
 
-  const handleAcceptRequest = async (requestId: string) => {
+  const handleAccept = async (id: string) => {
     try {
-      await friendService.acceptFriendRequest(requestId);
-      Alert.alert("Success", "Friend request accepted!");
-      loadFriends();
-      loadFriendRequests();
-    } catch (error) {
-      console.error("Error accepting friend request:", error);
-      Alert.alert("Error", "Failed to accept friend request");
+      await friendService.acceptFriendRequest(id);
+      await Promise.all([loadFriends(), loadRequests()]);
+    } catch {
+      Alert.alert("Error", "Failed to accept request");
     }
   };
 
-  const handleDeclineRequest = async (requestId: string) => {
+  const handleDecline = async (id: string) => {
     try {
-      await friendService.declineFriendRequest(requestId);
-      loadFriendRequests();
-    } catch (error) {
-      console.error("Error declining friend request:", error);
-      Alert.alert("Error", "Failed to decline friend request");
-    }
+      await friendService.declineFriendRequest(id);
+      await loadRequests();
+    } catch {}
   };
 
-  const handleRemoveFriend = async (friendId: string) => {
-    Alert.alert(
-      "Remove Friend",
-      "Are you sure you want to remove this friend?",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Remove",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await friendService.removeFriend(friendId);
-              loadFriends();
-            } catch (error) {
-              console.error("Error removing friend:", error);
-              Alert.alert("Error", "Failed to remove friend");
-            }
-          },
-        },
-      ],
-    );
+  const handleRemove = (friendshipId: string, name: string) => {
+    Alert.alert("Remove Friend", `Remove ${name}?`, [
+      { text: "Cancel", style: "cancel" },
+      { text: "Remove", style: "destructive", onPress: async () => {
+        try {
+          await friendService.removeFriend(friendshipId);
+          await loadFriends();
+        } catch {}
+      }},
+    ]);
   };
 
-  const handleSearch = async (query: string) => {
-    if (query.length < 2) {
-      setSearchResults([]);
-      return;
-    }
-
-    try {
-      const response = await friendService.searchUsers(query);
-      if (response.success) {
-        setSearchResults(response.users);
-      }
-    } catch (error) {
-      console.error("Error searching users:", error);
-    }
-  };
-
-  const renderFriend = ({ item }: { item: Friend }) => (
-    <View style={styles.friendItem}>
-      <View style={styles.friendInfo}>
-        <Text style={styles.friendName}>{item.displayName || item.email}</Text>
-        <Text style={styles.friendEmail}>{item.email}</Text>
-      </View>
-      <TouchableOpacity
-        style={styles.removeButton}
-        onPress={() => handleRemoveFriend(item.id)}
-      >
-        <Text style={styles.removeButtonText}>Remove</Text>
-      </TouchableOpacity>
-    </View>
-  );
-
-  const renderFriendRequest = ({ item }: { item: FriendRequest }) => (
-    <View style={styles.requestItem}>
-      <View style={styles.friendInfo}>
-        <Text style={styles.friendName}>
-          {item.requester.displayName || item.requester.email}
-        </Text>
-        <Text style={styles.friendEmail}>{item.requester.email}</Text>
-        <Text style={styles.requestDate}>
-          {new Date(item.createdAt).toLocaleDateString()}
-        </Text>
-      </View>
-      <View style={styles.requestActions}>
-        <TouchableOpacity
-          style={[styles.actionButton, styles.acceptButton]}
-          onPress={() => handleAcceptRequest(item.id)}
-        >
-          <Text style={styles.acceptButtonText}>Accept</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.actionButton, styles.declineButton]}
-          onPress={() => handleDeclineRequest(item.id)}
-        >
-          <Text style={styles.declineButtonText}>Decline</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-
-  const renderSearchResult = ({ item }: { item: any }) => (
-    <View style={styles.searchItem}>
-      <View style={styles.friendInfo}>
-        <Text style={styles.friendName}>{item.displayName || item.email}</Text>
-        <Text style={styles.friendEmail}>{item.email}</Text>
-      </View>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => handleSendFriendRequest(item._id)}
-      >
-        <Text style={styles.addButtonText}>Add Friend</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  const TABS: { key: TabKey; label: string; count?: number }[] = [
+    { key: "friends", label: "Friends", count: friends.length },
+    { key: "requests", label: "Requests", count: requests.length },
+    { key: "search", label: "Find People" },
+  ];
 
   if (loading) {
     return (
-      <SafeAreaView style={styles.container}>
-        <ActivityIndicator size="large" color="#007AFF" />
-      </SafeAreaView>
+      <View style={styles.root}>
+        <LinearGradient colors={["#1a0533", "#0d0f1a"]} style={StyleSheet.absoluteFill} />
+        <SafeAreaView style={styles.safeArea}>
+          <ActivityIndicator size="large" color="#7c3aed" style={{ marginTop: 40 }} />
+        </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Friends</Text>
-      </View>
+    <View style={styles.root}>
+      <LinearGradient colors={["#1a0533", "#0d0f1a", "#080b14"]} locations={[0, 0.4, 1]} style={StyleSheet.absoluteFill} />
+      <SafeAreaView style={styles.safeArea}>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.title}>Friends</Text>
+          {requests.length > 0 && (
+            <View style={styles.requestBadge}>
+              <Text style={styles.requestBadgeText}>{requests.length}</Text>
+            </View>
+          )}
+        </View>
 
-      <View style={styles.tabContainer}>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === "friends" && styles.activeTab]}
-          onPress={() => setActiveTab("friends")}
-        >
-          <Text
-            style={[
-              styles.tabText,
-              activeTab === "friends" && styles.activeTabText,
-            ]}
-          >
-            Friends ({friends.length})
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === "requests" && styles.activeTab]}
-          onPress={() => setActiveTab("requests")}
-        >
-          <Text
-            style={[
-              styles.tabText,
-              activeTab === "requests" && styles.activeTabText,
-            ]}
-          >
-            Requests ({friendRequests.length})
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === "search" && styles.activeTab]}
-          onPress={() => setActiveTab("search")}
-        >
-          <Text
-            style={[
-              styles.tabText,
-              activeTab === "search" && styles.activeTabText,
-            ]}
-          >
-            Search
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      {activeTab === "friends" && (
-        <FlatList
-          data={friends}
-          renderItem={renderFriend}
-          keyExtractor={(item) => item.id}
-          ListEmptyComponent={
-            <View style={styles.emptyContainer}>
-              <Text style={styles.emptyText}>No friends yet</Text>
-              <Text style={styles.emptySubtext}>
-                Add friends to start competing!
+        {/* Tabs */}
+        <View style={styles.tabBar}>
+          {TABS.map(t => (
+            <TouchableOpacity key={t.key} style={[styles.tab, activeTab === t.key && styles.tabActive]} onPress={() => setActiveTab(t.key)} activeOpacity={0.8}>
+              {activeTab === t.key && <LinearGradient colors={["#7c3aed20", "#7c3aed05"]} style={[StyleSheet.absoluteFill, { borderRadius: 10 }]} />}
+              <Text style={[styles.tabText, activeTab === t.key && styles.tabTextActive]}>
+                {t.label}{t.count !== undefined ? ` (${t.count})` : ""}
               </Text>
-            </View>
-          }
-        />
-      )}
+              {activeTab === t.key && <View style={styles.tabUnderline} />}
+            </TouchableOpacity>
+          ))}
+        </View>
 
-      {activeTab === "requests" && (
-        <FlatList
-          data={friendRequests}
-          renderItem={renderFriendRequest}
-          keyExtractor={(item) => item.id}
-          ListEmptyComponent={
-            <View style={styles.emptyContainer}>
-              <Text style={styles.emptyText}>No friend requests</Text>
-            </View>
-          }
-        />
-      )}
-
-      {activeTab === "search" && (
-        <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search users by name or email..."
-            value={searchQuery}
-            onChangeText={(text) => {
-              setSearchQuery(text);
-              handleSearch(text);
-            }}
-          />
+        {/* Friends tab */}
+        {activeTab === "friends" && (
           <FlatList
-            data={searchResults}
-            renderItem={renderSearchResult}
-            keyExtractor={(item) => item._id}
-            ListEmptyComponent={
-              searchQuery.length >= 2 ? (
-                <View style={styles.emptyContainer}>
-                  <Text style={styles.emptyText}>No users found</Text>
+            data={friends}
+            keyExtractor={i => i.id}
+            contentContainerStyle={styles.listContent}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => {
+              const name = item.displayName || item.email;
+              return (
+                <View style={styles.friendRow}>
+                  <Avatar name={name} size={48} />
+                  <View style={styles.friendInfo}>
+                    <Text style={styles.friendName}>{name}</Text>
+                    <Text style={styles.friendEmail}>{item.email}</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => handleRemove(item.friendshipId, name)} style={styles.removeBtn}>
+                    <Ionicons name="person-remove-outline" size={18} color="#ef4444" />
+                  </TouchableOpacity>
                 </View>
-              ) : null
+              );
+            }}
+            ListEmptyComponent={
+              <View style={styles.empty}>
+                <Ionicons name="people-outline" size={56} color="#2d3561" />
+                <Text style={styles.emptyTitle}>No friends yet</Text>
+                <Text style={styles.emptyHint}>Search for people to connect with</Text>
+                <TouchableOpacity onPress={() => setActiveTab("search")} style={styles.emptyBtn}>
+                  <LinearGradient colors={["#7c3aed", "#4f1d9a"]} style={styles.emptyBtnGrad}>
+                    <Text style={styles.emptyBtnText}>Find Friends</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              </View>
             }
           />
-        </View>
-      )}
-    </SafeAreaView>
+        )}
+
+        {/* Requests tab */}
+        {activeTab === "requests" && (
+          <FlatList
+            data={requests}
+            keyExtractor={i => i.id}
+            contentContainerStyle={styles.listContent}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => {
+              const name = item.requester.displayName || item.requester.email;
+              return (
+                <View style={styles.requestRow}>
+                  <Avatar name={name} size={50} />
+                  <View style={styles.friendInfo}>
+                    <Text style={styles.friendName}>{name}</Text>
+                    <Text style={styles.friendEmail}>{item.requester.email}</Text>
+                    <Text style={styles.requestDate}>{new Date(item.createdAt).toLocaleDateString()}</Text>
+                  </View>
+                  <View style={styles.requestBtns}>
+                    <TouchableOpacity onPress={() => handleAccept(item.id)} style={styles.acceptBtn}>
+                      <LinearGradient colors={["#22c55e", "#15803d"]} style={styles.acceptBtnGrad}>
+                        <Ionicons name="checkmark" size={16} color="#fff" />
+                      </LinearGradient>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => handleDecline(item.id)} style={styles.declineBtn}>
+                      <Ionicons name="close" size={16} color="#ef4444" />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              );
+            }}
+            ListEmptyComponent={
+              <View style={styles.empty}>
+                <Ionicons name="mail-outline" size={56} color="#2d3561" />
+                <Text style={styles.emptyTitle}>No pending requests</Text>
+              </View>
+            }
+          />
+        )}
+
+        {/* Search tab */}
+        {activeTab === "search" && (
+          <View style={{ flex: 1 }}>
+            <View style={styles.searchBar}>
+              <Ionicons name="search" size={18} color="#6b7280" style={{ marginRight: 8 }} />
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Search by name or email..."
+                placeholderTextColor="#6b7280"
+                value={searchQuery}
+                onChangeText={handleSearch}
+                autoCapitalize="none"
+                autoFocus
+              />
+              {searchQuery.length > 0 && (
+                <TouchableOpacity onPress={() => { setSearchQuery(""); setSearchResults([]); }}>
+                  <Ionicons name="close-circle" size={18} color="#6b7280" />
+                </TouchableOpacity>
+              )}
+            </View>
+
+            <FlatList
+              data={searchResults}
+              keyExtractor={i => i._id}
+              contentContainerStyle={styles.listContent}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item }) => {
+                const name = item.displayName || item.email;
+                return (
+                  <View style={styles.friendRow}>
+                    <Avatar name={name} size={48} />
+                    <View style={styles.friendInfo}>
+                      <Text style={styles.friendName}>{name}</Text>
+                      <Text style={styles.friendEmail}>{item.email}</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => handleSendRequest(item._id)} style={styles.addBtn}>
+                      <LinearGradient colors={["#7c3aed", "#4f1d9a"]} style={styles.addBtnGrad}>
+                        <Ionicons name="person-add" size={15} color="#fff" />
+                        <Text style={styles.addBtnText}>Add</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </View>
+                );
+              }}
+              ListEmptyComponent={
+                searchQuery.length >= 2 ? (
+                  <View style={styles.empty}>
+                    <Ionicons name="search-outline" size={48} color="#2d3561" />
+                    <Text style={styles.emptyTitle}>No users found</Text>
+                  </View>
+                ) : (
+                  <View style={styles.empty}>
+                    <Ionicons name="person-add-outline" size={56} color="#2d3561" />
+                    <Text style={styles.emptyTitle}>Find People</Text>
+                    <Text style={styles.emptyHint}>Type at least 2 characters to search</Text>
+                  </View>
+                )
+              }
+            />
+          </View>
+        )}
+      </SafeAreaView>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  header: {
-    padding: 20,
-    backgroundColor: "#fff",
-    borderBottomWidth: 1,
-    borderBottomColor: "#e0e0e0",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  tabContainer: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    borderBottomWidth: 1,
-    borderBottomColor: "#e0e0e0",
-  },
-  tab: {
-    flex: 1,
-    paddingVertical: 15,
-    alignItems: "center",
-  },
-  activeTab: {
-    borderBottomWidth: 2,
-    borderBottomColor: "#007AFF",
-  },
-  tabText: {
-    fontSize: 16,
-    color: "#666",
-  },
-  activeTabText: {
-    color: "#007AFF",
-    fontWeight: "bold",
-  },
-  friendItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    padding: 15,
-    marginVertical: 1,
-    justifyContent: "space-between",
-  },
-  requestItem: {
-    backgroundColor: "#fff",
-    padding: 15,
-    marginVertical: 1,
-  },
-  searchItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    padding: 15,
-    marginVertical: 1,
-    justifyContent: "space-between",
-  },
-  friendInfo: {
-    flex: 1,
-  },
-  friendName: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  friendEmail: {
-    fontSize: 14,
-    color: "#666",
-    marginTop: 2,
-  },
-  requestDate: {
-    fontSize: 12,
-    color: "#999",
-    marginTop: 2,
-  },
-  removeButton: {
-    backgroundColor: "#ff3b30",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-  },
-  removeButtonText: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  requestActions: {
-    flexDirection: "row",
-    marginTop: 10,
-  },
-  actionButton: {
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    borderRadius: 6,
-    marginLeft: 10,
-  },
-  acceptButton: {
-    backgroundColor: "#34c759",
-  },
-  acceptButtonText: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  declineButton: {
-    backgroundColor: "#ff3b30",
-  },
-  declineButtonText: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  addButton: {
-    backgroundColor: "#007AFF",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-  },
-  addButtonText: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  searchContainer: {
-    flex: 1,
-  },
-  searchInput: {
-    backgroundColor: "#fff",
-    padding: 15,
-    margin: 10,
-    borderRadius: 8,
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: "#e0e0e0",
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-  emptyText: {
-    fontSize: 18,
-    color: "#666",
-    textAlign: "center",
-  },
-  emptySubtext: {
-    fontSize: 14,
-    color: "#999",
-    textAlign: "center",
-    marginTop: 10,
-  },
-});
+  root: { flex: 1 },
+  safeArea: { flex: 1 },
 
-export default FriendsScreen;
+  header: { flexDirection: "row", alignItems: "center", paddingHorizontal: 20, paddingTop: 16, paddingBottom: 8, gap: 10 },
+  title: { fontSize: 28, fontWeight: "800", color: "#fff", letterSpacing: -0.5, flex: 1 },
+  requestBadge: { backgroundColor: "#ef4444", width: 24, height: 24, borderRadius: 12, justifyContent: "center", alignItems: "center" },
+  requestBadgeText: { color: "#fff", fontSize: 12, fontWeight: "800" },
+
+  tabBar: { flexDirection: "row", paddingHorizontal: 16, marginBottom: 8 },
+  tab: { flex: 1, paddingVertical: 12, alignItems: "center", position: "relative", borderRadius: 10, overflow: "hidden" },
+  tabActive: {},
+  tabText: { fontSize: 14, color: "#6b7280", fontWeight: "500" },
+  tabTextActive: { color: "#a78bfa", fontWeight: "700" },
+  tabUnderline: { position: "absolute", bottom: 0, left: "20%", right: "20%", height: 2, backgroundColor: "#7c3aed", borderRadius: 1 },
+
+  listContent: { paddingHorizontal: 16, paddingBottom: 100 },
+
+  friendRow: { flexDirection: "row", alignItems: "center", backgroundColor: "#161b2e", borderRadius: 16, padding: 14, marginBottom: 10, borderWidth: 1, borderColor: "#2d356150", gap: 12 },
+  requestRow: { flexDirection: "row", alignItems: "center", backgroundColor: "#161b2e", borderRadius: 16, padding: 14, marginBottom: 10, borderWidth: 1, borderColor: "#2d356150", gap: 12 },
+  friendInfo: { flex: 1 },
+  friendName: { fontSize: 15, fontWeight: "700", color: "#f1f5f9" },
+  friendEmail: { fontSize: 12, color: "#6b7280", marginTop: 2 },
+  requestDate: { fontSize: 11, color: "#2d3561", marginTop: 2 },
+
+  removeBtn: { width: 36, height: 36, backgroundColor: "#ef444415", borderRadius: 18, justifyContent: "center", alignItems: "center", borderWidth: 1, borderColor: "#ef444430" },
+  requestBtns: { flexDirection: "row", gap: 8 },
+  acceptBtn: {},
+  acceptBtnGrad: { width: 36, height: 36, borderRadius: 18, justifyContent: "center", alignItems: "center" },
+  declineBtn: { width: 36, height: 36, backgroundColor: "#ef444415", borderRadius: 18, justifyContent: "center", alignItems: "center", borderWidth: 1, borderColor: "#ef444430" },
+  addBtn: {},
+  addBtnGrad: { flexDirection: "row", alignItems: "center", paddingHorizontal: 14, paddingVertical: 8, borderRadius: 20, gap: 5 },
+  addBtnText: { color: "#fff", fontSize: 13, fontWeight: "700" },
+
+  searchBar: { flexDirection: "row", alignItems: "center", backgroundColor: "#161b2e", borderRadius: 14, marginHorizontal: 16, marginVertical: 10, paddingHorizontal: 14, paddingVertical: 12, borderWidth: 1, borderColor: "#2d3561" },
+  searchInput: { flex: 1, color: "#fff", fontSize: 15 },
+
+  empty: { alignItems: "center", paddingVertical: 60 },
+  emptyTitle: { fontSize: 18, fontWeight: "700", color: "#6b7280", marginTop: 14 },
+  emptyHint: { fontSize: 13, color: "#2d3561", marginTop: 4 },
+  emptyBtn: { marginTop: 20 },
+  emptyBtnGrad: { paddingHorizontal: 24, paddingVertical: 12, borderRadius: 20 },
+  emptyBtnText: { color: "#fff", fontWeight: "700", fontSize: 15 },
+});
