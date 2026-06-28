@@ -239,7 +239,7 @@ export default function SocialFeedScreen() {
   const openCamera = async () => {
     if (!(await requestCameraPermission())) return;
     try {
-      const result = await ImagePicker.launchCameraAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, allowsEditing: true, aspect: [4, 3], quality: 0.8 });
+      const result = await ImagePicker.launchCameraAsync({ mediaTypes: ['images'] as ImagePicker.MediaType[], allowsEditing: true, aspect: [4, 3], quality: 0.8 });
       if (!result.canceled && result.assets.length > 0) setSelectedImage(result.assets[0].uri);
     } catch (e) {
       Alert.alert("Camera Error", "Unable to open camera. Please try again.");
@@ -249,7 +249,7 @@ export default function SocialFeedScreen() {
   const openGallery = async () => {
     if (!(await requestGalleryPermission())) return;
     try {
-      const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, allowsEditing: true, aspect: [4, 3], quality: 0.8 });
+      const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'] as ImagePicker.MediaType[], allowsEditing: true, aspect: [4, 3], quality: 0.8 });
       if (!result.canceled && result.assets.length > 0) setSelectedImage(result.assets[0].uri);
     } catch (e) {
       Alert.alert("Gallery Error", "Unable to open photo library. Please try again.");
@@ -259,7 +259,7 @@ export default function SocialFeedScreen() {
   const openStatusCamera = async () => {
     if (!(await requestCameraPermission())) return;
     try {
-      const result = await ImagePicker.launchCameraAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, allowsEditing: true, aspect: [9, 16], quality: 0.8 });
+      const result = await ImagePicker.launchCameraAsync({ mediaTypes: ['images'] as ImagePicker.MediaType[], allowsEditing: true, aspect: [9, 16], quality: 0.8 });
       if (!result.canceled && result.assets.length > 0) setStatusImage(result.assets[0].uri);
     } catch (e) {
       Alert.alert("Camera Error", "Unable to open camera. Please try again.");
@@ -269,7 +269,7 @@ export default function SocialFeedScreen() {
   const openStatusGallery = async () => {
     if (!(await requestGalleryPermission())) return;
     try {
-      const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, allowsEditing: true, aspect: [9, 16], quality: 0.8 });
+      const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'] as ImagePicker.MediaType[], allowsEditing: true, aspect: [9, 16], quality: 0.8 });
       if (!result.canceled && result.assets.length > 0) setStatusImage(result.assets[0].uri);
     } catch (e) {
       Alert.alert("Gallery Error", "Unable to open photo library. Please try again.");
@@ -308,7 +308,7 @@ export default function SocialFeedScreen() {
   const openSnapCamera = async () => {
     if (!(await requestCameraPermission())) return;
     try {
-      const result = await ImagePicker.launchCameraAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, allowsEditing: true, aspect: [9, 16], quality: 0.9 });
+      const result = await ImagePicker.launchCameraAsync({ mediaTypes: ['images'] as ImagePicker.MediaType[], allowsEditing: true, aspect: [9, 16], quality: 0.9 });
       if (!result.canceled && result.assets.length > 0) setSnapImage(result.assets[0].uri);
     } catch { Alert.alert("Camera Error", "Unable to open camera. Please try again."); }
   };
@@ -316,7 +316,7 @@ export default function SocialFeedScreen() {
   const openSnapGallery = async () => {
     if (!(await requestGalleryPermission())) return;
     try {
-      const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, allowsEditing: true, aspect: [9, 16], quality: 0.9 });
+      const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'] as ImagePicker.MediaType[], allowsEditing: true, aspect: [9, 16], quality: 0.9 });
       if (!result.canceled && result.assets.length > 0) setSnapImage(result.assets[0].uri);
     } catch { Alert.alert("Gallery Error", "Unable to open gallery. Please try again."); }
   };
